@@ -1,0 +1,17 @@
+.new-users {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+}
+.new-users .link {
+  text-decoration: none !important;
+}
+.new-users .link .new-user-text {
+  color: #2874f0;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}

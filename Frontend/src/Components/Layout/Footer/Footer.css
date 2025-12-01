@@ -1,0 +1,131 @@
+/* Footer Main Container */
+.footer-container {
+  background-color: #212121;
+  color: #fff;
+}
+
+/* Footer Top Section */
+.footer-top {
+  display: flex;
+  padding: 40px 60px 0px;
+}
+
+/* Top Footer Left Div */
+.footer-top .left-side {
+  display: flex;
+  width: 60%;
+  border-right: 1px solid rgba(211, 211, 211, 0.324);
+}
+.footer-about,
+.FooterGroupCompanies,
+.footer-help,
+.footer-policy p {
+  color: gray;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  margin: 0px 0px 10px;
+}
+.footer-about ul,
+.FooterGroupCompanies ul,
+.footer-help ul {
+  margin: 0 50px 0 0;
+  padding: 0;
+}
+
+.footer-about ul a li,
+.FooterGroupCompanies ul a li,
+.footer-help ul a li,
+.footer-policy ul a li {
+  font-family: sans-serif;
+  color: white;
+  list-style: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.footer-about ul a,
+.FooterGroupCompanies ul a,
+.footer-help ul a,
+.footer-policy ul a {
+  text-decoration: none;
+}
+.footer-about a:hover,
+.FooterGroupCompanies a:hover,
+.footer-help a:hover,
+.footer-policy a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+/* Footer Right Side */
+.footer-top .right-side {
+  display: flex;
+  justify-content: space-evenly;
+  width: 44%;
+}
+.contact-us,
+.footer-address {
+  color: gray;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+}
+.contact-us .address p,
+.footer-address .address p {
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+.address a {
+  text-decoration: none;
+}
+
+/* Social Icon */
+.social-icon p {
+  margin-top: 15px;
+}
+.social-icon div a {
+  color: white;
+  margin-right: 20px;
+}
+.social-icon div a i {
+  font-size: 1.2rem;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  height: 60px;
+  width: 100%;
+  border-top: 1px solid #3a3a3a;
+  margin-top: 40px;
+}
+.bottom-footer {
+  height: 100%;
+  width: 100%;
+  padding: 0px 80px;
+  display: flex;
+  align-items: center;
+}
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.footer-links li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  color: white;
+}
+
+.footer-links i {
+  font-size: 12px;
+  color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

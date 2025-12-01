@@ -1,0 +1,39 @@
+.dealsGrocery {
+  width: 80%;
+  padding: 10px;
+  border-radius: 20px;
+}
+.dealsGrocery::-webkit-scrollbar {
+  display: none;
+}
+.head {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.head h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 600;
+  font-style: italic;
+}
+.head button {
+  background-color: #2874f0;
+  color: white;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.251);
+}
+.dealsGroceryContainer {
+  display: flex;
+  gap: 20px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-wrap: nowrap;
+}

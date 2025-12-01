@@ -1,0 +1,22 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.ThumbnailList {
+  width: 80px;
+  height: auto;
+}
+.ThumbnailList img {
+  height: 80px;
+  width: 80px;
+  object-fit: fill;
+  object-position: center;
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+.active {
+  border: 2px solid #2874f0 !important;
+}

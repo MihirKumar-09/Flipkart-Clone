@@ -1,0 +1,395 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.electronics-category {
+  width: 100%;
+  height: auto;
+  background-color: #e4f3ff;
+}
+
+/* Hero */
+.hero {
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(360deg, #e3f2ff, #ffffff);
+  position: relative;
+  overflow: hidden;
+}
+.hero-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-image {
+  position: relative;
+  width: 350px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 90%;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  position: absolute;
+  z-index: 1;
+  font-size: 10rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.09);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* Buttons */
+.hero-buttons {
+  position: absolute;
+  bottom: 80px;
+  left: 20%;
+  display: flex;
+  gap: 25px;
+}
+
+.hero-buttons button:first-child {
+  padding: 8px 25px;
+  border-radius: 30px;
+  border: none;
+  color: black;
+  background-color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-buttons button:first-child:hover {
+  background-color: #2874f0;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(40, 116, 240, 0.4);
+}
+
+.hero-buttons button:last-child {
+  color: #fff;
+  border-radius: 30px;
+  padding: 8px 25px;
+  background: linear-gradient(135deg, #ff4d4d, #e60023);
+  border: none;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 0, 0, 0.25);
+}
+
+.hero-buttons button:last-child:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, #ff1a1a, #cc0000);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+/* Main */
+.electronics-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: 0px 8px 8px 8px;
+  gap: 15px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 300px;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  padding: 15px 20px 10px;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  gap: 30px;
+}
+.card-3 {
+  grid-column: span 2;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 30px;
+}
+.card-3 .card-text {
+  align-items: flex-start;
+  justify-content: center;
+}
+.card-3 .card-text p {
+  font-size: 1.2rem;
+  text-align: left;
+}
+.card-3 .card-text h2 {
+  font-size: 1.7rem;
+  text-align: left;
+}
+
+.card-3 .card-img {
+  justify-content: flex-end;
+}
+
+.card-3 .card-img img {
+  width: 250px;
+  height: auto;
+}
+.card-3 .card-text button {
+  font-size: 1rem;
+}
+
+.card-6 {
+  grid-column: span 2;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 30px 40px;
+}
+.card-6 .card-text {
+  align-items: flex-start;
+  justify-content: center;
+}
+.card-6 .card-text h2,
+.card-6 .card-text p {
+  text-align: left;
+}
+.card-6 .card-text p {
+  font-size: 1.2rem;
+}
+.card-6 .card-text h2 {
+  font-size: 1.7rem;
+}
+
+.card-6 .card-img {
+  justify-content: flex-end;
+}
+
+.card-6 .card-img img {
+  width: 230px;
+  height: auto;
+}
+.card-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-text p {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.card-text h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.card-img {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-img img {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.card-4 img,
+.card-8 img {
+  width: 120px;
+}
+
+.category-card:hover .card-img img {
+  transform: scale(1.05);
+}
+
+.card-text button {
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #1a1a1a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-text button:hover {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+/* !Today Deals */
+.today-deals {
+  height: 400px;
+  width: 100%;
+}
+.today-deals .today-deals-head {
+  height: 69px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.today-deals .today-deals-head h1 {
+  font-size: 25px;
+  font-weight: 600;
+}
+.today-deals .today-deals-head i {
+  font-size: 2rem;
+  color: #007bff;
+  cursor: pointer;
+  transition: all ease 0.4s;
+}
+.today-deals .today-deals-head i:hover {
+  transform: scale(1.2);
+}
+.today-deals .today-items {
+  height: calc(100% - 69px);
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 8px 12px;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  background-color: #e4f3ff;
+}
+.today-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* This is the FIX – Link must control the size */
+.today-card-link {
+  flex: 1;
+  height: 100%;
+  min-width: 216px;
+  max-width: 216px; /* keeps exact original size */
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+/* Your original card – unchanged */
+.today-card {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.today-card span {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.today-card p {
+  margin: 0;
+}
+
+.today-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+.today-card:hover img {
+  transform: scale(1.05);
+}
+.today-card .title {
+  margin: 8px 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.35;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Brand + Rating row */
+.brand-rating {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.brand-rating p:first-child {
+  font-weight: 600;
+  color: #333;
+  font-size: 13.5px;
+}
+
+.rating {
+  background-color: #388e3c;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.electronics-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  text-align: center;
+}

@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.flipkart-minutes {
+  height: 100%;
+  width: 100%;
+  background-color: #f1f2f4;
+  overflow: visible;
+  padding: 0px 170px;
+}
+
+.nav-bar {
+  height: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 170px;
+}
+.nav-bar i {
+  font-size: 1.1rem;
+  margin-right: 20px;
+  color: black;
+}
+/* Location */
+.location {
+  margin-top: 50px;
+  height: 250px;
+  width: 100%;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.share-location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid #f5abc4;
+  background: linear-gradient(to bottom, #fef2f4, #ffffff);
+  border-radius: 50px;
+  height: 75%;
+  width: 100%;
+  padding: 0 30px;
+  box-sizing: border-box;
+  margin-top: 15px;
+}
+
+.share-location p {
+  margin: 0;
+  line-height: 1.4;
+  font-size: 2.4rem;
+}
+.share-location p b {
+  font-size: 2.5rem;
+}
+.share-location i {
+  padding: 0px 40px 0px 30px;
+  font-size: 2.7rem;
+}
+
+/* Minutes */
+.minutes {
+  height: 467px;
+  background-color: white;
+  overflow: hidden;
+}
+.minutes img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Grocery */
+.products {
+  width: 100%;
+  height: auto;
+  background-color: white;
+  padding: 10px 60px 10px 50px;
+}
+
+.products .head {
+  height: 167px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.products .head h1 {
+  font-weight: 700;
+  font-size: 3.5rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.products .items {
+  height: auto;
+  width: 100%;
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+}
+.parent div {
+  border-radius: 10px;
+  height: 350px;
+  overflow: hidden;
+}
+.parent div img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+  cursor: pointer;
+}
+
+.div1 {
+  grid-column: span 2 / span 2;
+}
+
+.div2 {
+  grid-column-start: 3;
+}
+
+.div3 {
+  grid-column-start: 4;
+}
+
+.div4 {
+  grid-row-start: 2;
+}
+
+.div5 {
+  grid-row-start: 2;
+}
+
+.div6 {
+  grid-row-start: 2;
+}
+
+.div7 {
+  grid-row-start: 2;
+}

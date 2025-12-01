@@ -1,0 +1,182 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.main-fashion-container {
+  background-color: #f1f3f6;
+  padding: 8px;
+}
+
+/* fashion-hero-section */
+.fashion-hero-section {
+  height: auto;
+  width: 100%;
+}
+.fashion-hero-section h1 {
+  font-size: 18px;
+  color: black;
+  font-weight: 600;
+}
+.main-hero-section {
+  height: 550px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.main-hero {
+  height: 80%;
+}
+.main-hero img {
+  height: 100%;
+  width: 100%;
+}
+
+/* Bank Logo */
+.bank-logo {
+  height: 20%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bank-logo img {
+  height: 80%;
+  width: 50%;
+  object-fit: cover;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.192);
+}
+/* second-hero-section */
+.second-hero-section {
+  height: 270px;
+  display: flex;
+  gap: 10px;
+}
+.second-hero-section div {
+  flex: 1;
+}
+.second-hero-section div img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Top Collections */
+.top-collections {
+  height: 380px;
+  width: 100%;
+  background-color: white;
+}
+.top-collections-heading {
+  height: 69px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+.top-collections h1 {
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+.top-collections button {
+  background-color: #2874f0;
+  color: white;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.251);
+}
+
+/* Full card clickable + hover lift */
+.collection-link {
+  flex: 0 0 220px;
+  min-width: 220px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Card */
+.top-collections-items {
+  width: 100%;
+  height: calc(100% - 69px);
+  padding: 12px 8px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.top-collections-items::-webkit-scrollbar {
+  display: none;
+}
+
+.flipkart-link {
+  flex: 0 0 160px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.flipkart-card {
+  height: 100%;
+  width: 240px;
+  background: white;
+  border-radius: 6px;
+  padding: 12px 8px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
+}
+
+.flipkart-img {
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  transition: transform 0.3s ease;
+}
+
+.flipkart-link:hover .flipkart-img {
+  transform: scale(1.03);
+}
+
+.flipkart-title {
+  font-size: 13.5px;
+  color: #212121;
+  margin: 10px 0px 0px 0px;
+  line-height: 1.35;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.flipkart-card:hover .flipkart-title {
+  color: #2874f0;
+}
+
+.flipkart-price-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.flipkart-price-rating .flipkart-price {
+  font-weight: 600;
+}
+.flipkart-price-rating .flipkart-rating {
+  background-color: #388e3c;
+  font-weight: 600;
+  padding: 0px 3px;
+  color: white;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+/* Footer */
+footer {
+  margin-top: 20px;
+}

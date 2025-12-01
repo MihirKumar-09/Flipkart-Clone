@@ -1,0 +1,181 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.sign-navbar {
+  height: 57px;
+  width: 100%;
+  background-color: #2874f0;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+.sign-options {
+  height: 100%;
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.sign-options .login-logo {
+  height: 22px;
+  margin-right: 10px;
+}
+
+/* Search Bar */
+.sign-search-bar {
+  height: 65%;
+  width: 565px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0.4px 0.5px 5px black;
+}
+.sign-search-bar input {
+  height: 100%;
+  width: 93%;
+  border: none;
+  outline: none;
+  padding: 0px 10px;
+  font-size: 0.9rem;
+}
+.sign-search-bar span {
+  width: 7%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.sign-search-bar span i {
+  font-size: 1.1rem;
+  color: #2874f0;
+}
+
+/* Login Button */
+.login-btn {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 50%;
+  position: relative;
+}
+.login-btn button {
+  color: #2874f0;
+  height: 50%;
+  background-color: white;
+  border: none;
+  outline: none;
+  padding: 5px 40px;
+  font-weight: 600;
+}
+.authLoginBtnOptions {
+  width: 260px;
+  background-color: #ffffff;
+  color: black;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.authSignUpOption {
+  border-bottom: 1px solid gainsboro;
+  display: flex;
+  align-items: center;
+  padding: 25px 10px !important;
+  justify-content: space-between;
+}
+.authSignUpOption:hover {
+  background-color: white !important;
+}
+.authSignUpOption p {
+  margin-top: 10px;
+  color: black;
+  font-weight: 500;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.authSignUpOption a {
+  color: #2874f0 !important;
+}
+.authLoginBtnOptions div {
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid gainsboro;
+}
+.authLoginBtnOptions div:hover {
+  background-color: #f1f2f4;
+}
+.authLoginBtnOptions div i {
+  color: #2874f0;
+  margin-right: 10px;
+}
+.authLoginBtnOptions div p {
+  margin: 0;
+  color: black;
+  font-weight: 500;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+/* Seller Button */
+.seller {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.seller button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+  height: 60%;
+}
+
+/* More Button & Cart Button */
+.more,
+.cart {
+  height: 80%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.more button,
+.cart button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+}
+.more i {
+  color: white;
+  font-size: 0.6rem;
+  margin-left: 2px;
+}
+.cart i {
+  color: white;
+  margin-right: 5px;
+}
+
+.more-about-options {
+  margin-right: 180px;
+  top: 40px;
+}
+.more-about-options i {
+  color: #2874f0;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,171 @@
+/* FilterSidebar.module.css */
+.filterbar {
+  width: 245px;
+  min-height: auto;
+  height: auto;
+  background: #fff;
+  border-right: 1px solid #e6e6e6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  position: sticky;
+  top: 10px;
+  align-self: flex-start;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  padding: 10px 0xp;
+  margin-top: 58px;
+}
+
+.header {
+  padding: 16px 20px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  color: #0066cc;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.clearBtn:hover {
+  background: #f0f8ff;
+}
+
+.filterSection {
+  border-top: 1px solid #f0f0f0;
+}
+
+.filterSection h4 {
+  margin: 0;
+  padding: 16px 20px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  position: relative;
+}
+
+.sectionTitle {
+  flex: 1;
+  text-align: left;
+}
+
+/* Arrow stays FIXED in position */
+.arrowDown,
+.arrowUp {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+}
+
+.arrowDown::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #666;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.arrowUp::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid #666;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.filterContent {
+  padding: 0 20px 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  background: #fafafa;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  padding: 9px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxLabel input {
+  margin-right: 12px;
+  accent-color: #0066cc;
+  width: 16px;
+  height: 16px;
+}
+
+.checkboxLabel span {
+  color: #333;
+  font-size: 14px;
+}
+
+.seeMore {
+  color: #0066cc;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+  display: block;
+  font-weight: 500;
+}
+
+.seeMore:hover {
+  text-decoration: underline;
+}

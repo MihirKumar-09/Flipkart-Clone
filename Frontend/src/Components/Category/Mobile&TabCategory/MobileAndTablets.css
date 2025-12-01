@@ -1,0 +1,395 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* Parent Container */
+.MobilesAndTabletsCategory {
+  background-color: #f1f3f6;
+  width: 100%;
+}
+
+.header-section {
+  background-color: inherit;
+  padding: 8px 8px 0px 8px;
+}
+.about-mobiles {
+  height: 140px;
+  margin: 8px 0px;
+  display: flex;
+  flex-direction: column;
+}
+.about-mobiles h1 {
+  color: #212121;
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: 600;
+  padding: 0;
+}
+.about-mobiles p {
+  color: gray;
+  font-size: 12px;
+  font-family: sans-serif;
+  margin: 0;
+}
+/* Mobile Links */
+.mobile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  font-size: 12px;
+  color: #2874f0;
+}
+
+.mobile-links a {
+  color: #2874f0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mobile-links a:hover {
+  text-decoration: underline;
+}
+
+.mobile-links span {
+  color: #9e9e9e;
+}
+
+/* Exchange offer */
+.about-mobiles p a {
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero-section {
+  height: 330px;
+}
+.hero-section img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* filter-sidebar */
+.filter-sidebar {
+  height: auto;
+  width: 250px;
+  padding: 0px 16px 0px 0px;
+}
+
+.filter,
+.brands,
+.ram,
+.network,
+.storage,
+.type,
+.system,
+.processor,
+.speciality,
+.sim,
+.price,
+.features,
+.offers,
+.invoice {
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+}
+.filter-sidebar span {
+  font-weight: 600;
+}
+.filter-sidebar hr {
+  border: none;
+  height: 1.5px;
+  background-color: lightgray;
+  margin: 0;
+  width: 100%;
+}
+
+/* Brands */
+.brands span,
+.ram span,
+.network span,
+.storage span,
+.type span,
+.system span,
+.processor span,
+.speciality span,
+.sim span,
+.price span,
+.features span,
+.offers span,
+.invoice span {
+  font-size: 12px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 0;
+  font-weight: 600;
+}
+.header i {
+  color: gray;
+  font-size: 13px;
+}
+.brands .search div {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid lightgray;
+  overflow: hidden;
+}
+.brands .search div input {
+  border: none;
+  outline: none;
+}
+.brands .search div i {
+  font-size: 12px;
+  color: gray;
+  margin-right: 8px;
+}
+
+/* Brand Options */
+.brand-options {
+  margin-top: 15px;
+}
+.brand-options .form-check {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 8px 0px 0px 0px;
+  gap: 12px;
+}
+.brand-options .form-check input {
+  border: 1px solid rgb(192, 192, 192);
+  cursor: pointer;
+  box-shadow: none;
+  border-radius: 2px;
+  margin-bottom: 5px;
+}
+.brand-options .form-check input[type="checkbox"]:checked {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.brand-options .form-check .form-check-label {
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.brands .see-more {
+  color: #2874f0;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Price Filter */
+
+.price-slider {
+  position: relative;
+  height: 40px;
+}
+
+/* background track (gray + blue section) */
+.slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 8px;
+  width: 100%;
+  border-radius: 4px;
+  background: #dcdcdc;
+  z-index: 1;
+}
+
+/* both range inputs stacked equally */
+.price-slider input[type="range"] {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  appearance: none;
+  background: none;
+  pointer-events: none;
+  margin: 0;
+  z-index: 2; /* just above the track */
+}
+
+.price-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.price-slider input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid gray;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  pointer-events: all;
+  position: relative;
+  z-index: 5; /* always above both tracks */
+  margin-top: -4px;
+}
+
+.price-dropdowns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.price-dropdowns select {
+  width: 45%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.price-dropdowns span {
+  color: #555;
+  font-size: 14px;
+}
+
+/* Content */
+.content {
+  padding: 0px 8px 8px 8px;
+  background-color: inherit;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+/* Upcoming Lunch */
+.main {
+  height: auto;
+  width: 100%;
+}
+.lunch-heading {
+  height: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.section {
+  width: auto;
+  height: 840px;
+  display: flex;
+  flex-direction: column;
+}
+.section div {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.section div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: 10% top;
+}
+.style-head {
+  font-size: 5rem;
+  font-weight: 600;
+  color: #ffdac1;
+  -webkit-text-stroke: 2px black;
+  text-shadow: 1px 10px 5px #e8867c;
+}
+
+/* Top Deals */
+.top-deals-section {
+  height: 100%;
+  width: 100%;
+  background-color: #212121;
+  display: flex;
+  flex-direction: column;
+}
+.top-deals-section div {
+  flex: 1;
+}
+.top-deals-section div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* top-deals-section-two */
+.top-deals-section-two {
+  display: flex;
+  background-color: #2874f0;
+}
+.top-deals-section-two div {
+  flex: 1;
+}
+
+/* Keep your container size unchanged */
+.apple-mobile,
+.android-mobile {
+  height: 390px;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+.apple-head,
+.android-head {
+  height: 69px;
+  padding: 0 20px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.apple-head h3,
+.android-mobile h3 {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #212121;
+  margin: 0;
+}
+
+.apple-head button,
+.android-mobile button {
+  background: #2874f0;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Flipkart Grid - 5 cards */
+.apple-products,
+.android-products {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: #ffffff;
+  height: calc(100% - 69px);
+}

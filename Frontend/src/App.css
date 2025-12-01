@@ -1,0 +1,16 @@
+body,
+html {
+  background-color: #f1f2f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root,
+.App {
+  background-color: #f1f2f4;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+body::-webkit-scrollbar {
+  display: none;
+}

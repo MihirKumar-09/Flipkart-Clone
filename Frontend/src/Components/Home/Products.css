@@ -1,0 +1,230 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  overflow-x: hidden; /* hides horizontal scrollbar */
+}
+.topProducts {
+  height: 580px;
+  display: flex;
+  margin: 15px 15px 0px 15px;
+  gap: 20px;
+  overflow: hidden;
+}
+.topProducts div {
+  flex: 1;
+  min-width: 0;
+  background-color: #ffffff;
+}
+.topProducts > .leftDiv {
+  flex: 1;
+}
+.topProducts > .rightDiv {
+  flex: 2;
+}
+
+.fashionNeeds img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.wrapProducts {
+  height: 100%;
+  width: 100%;
+}
+.head {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  cursor: pointer;
+}
+.head i {
+  color: blue;
+  font-size: 1.5rem;
+}
+/* Grid container - all your sections */
+.mobile-card,
+.rated-card,
+.top-section-card,
+.home-card,
+.women-fashion,
+.top-fashion-card,
+.monsoon-card,
+.discount-card,
+.gadgets-card,
+.body-care-card,
+.adventure-card {
+  height: 520px;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  padding: 12px;
+  gap: 12px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+}
+
+.rated-card-link {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+/* Individual card */
+.cards {
+  height: 100%;
+  width: 220px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 16px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.cards:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: #c0c0c0;
+}
+
+/* Image */
+.cards .topMobiles-img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  margin-bottom: 12px;
+}
+
+.cards:hover .topMobiles-img {
+  transform: scale(1.06);
+}
+
+.cards p {
+  margin: 0 0 6px;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #222;
+  line-height: 1.35;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cards span {
+  color: #007600;
+  font-size: 16px;
+  text-align: center;
+}
+
+/*======== Desing Scrollable Items ========= */
+.item-container {
+  height: 378px;
+  margin: 15px 15px 0px 15px;
+  gap: 10px;
+  background-color: #ffffff;
+}
+.item-container .head {
+  font-family: sans-serif;
+  padding: 16px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+}
+.item-container .head h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.wrap-items {
+  height: 318px; /* cleaned up the calc */
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.wrap-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Make the Link fill the entire card properly */
+.suggest-link {
+  flex: 0 0 216px;
+  min-width: 216px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.suggest-card {
+  height: calc(100% - 60px);
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image */
+.suggest-img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: white;
+  transition: transform 0.35s ease;
+  margin-bottom: 10px;
+}
+
+.suggest-link:hover .suggest-img {
+  transform: scale(1.03);
+}
+
+.suggest-card p {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.suggest-card:hover p {
+  color: #0000ff;
+}
+
+/* Price */
+.suggest-card span {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+/* Flipkart Travell */
+.item-container .flipkart-travell {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

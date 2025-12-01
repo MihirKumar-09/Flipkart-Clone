@@ -1,0 +1,113 @@
+.Top-Deals-Category {
+  display: flex;
+  height: 318px;
+  margin: 15px 15px 0px 15px;
+  gap: 10px;
+}
+.top-deals {
+  height: 100%;
+  width: 82%;
+  background-color: #ffffff;
+}
+.top-deals .head {
+  font-family: sans-serif;
+  padding: 16px;
+}
+.head h4 {
+  margin: 0;
+  font-weight: 600;
+}
+.wrap-deals {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.wrap-deals::-webkit-scrollbar {
+  display: none;
+}
+.wrap-deals .deal-card {
+  height: 100%;
+  flex: 0 0 216px;
+  min-width: 216px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 12px 8px; /* a bit more breathing room */
+  margin: 0 10px;
+  border-radius: 12px; /* modern card look */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.deal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.deal-card .topDeals-img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: transform 0.3s ease;
+  margin-bottom: 12px;
+}
+
+.deal-card:hover .topDeals-img {
+  transform: scale(1.06);
+}
+
+.deal-card .link-style p {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  color: #222;
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+/* Price */
+.deal-card .link-style span {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin-top: auto;
+}
+.link-style {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.flightBooking {
+  width: calc(100% - 82%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+.flightBooking img {
+  height: 310px;
+}

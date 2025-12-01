@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+/* appliance-main-category */
+.appliance-main-category {
+  padding: 8px;
+  background-color: white;
+}
+/* appliance-hero */
+.appliance-hero {
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2e3192 0%, #1bffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+/* appliance-container */
+.appliance-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+/* Appliance Img */
+.appliance-image {
+  position: relative;
+  width: 350px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.appliance-image img {
+  height: 400px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+.appliance-title {
+  position: absolute;
+  z-index: 1;
+  font-size: 10rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.09);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+}
+/* Buttons */
+.appliance-buttons {
+  position: absolute;
+  bottom: 80px;
+  left: 15%;
+  display: flex;
+  gap: 25px;
+}
+
+.appliance-buttons button:first-child {
+  padding: 8px 25px;
+  border-radius: 30px;
+  border: none;
+  color: black;
+  background-color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.appliance-buttons button:first-child:hover {
+  background-color: #d4af37;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px #d4af3773;
+}
+
+.appliance-buttons button:last-child {
+  color: #fff;
+  border-radius: 30px;
+  padding: 8px 25px;
+  background: linear-gradient(135deg, #ff4d4d, #e60023);
+  border: none;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 0, 0, 0.25);
+}
+
+.appliance-buttons button:last-child:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, #ff1a1a, #cc0000);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+/* About */
+.appliance-about {
+  height: auto;
+  width: 100%;
+  background-color: white;
+  margin-top: 0.6rem;
+  padding: 5px 10px;
+}
+.appliance-about h1 {
+  font-size: 22px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.appliance-about p {
+  padding: 0;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #808080;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+.appliance-about h3 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+}
+.appliance-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.appliance-card:hover .title {
+  color: #2a55e5;
+}
+.appliance-link {
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  width: 100%;
+}

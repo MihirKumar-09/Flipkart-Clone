@@ -1,0 +1,386 @@
+.navBar {
+  background-color: #ffffff;
+  height: 68px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+/* logoAndSearchBar */
+.logoAndSearchBar {
+  height: 41px;
+  width: 65%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Logo */
+.navBar .logoAndSearchBar .logo {
+  display: flex;
+  align-items: center;
+}
+.navBar .logoAndSearchBar .logo img {
+  height: 38px;
+  cursor: pointer;
+  margin-left: 4.5rem;
+}
+.navBar .logoAndSearchBar .logo .fa-bars {
+  font-size: 1.3rem;
+  margin-left: 0.7rem;
+  display: none;
+}
+
+/* Search Bar */
+.searchBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 40px;
+  width: 740px;
+  background-color: #f0f5ff;
+  border-radius: 10px;
+}
+.searchBar input {
+  height: 100%;
+  width: 95%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 17.9px;
+  font-family: sans-serif;
+  padding-left: 10px;
+}
+.searchBar input:focus {
+  border: none;
+  outline: none;
+}
+.searchBar i {
+  font-size: 1.3rem;
+  color: gray;
+  padding: 8px 8px 8px 12px;
+}
+
+/*! Details */
+.details {
+  height: 41px;
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.mobileDnl {
+  font-size: 1.3rem;
+  display: none;
+}
+
+/* Login Button */
+.link {
+  text-decoration: none;
+  color: #000000;
+}
+.loginDiv {
+  height: 100%;
+  width: 100px;
+  display: inline-block;
+  background-color: transparent;
+  position: relative;
+}
+.loginDiv:hover .loginBtn {
+  background-color: #0262d1;
+  color: #fff;
+}
+.loginBtn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0 0.8rem;
+  color: #000;
+  background-color: white;
+  transition: all 0.1s ease;
+}
+
+.loginBtn i {
+  color: inherit; /* icons inherit text color */
+}
+
+.loginBtn .fa-circle-user {
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+}
+
+.loginBtn .fa-angle-down {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.arrowIcon {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.loginDiv:hover .arrowIcon {
+  transform: rotate(180deg);
+}
+
+/* Cart Button */
+.cartBtn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: sans-serif;
+  font-size: 1.1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.cartBtn i {
+  font-size: 1.3rem;
+  margin: 0px 8px 0px 0px;
+}
+
+/* Seller */
+.becomeSeller {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 1.1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.becomeSeller i {
+  margin: 0px 8px 0px 0px;
+  font-size: 1.3rem;
+  color: #000000;
+}
+/* About */
+.aboutDiv {
+  height: 100%;
+  width: 41px;
+}
+.aboutBtn {
+  height: 100%;
+  width: 100%;
+  font-size: 1.1rem;
+  color: rgb(50, 50, 50);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.aboutDiv:hover .aboutBtn {
+  background-color: #f1f2f4;
+  border: 1px solid #d4d4d5;
+}
+
+/*! Hover Effects */
+
+/* Login Button Options */
+.loginBtnOptions {
+  width: 260px;
+  background-color: #ffffff;
+  color: black;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loginBtnOptions .signUpOption {
+  border-bottom: 1px solid gainsboro;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  justify-content: space-between;
+}
+.signUpOption p {
+  margin-top: 10px;
+}
+.signUpOption a {
+  color: #0262d1 !important;
+}
+
+.loginBtnOptions div {
+  padding: 0.6rem 0.5rem;
+  text-align: start;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.loginBtnOptions div:hover {
+  background-color: #f1f2f4;
+}
+.loginBtnOptions div span {
+  font-size: 15px;
+}
+.loginBtnOptions div span,
+p,
+a {
+  font-family: sans-serif;
+}
+.loginBtnOptions div a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.loginBtnOptions div i {
+  margin: 0px 0.6rem 0px 0px;
+}
+
+/* aboutBtnOptions */
+
+.aboutBtnOptions {
+  width: auto;
+  background-color: #ffffff;
+  color: black;
+  position: absolute;
+  right: calc(100% - 97%);
+  top: 54px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.aboutBtnOptions div {
+  padding: 0.6rem 0.5rem;
+  text-align: start;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.aboutBtnOptions div:hover {
+  background-color: #f1f2f4;
+}
+.aboutBtnOptions div span {
+  font-size: 15px;
+}
+.aboutBtnOptions div span,
+p {
+  font-family: sans-serif;
+}
+.aboutBtnOptions div i {
+  margin: 0px 0.6rem 0px 0px;
+}
+
+/*! Responsive */
+
+/* ----------- TABLET VIEW (medium screens) ----------- */
+@media (max-width: 1100px) {
+  .searchBar {
+    width: 500px;
+  }
+
+  .becomeSeller span {
+    display: none;
+  }
+
+  .details {
+    width: auto;
+    gap: 3rem;
+  }
+
+  .logoAndSearchBar {
+    width: 60%;
+  }
+
+  .cartBtn {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* ----------- TABLET-SMALL (900px - 768px) ----------- */
+@media (max-width: 900px) {
+  .searchBar {
+    width: 350px;
+  }
+
+  .searchBar input {
+    font-size: 15px;
+  }
+
+  .becomeSeller {
+    display: none;
+  }
+
+  .details {
+    gap: 1rem;
+  }
+  .mobileDnl {
+    display: block;
+  }
+}
+
+/* ----------- MOBILE VIEW (below 768px) ----------- */
+@media (max-width: 768px) {
+  .navBar {
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: 50px;
+  }
+
+  .logoAndSearchBar {
+    width: auto;
+    gap: 1rem;
+  }
+
+  .searchBar {
+    display: none; /* hide big search bar */
+  }
+
+  /* Add a small search icon for mobile */
+  .mobileSearchIcon {
+    display: block;
+    font-size: 1.4rem;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .details {
+    gap: 0.2rem;
+  }
+
+  .cartBtn span {
+    display: none;
+  }
+
+  .loginBtn span {
+    display: none;
+  }
+  .loginBtn .arrowIcon {
+    display: none;
+  }
+
+  .navBar .logoAndSearchBar .logo img {
+    height: 38px;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  .loginBtn i.fa-circle-user {
+    font-size: 1.4rem;
+  }
+  .navBar .logoAndSearchBar .logo .fa-bars {
+    display: block;
+  }
+  .aboutBtn {
+    display: none;
+  }
+}

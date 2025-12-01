@@ -1,0 +1,121 @@
+.container {
+  width: 90%;
+  margin-top: 30px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+.head i {
+  font-size: 1.8rem;
+  color: #2874f0;
+  cursor: pointer;
+}
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  padding: 20px 10px;
+  margin: 0;
+}
+
+.grid {
+  display: flex;
+  gap: 16px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+/* Chrome/Safari/Edge mein scrollbar completely hide */
+.grid::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  width: 230px;
+  height: 100%;
+  flex-shrink: 0;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.imageBox {
+  width: 100%;
+  height: 230px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.imageBox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .name {
+  color: #2874f0;
+}
+
+.details {
+  padding: 12px;
+  text-align: center;
+  flex-grow: 1; /* ensures all cards same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #212121;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  text-align: start;
+}
+
+.details span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.details span p {
+  margin: 0;
+}
+.details span p:first-child {
+  font-weight: 500;
+  color: #212121;
+  font-size: 14px;
+  font-weight: 600;
+}
+.details span p:last-child {
+  font-weight: 600;
+  color: white;
+  font-size: 12px;
+  background-color: green;
+  padding: 0px 3px;
+  border-radius: 4px;
+}

@@ -1,0 +1,23 @@
+.Buttons {
+  height: 55px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.Buttons button {
+  width: 48%;
+  border: none;
+  background-color: #2874f0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.Buttons button:first-child {
+  background-color: #ff9f00;
+}
+.Buttons button:last-child {
+  background-color: #fb641b;
+}
