@@ -3,17 +3,49 @@ import { useNavigate, Link } from "react-router-dom";
 
 import "./HomeNavBar.css";
 import MainLogo from "../../assets/HomePage/MainLogo.svg";
+import { useAuth } from "../../Context/AuthContext";
 
 export default function HomeNavBar() {
   const [isLoginBtnHover, setIsLoginBtnHover] = useState(false);
   const [isAboutBtnHover, setIsAboutBtnHover] = useState(false);
   const [query, setQuery] = useState("");
+  const { user, setUser } = useAuth();
 
   const navigate = useNavigate();
 
   const handleSearch = () => {
     if (!query) return;
     navigate(`/product-list?search=${query}`);
+  };
+
+  // Handle logout;
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setUser(null);
+        navigate("/");
+      } else {
+        console.log("Logout failed", data.message);
+      }
+    } catch (err) {
+      console.log(err);
+      setUser(null);
+    }
+  };
+
+  // handle Cart;
+  const handleCart = () => {
+    if (user) navigate("/cart");
+    else navigate("/login");
   };
 
   return (
@@ -51,12 +83,19 @@ export default function HomeNavBar() {
           onMouseEnter={() => setIsLoginBtnHover(true)}
           onMouseLeave={() => setIsLoginBtnHover(false)}
         >
-          <Link to="/login" className="link">
+          {user ? (
             <button className="loginBtn">
-              <i className="fa-regular fa-circle-user"></i>Login
+              Account
               <i className="fa-solid fa-angle-down arrowIcon"></i>
             </button>
-          </Link>
+          ) : (
+            <Link to="/login" className="link">
+              <button className="loginBtn">
+                <i className="fa-regular fa-circle-user"></i>Login
+                <i className="fa-solid fa-angle-down arrowIcon"></i>
+              </button>
+            </Link>
+          )}
 
           {isLoginBtnHover && (
             <div
@@ -64,41 +103,64 @@ export default function HomeNavBar() {
               onMouseEnter={() => setIsLoginBtnHover(true)}
               onMouseLeave={() => setIsLoginBtnHover(false)}
             >
-              <Link to="/signup" className="link">
-                <div className="signUpOption">
-                  <p>New customer?</p>
-                  <a>Sign Up</a>
+              {!user ? (
+                <div className="loginOptions">
+                  <Link to="/signup" className="link">
+                    <div className="signUpOption">
+                      <p>New customer?</p>
+                      <a>Sign Up</a>
+                    </div>
+                  </Link>
+                  <div>
+                    <i className="fa-regular fa-circle-user"></i>
+                    <span>My Profile</span>
+                  </div>
+                  <div>
+                    <i className="fa-brands fa-gg"></i>
+                    <span>Flipkart Plus Zone</span>
+                  </div>
+                  <div>
+                    <i className="fa-solid fa-box-open"></i>
+                    <span>Orders</span>
+                  </div>
+                  <div>
+                    <i className="fa-regular fa-heart"></i>
+                    <span>Wishlist</span>
+                  </div>
+                  <div>
+                    <i className="fa-solid fa-gift"></i>
+                    <span>Rewards</span>
+                  </div>
+                  <div>
+                    <i className="fa-regular fa-credit-card"></i>
+                    <span>Gift Cards</span>
+                  </div>
                 </div>
-              </Link>
-              <div>
-                <i className="fa-regular fa-circle-user"></i>
-                <span>My Profile</span>
-              </div>
-              <div>
-                <i className="fa-brands fa-gg"></i>
-                <span>Flipkart Plus Zone</span>
-              </div>
-              <div>
-                <i className="fa-solid fa-box-open"></i>
-                <span>Orders</span>
-              </div>
-              <div>
-                <i className="fa-regular fa-heart"></i>
-                <span>Wishlist</span>
-              </div>
-              <div>
-                <i className="fa-solid fa-gift"></i>
-                <span>Rewards</span>
-              </div>
-              <div>
-                <i className="fa-regular fa-credit-card"></i>
-                <span>Gift Cards</span>
-              </div>
+              ) : (
+                <div className="accountOptions">
+                  <div>
+                    <i className="fa-regular fa-circle-user"></i>
+                    <span>My Profile</span>
+                  </div>
+                  <div>
+                    <i className="fa-solid fa-gift"></i>
+                    <span>Rewards</span>
+                  </div>
+                  <div>
+                    <i className="fa-regular fa-credit-card"></i>
+                    <span>Gift Cards</span>
+                  </div>
+                  <div onClick={handleLogout}>
+                    <i className="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        <button className="cartBtn">
+        <button className="cartBtn" onClick={handleCart}>
           <i className="fa-brands fa-opencart"></i>
           <span>Cart</span>
         </button>

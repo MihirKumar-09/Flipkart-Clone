@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function CartItem() {
   const cart = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
+  console.log("CART:", cart);
 
   if (cart.length === 0) {
     return (
@@ -27,15 +28,20 @@ export default function CartItem() {
         <>
           <div className={style.item} key={item._id}>
             <div className={style.imageDiv}>
-              <img src={item.image[0].url} />
+              <img
+                src={item.image?.[0]?.url || "/placeholder.png"}
+                alt={item.name}
+              />
             </div>
             <div className={style.itemDetails}>
               <h2>{item.name}</h2>
               <p className={style.description}>{item.description}</p>
               <p className={style.price}>
-                ₹{item.price.toLocaleString("en-IN")}
+                ₹{Number(item.price || 0).toLocaleString("en-IN")}
               </p>
-              <p className={style.highlights}>{item.highlights[0]}</p>
+              <p className={style.highlights}>
+                {item.highlights?.[0] || "No highlights"}
+              </p>
             </div>
           </div>
 

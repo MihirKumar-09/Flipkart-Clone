@@ -172,6 +172,7 @@
 .aboutDiv {
   height: 100%;
   width: 41px;
+  position: relative;
 }
 .aboutBtn {
   height: 100%;
@@ -182,6 +183,7 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 10px;
+  position: absolute;
 }
 .aboutDiv:hover .aboutBtn {
   background-color: #f1f2f4;
@@ -196,42 +198,55 @@
   background-color: #ffffff;
   color: black;
   position: absolute;
-  right: 0;
+  left: 0;
   top: 100%;
   z-index: 10;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   overflow: hidden;
 }
-.loginBtnOptions .signUpOption {
-  border-bottom: 1px solid gainsboro;
+.loginOptions {
+  width: 100%;
+  text-align: start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginOptions .link {
+  width: 100%;
+}
+.loginOptions .link .signUpOption {
+  width: 100%;
   display: flex;
   align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
   justify-content: space-between;
+  padding: 1rem 0.5rem;
 }
 .signUpOption p {
-  margin-top: 10px;
+  margin: 0;
+  color: black;
+  font-size: 1rem;
+  font-weight: lighter;
 }
 .signUpOption a {
   color: #0262d1 !important;
 }
 
-.loginBtnOptions div {
-  padding: 0.6rem 0.5rem;
-  text-align: start;
-  cursor: pointer;
+.loginBtnOptions div div {
+  width: 100%;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  padding: 0.6rem 0.5rem;
 }
-.loginBtnOptions div:hover {
+.loginBtnOptions div div:hover {
   background-color: #f1f2f4;
 }
-.loginBtnOptions div span {
+.loginBtnOptions div div span {
   font-size: 15px;
 }
-.loginBtnOptions div span,
+.loginBtnOptions div div span,
 p,
 a {
   font-family: sans-serif;
@@ -245,15 +260,20 @@ a {
   margin: 0px 0.6rem 0px 0px;
 }
 
+/* Account Options */
+.accountOptions div {
+  cursor: pointer;
+}
+
 /* aboutBtnOptions */
 
 .aboutBtnOptions {
-  width: auto;
+  width: 220px;
   background-color: #ffffff;
   color: black;
   position: absolute;
-  right: calc(100% - 97%);
-  top: 54px;
+  right: 0;
+  top: 100%;
   z-index: 10;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 10px;

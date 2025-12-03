@@ -52,10 +52,13 @@ export default function Category() {
             <span>TVs & Appliances</span>
           </div>
         </Link>
-        <div className="category-item">
-          <img src={Flight} alt="" />
-          <span>Flight Bookings</span>
-        </div>
+
+        <Link to="/flight" className="link">
+          <div className="category-item">
+            <img src={Flight} alt="" />
+            <span>Flight Bookings</span>
+          </div>
+        </Link>
         <Link to="/beauty" className="link">
           <div className="category-item">
             <img src={Teddy} alt="" />

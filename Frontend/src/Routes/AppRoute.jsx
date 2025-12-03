@@ -18,6 +18,7 @@ import HomeAndFurniture from "../Pages/Category/HomeAndFurniture";
 import Appliance from "../Pages/Category/Home&ApplianceCategory";
 import Beauty from "../Pages/Category/BeautyCategory";
 import Grocery from "../Pages/Category/GroceryCategory";
+import Flight from "../Pages/Category/Flight";
 
 // Product List
 import ProductList from "../Pages/ProductList/ProductList";
@@ -34,6 +35,7 @@ export default function AppRoute() {
       <Route path="/" element={<Home />} />
       <Route path="/flipkart-minutes" element={<FlipkartMinutes />} />
       <Route path="/grocery" element={<Grocery />} />
+      <Route path="/flight" element={<Flight />} />
       <Route path="/cart" element={<CartPage />} />
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />

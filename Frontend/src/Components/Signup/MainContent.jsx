@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SecurityLogo from "../../assets/HomePage/security.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
 
 export default function MainContent() {
   const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ export default function MainContent() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const handleSignup = async () => {
     setError("");
@@ -29,11 +31,13 @@ export default function MainContent() {
       const data = await res.json();
 
       if (data.success) {
+        setUser(data.user);
         navigate("/", {
           state: { justSignedUp: true, name: username, email: email },
         });
       } else {
         setError(data.message);
+        setUser(null);
       }
     } catch (err) {
       console.error(err);
@@ -100,17 +104,17 @@ export default function MainContent() {
             />
             <label>Confirm Password</label>
           </div>
-          {error && <p className="error-msg">{error}</p>}{" "}
+          {error && <p className="error-msg">{error}</p>}
           <p>
-            By continuing, you agree to Flipkart's{" "}
+            By continuing, you agree to Flipkart's
             <a
               target="_blank"
               href="https://www.flipkart.com/pages/terms"
               rel="noopener"
             >
               Terms of Use
-            </a>{" "}
-            and{" "}
+            </a>
+            and
             <a
               target="_blank"
               href="https://www.flipkart.com/pages/privacypolicy"

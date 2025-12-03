@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.flight {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flight h1 {
+  color: gray;
+  font-size: 1.5rem;
+  margin: 0;
+}
+.flight button {
+  background-color: #2a55e5;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 0.6rem 2rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.flight button i {
+  margin-right: 0.5rem;
+}

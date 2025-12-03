@@ -2,12 +2,14 @@ import "../Signup/Signup.css";
 import SecurityLogo from "../../assets/HomePage/security.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../../Context/AuthContext.jsx";
 
 export default function MainContent() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const handleLogin = async () => {
     console.log("HANDLE LOGIN FIRED");
@@ -20,7 +22,15 @@ export default function MainContent() {
         credentials: "include",
       });
 
-      console.log("RESPONSE RECEIVED:", res);
+      const data = await res.json();
+
+      if (data.success) {
+        setUser(data.user);
+        navigate("/");
+      } else {
+        setError("Invalid username or password");
+        setUser(null);
+      }
     } catch (error) {
       console.error("FETCH ERROR:", error);
     }
@@ -62,6 +72,12 @@ export default function MainContent() {
             <label>Password</label>
           </div>
 
+          {error && (
+            <p style={{ color: "red", fontSize: "14px", marginBottom: "10px" }}>
+              {error}
+            </p>
+          )}
+
           <p style={{ fontSize: "12px", color: "#878787", margin: "20px 0" }}>
             By continuing, you agree to Flipkart's{" "}
             <a
@@ -80,12 +96,6 @@ export default function MainContent() {
             </a>
             .
           </p>
-
-          {error && (
-            <p style={{ color: "red", fontSize: "14px", marginBottom: "10px" }}>
-              {error}
-            </p>
-          )}
 
           <button type="button" className="continue-btn" onClick={handleLogin}>
             CONTINUE

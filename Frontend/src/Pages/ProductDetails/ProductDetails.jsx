@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  console.log("Rendered with id:", id);
 
   useEffect(() => {
     const fetchProduct = async () => {
