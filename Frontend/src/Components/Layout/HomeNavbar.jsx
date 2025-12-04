@@ -48,6 +48,12 @@ export default function HomeNavBar() {
     else navigate("/login");
   };
 
+  // Handle profile;
+  const handleProfile = () => {
+    if (user) navigate("/profile");
+    else navigate("/login");
+  };
+
   return (
     <div className="navBar">
       <div className="logoAndSearchBar">
@@ -85,6 +91,7 @@ export default function HomeNavBar() {
         >
           {user ? (
             <button className="loginBtn">
+              <i className="fa-regular fa-circle-user"></i>
               {user.username}
               <i className="fa-solid fa-angle-down arrowIcon"></i>
             </button>
@@ -111,7 +118,7 @@ export default function HomeNavBar() {
                       <a>Sign Up</a>
                     </div>
                   </Link>
-                  <div>
+                  <div onClick={handleProfile}>
                     <i className="fa-regular fa-circle-user"></i>
                     <span>My Profile</span>
                   </div>

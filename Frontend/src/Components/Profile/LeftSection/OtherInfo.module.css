@@ -72,6 +72,7 @@
 .logout {
   padding: 20px 10px;
   display: flex;
+  cursor: pointer;
 }
 .logout i {
   margin-right: 15px;

@@ -213,36 +213,36 @@ router.get("/check-login", (req, res) => {
   }
 });
 
-// Profile Route to show profile;
-router.get("/profile", async (req, res) => {
-  if (!req.session.userId) {
-    return res.status(401).json({
-      success: false,
-      message: "Not authenticated",
-    });
-  }
+//! Profile Route to show profile;
+// router.get("/profile", async (req, res) => {
+//   if (!req.session.userId) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Not authenticated",
+//     });
+//   }
 
-  try {
-    const user = await User.findById(req.session.userId).select("-password");
+//   try {
+//     const user = await User.findById(req.session.userId).select("-password");
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
+//     if (!user) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found",
+//       });
+//     }
 
-    res.json({
-      success: true,
-      user,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: "Failed to fetch profile",
-    });
-  }
-});
+//     res.json({
+//       success: true,
+//       user,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       error: "Failed to fetch profile",
+//     });
+//   }
+// });
 
 // Logout Route
 router.post("/logout", (req, res) => {
@@ -266,6 +266,19 @@ router.post("/logout", (req, res) => {
       message: "Logged out successfully",
     });
   });
+});
+
+// Delete User
+router.delete("/user/delete", async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.session.userId);
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+    res.json({ success: true, message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, error: "Failed to delete user" });
+  }
 });
 
 export default router;

@@ -2,10 +2,11 @@ import style from "./Buttons.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAuth } from "../../../Context/AuthContext";
 
 export default function Buttons({ product }) {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useAuth();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
