@@ -29,6 +29,9 @@ import ProductDetils from "../Pages/ProductDetails/ProductDetails";
 // Cart Page;
 import CartPage from "../Pages/Cart/Cart";
 
+// import profile
+import Profile from "../Pages/Profile/ProfilePage";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -37,6 +40,7 @@ export default function AppRoute() {
       <Route path="/grocery" element={<Grocery />} />
       <Route path="/flight" element={<Flight />} />
       <Route path="/cart" element={<CartPage />} />
+
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -49,6 +53,9 @@ export default function AppRoute() {
         {/* Show Product List */}
         <Route path="product-list" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetils />} />
+
+        {/* Profile Page */}
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );

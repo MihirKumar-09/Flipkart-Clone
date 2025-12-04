@@ -85,7 +85,7 @@ export default function HomeNavBar() {
         >
           {user ? (
             <button className="loginBtn">
-              Account
+              {user.username}
               <i className="fa-solid fa-angle-down arrowIcon"></i>
             </button>
           ) : (
@@ -138,17 +138,39 @@ export default function HomeNavBar() {
                 </div>
               ) : (
                 <div className="accountOptions">
+                  <Link to="/profile" className="link-style">
+                    <div>
+                      <i className="fa-regular fa-circle-user"></i>
+                      <span>My Profile</span>
+                    </div>
+                  </Link>
                   <div>
-                    <i className="fa-regular fa-circle-user"></i>
-                    <span>My Profile</span>
+                    <i class="fa-brands fa-bitcoin"></i>
+                    <span>SuperCoin Zone</span>
                   </div>
                   <div>
-                    <i className="fa-solid fa-gift"></i>
-                    <span>Rewards</span>
+                    <i class="fa-solid fa-circle-radiation"></i>
+                    <span>Flipkart Plus Zone</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-box"></i>
+                    <span>Orders</span>
+                  </div>
+                  <div>
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Whishlist</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-tag"></i>
+                    <span>Coupons</span>
                   </div>
                   <div>
                     <i className="fa-regular fa-credit-card"></i>
                     <span>Gift Cards</span>
+                  </div>
+                  <div>
+                    <i class="fa-regular fa-bell"></i>
+                    <span>Notification</span>
                   </div>
                   <div onClick={handleLogout}>
                     <i className="fa-solid fa-right-from-bracket"></i>
