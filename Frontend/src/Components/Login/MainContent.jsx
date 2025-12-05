@@ -1,19 +1,18 @@
 import "../Signup/Signup.css";
 import SecurityLogo from "../../assets/HomePage/security.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useAuth } from "../../Context/AuthContext.jsx";
 
 export default function MainContent() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { handleLogin, error } = useAuth();
 
   const login = () => {
     if (username && password) {
-      handleLogin();
-      navigate("/");
+      handleLogin(username, password);
     } else {
       alert("Please enter username and password");
     }

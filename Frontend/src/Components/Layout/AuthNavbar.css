@@ -84,9 +84,10 @@
   background-color: white;
   white-space: nowrap;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.345);
-  border-radius: 3px;
+  border-radius: 5px;
+  overflow: hidden;
 }
-.loginOptions {
+.loginAuthOptions {
   height: 100%;
   width: 100%;
   display: flex;
@@ -94,7 +95,7 @@
   justify-content: center;
   align-items: flex-start !important;
 }
-.loginOptions div {
+.loginAuthOptions div {
   width: 100%;
   height: 40px;
   display: flex;
@@ -102,18 +103,39 @@
   gap: 20px;
   padding: 20px 15px 20px 10px;
 }
-.loginOptions div:hover {
+.loginAuthOptions div:hover {
   background-color: #f1f2f4;
+  cursor: pointer;
 }
-.loginOptions div i {
+.authSignUp {
+  height: 50px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.513);
+}
+.authSignUp p {
+  margin: 0;
+  color: black;
+  font-size: 1rem;
+}
+.authSignUp span {
+  color: #2874f0;
+  font-weight: 600;
+}
+.loginAuthOptions div i {
   color: #2874f0;
 }
-.loginOptions button {
+.loginAuthOptions button {
   border: none;
   outline: none;
   background-color: transparent;
   color: #2874f0;
   font-weight: 600;
+}
+.authlink {
+  width: 100%;
+  text-decoration: none;
 }
 
 /* Seller Button */

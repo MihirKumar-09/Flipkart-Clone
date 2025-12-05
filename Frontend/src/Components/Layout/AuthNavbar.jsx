@@ -30,6 +30,12 @@ export default function SignNavbar() {
     }
   };
 
+  // Handle profile;
+  const handleProfile = () => {
+    if (user) navigate("/profile");
+    else navigate("/login");
+  };
+
   return (
     <div className="sign-navbar">
       <div className="sign-options">
@@ -69,10 +75,10 @@ export default function SignNavbar() {
 
           <div className="authLoginOptions">
             {isLoginBtnHover && (
-              <div className="loginOptions">
+              <div className="loginAuthOptions">
                 {user ? (
                   <>
-                    <div>
+                    <div onClick={handleProfile}>
                       <i className="fa-regular fa-user"></i>
                       <span>My Profile</span>
                     </div>
@@ -110,10 +116,42 @@ export default function SignNavbar() {
                     </div>
                   </>
                 ) : (
-                  <div>
-                    <i className="fa-regular fa-user"></i>
-                    <span>Login</span>
-                  </div>
+                  <>
+                    <Link to="/signup" className="authlink">
+                      <div className="authSignUp">
+                        <p>New customer?</p>
+                        <span>Sign Up</span>
+                      </div>
+                    </Link>
+                    <div onClick={handleProfile}>
+                      <i className="fa-regular fa-user"></i>
+                      <span>My Profile</span>
+                    </div>
+                    <div>
+                      <i className="fa-brands fa-gg"></i>
+                      <span>Flipkart Plus Zone</span>
+                    </div>
+                    <div>
+                      <i class="fa-brands fa-bitcoin"></i>
+                      <span>SuperCoin Zone</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-box"></i>
+                      <span>Orders</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-heart"></i>
+                      <span>Wishlist</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-gift"></i>
+                      <span>Rewards</span>
+                    </div>
+                    <div>
+                      <i className="fa-regular fa-credit-card"></i>
+                      <span>Gift Cards</span>
+                    </div>
+                  </>
                 )}
               </div>
             )}

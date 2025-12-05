@@ -1,18 +1,21 @@
 import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
+import { useNavigate } from "react-router-dom";
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+
   // Handle Login;
-  const handleLogin = async () => {
+  const handleLogin = async (username, password) => {
     try {
       const res = await fetch("http://localhost:8080/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: username, password: password }),
         credentials: "include",
       });
       const data = await res.json();
