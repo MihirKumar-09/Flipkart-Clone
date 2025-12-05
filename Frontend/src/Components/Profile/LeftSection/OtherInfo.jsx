@@ -2,29 +2,14 @@ import style from "./OtherInfo.module.css";
 import { useAuth } from "../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 export default function OtherInfo() {
-  const { setUser } = useAuth();
+  const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   // handle logout;
-  const handleLogout = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/api/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      const data = await res.json();
-      if (data.success) {
-        setUser(null);
-        navigate("/");
-        console.log("Logout successful");
-      } else {
-        console.log("Logout failed", data.message);
-      }
-    } catch (err) {
-      console.log(err);
+  const logout = async () => {
+    if (user) {
+      handleLogout();
+      navigate("/");
     }
   };
   return (
@@ -64,7 +49,7 @@ export default function OtherInfo() {
       </div>
 
       {/* LogOut */}
-      <div onClick={handleLogout}>
+      <div onClick={logout}>
         <div className={style.logout}>
           <i className={`fa-solid fa-power-off`}></i>
           <h6>LOGOUT</h6>

@@ -9,7 +9,7 @@ export default function HomeNavBar() {
   const [isLoginBtnHover, setIsLoginBtnHover] = useState(false);
   const [isAboutBtnHover, setIsAboutBtnHover] = useState(false);
   const [query, setQuery] = useState("");
-  const { user, setUser } = useAuth();
+  const { user, handleLogout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -19,26 +19,9 @@ export default function HomeNavBar() {
   };
 
   // Handle logout;
-  const handleLogout = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/api/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setUser(null);
-        navigate("/");
-      } else {
-        console.log("Logout failed", data.message);
-      }
-    } catch (err) {
-      console.log(err);
-      setUser(null);
+  const logout = async () => {
+    if (user) {
+      handleLogout();
     }
   };
 
@@ -179,7 +162,7 @@ export default function HomeNavBar() {
                     <i class="fa-regular fa-bell"></i>
                     <span>Notification</span>
                   </div>
-                  <div onClick={handleLogout}>
+                  <div onClick={logout}>
                     <i className="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                   </div>

@@ -2,6 +2,7 @@ import "./AuthNavbar.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import MainLogo from "../../assets/HomePage/LoginPageLogo.png";
+import { useAuth } from "../../Context/AuthContext";
 
 // Use for modify the navbar according to the page
 import { useLocation } from "react-router-dom";
@@ -10,6 +11,7 @@ export default function SignNavbar() {
   const [isAboutBtnHover, setIsAboutBtnHover] = useState(false);
   const [isLoginBtnHover, setIsLoginBtnHover] = useState(false);
   const [query, setQuery] = useState("");
+  const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   // use for modify the navbar according to the page
@@ -19,6 +21,13 @@ export default function SignNavbar() {
   const handleSearch = () => {
     if (!query.trim()) return;
     navigate(`/product-list?search=${query.trim()}`);
+  };
+
+  // Handle logout;
+  const logout = async () => {
+    if (user) {
+      handleLogout();
+    }
   };
 
   return (
@@ -52,44 +61,63 @@ export default function SignNavbar() {
           onMouseEnter={() => setIsLoginBtnHover(true)}
           onMouseLeave={() => setIsLoginBtnHover(false)}
         >
-          <button>Login</button>
-
-          {isLoginBtnHover ? (
-            <div className="authLoginBtnOptions">
-              <Link to="/signup" className="link">
-                <div className="authSignUpOption">
-                  <p>New customer?</p>
-                  <a>Sign Up</a>
-                </div>
-              </Link>
-              <div>
-                <i className="fa-regular fa-circle-user"></i>
-                <span>My Profile</span>
-              </div>
-              <div>
-                <i className="fa-brands fa-gg"></i>
-                <span>Flipkart Plus Zone</span>
-              </div>
-              <div>
-                <i className="fa-solid fa-box-open"></i>
-                <span>Orders</span>
-              </div>
-              <div>
-                <i className="fa-regular fa-heart"></i>
-                <span>Wishlist</span>
-              </div>
-              <div>
-                <i class="fa-solid fa-gift"></i>
-                <span>Rewards</span>
-              </div>
-              <div>
-                <i class="fa-regular fa-credit-card"></i>
-                <span>Gift Cards</span>
-              </div>
-            </div>
+          {user ? (
+            <button>{user.username}</button>
           ) : (
-            ""
+            <button onClick={() => navigate("/login")}>Login</button>
           )}
+
+          <div className="authLoginOptions">
+            {isLoginBtnHover && (
+              <div className="loginOptions">
+                {user ? (
+                  <>
+                    <div>
+                      <i className="fa-regular fa-user"></i>
+                      <span>My Profile</span>
+                    </div>
+                    <div>
+                      <i class="fa-brands fa-bitcoin"></i>
+                      <span>SuperCoin Zone</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-circle-radiation"></i>
+                      <span>Flipkart Plus Zone</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-box"></i>
+                      <span>Orders</span>
+                    </div>
+                    <div>
+                      <i class="fa-regular fa-heart"></i>
+                      <span>Whishlist</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-tag"></i>
+                      <span>Coupons</span>
+                    </div>
+                    <div>
+                      <i className="fa-regular fa-credit-card"></i>
+                      <span>Gift Cards</span>
+                    </div>
+                    <div>
+                      <i class="fa-regular fa-bell"></i>
+                      <span>Notification</span>
+                    </div>
+                    <div onClick={logout}>
+                      <i class="fa-solid fa-power-off"></i>
+                      <span>Logout</span>
+                    </div>
+                  </>
+                ) : (
+                  <div>
+                    <i className="fa-regular fa-user"></i>
+                    <span>Login</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* SELLER BUTTON */}

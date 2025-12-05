@@ -7,32 +7,15 @@ import { useAuth } from "../../Context/AuthContext.jsx";
 export default function MainContent() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { handleLogin, error } = useAuth();
 
-  const handleLogin = async () => {
-    console.log("HANDLE LOGIN FIRED");
-
-    try {
-      const res = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setUser(data.user);
-        navigate("/");
-      } else {
-        setError("Invalid username or password");
-        setUser(null);
-      }
-    } catch (error) {
-      console.error("FETCH ERROR:", error);
+  const login = () => {
+    if (username && password) {
+      handleLogin();
+      navigate("/");
+    } else {
+      alert("Please enter username and password");
     }
   };
 
@@ -97,7 +80,7 @@ export default function MainContent() {
             .
           </p>
 
-          <button type="button" className="continue-btn" onClick={handleLogin}>
+          <button type="button" className="continue-btn" onClick={login}>
             CONTINUE
           </button>
 

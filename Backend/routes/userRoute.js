@@ -202,6 +202,7 @@ router.get("/check-login", (req, res) => {
       user: {
         username: req.session.username,
         email: req.session.email,
+        mobile: req.session.mobile,
         _id: req.session.userId,
       },
     });
@@ -284,7 +285,7 @@ router.delete("/user/delete", async (req, res) => {
 // Update User
 router.put("/user/update", async (req, res) => {
   try {
-    const allowedFields = ["username", "email"];
+    const allowedFields = ["username", "email", "mobile"];
 
     const updates = {};
     for (let key of allowedFields) {
@@ -300,6 +301,7 @@ router.put("/user/update", async (req, res) => {
     }
     req.session.username = user.username;
     req.session.email = user.email;
+    req.session.mobile = user.mobile;
     res.json({ success: true, message: "User updated successfully", user });
   } catch (error) {
     res.status(500).json({ success: false, error: "Failed to update user" });

@@ -24,6 +24,15 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters"],
     },
+    mobile: {
+      type: String,
+      default: null,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+      default: "",
+    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -34,9 +43,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Hash password before saving, bcrypt ke baare me jaroor padhana
-
-// ok bhaiyaa , ee mere liye new hai or feature me am bhi ayega
+// Pre-save hook to hash password
 userSchema.pre("save", async function (next) {
   // Only hash the password if it's modified or new
   if (!this.isModified("password")) return next();

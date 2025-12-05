@@ -2,6 +2,31 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+
+  // Handle Login;
+  const handleLogin = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUser(data.user);
+        navigate("/");
+      } else {
+        setError("Invalid username or password");
+        setUser(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Check user login or not ;
   const checkUser = async () => {
@@ -52,8 +77,32 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  // Logout the user;
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUser(null);
+        navigate("/");
+      } else {
+        console.log("Logout failed", data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, checkUser, updateUser }}>
+    <AuthContext.Provider
+      value={{ handleLogin, error, user, checkUser, updateUser, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );
