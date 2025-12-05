@@ -12,11 +12,29 @@
   margin: 0;
   padding-bottom: 15px;
 }
-.personalInfo input {
+.personalInfo div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.personalInfo div input {
   height: 50px;
   width: 30%;
   outline: none;
   border: 1px solid lightgray;
   padding: 0 10px;
   border-radius: 2px;
+}
+.personalInfo div button {
+  height: 50px;
+  width: 80px;
+  border: none;
+  outline: none;
+  background-color: #2874f0;
+  color: white;
+  border-radius: 2px;
+}
+.personalInfo div button:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
 }

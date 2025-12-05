@@ -11,11 +11,29 @@
   margin: 0;
   padding-bottom: 15px;
 }
-.email input {
+.email div input {
   height: 50px;
   width: 30%;
   outline: none;
   border: 1px solid lightgray;
   padding: 0 10px;
   border-radius: 2px;
+}
+.email div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.email div button {
+  height: 50px;
+  width: 80px;
+  background-color: #2874f0;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.email div button:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
 }
