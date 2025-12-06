@@ -3,25 +3,47 @@ import SecurityLogo from "../../assets/HomePage/security.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function MainContent() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+
+  // create react-toastify
+  const notify = () => {
+    toast.success("Signup Successfully", { autoClose: 3000 });
+  };
 
   const navigate = useNavigate();
-  const { handleSignup } = useAuth();
+  const { handleSignup, error, setError } = useAuth();
 
-  const signUp = () => {
+  const signUp = async () => {
     if (!username || !email || !password || !confirmPassword) {
-      setError("Please enter username, email, password and confirm password");
+      setError("Please enter the details");
       return;
     }
-    const success = handleSignup(username, email, password, confirmPassword);
+
+    if (!email.includes("@")) {
+      setError("Enter correct email address");
+      return;
+    }
+    if (username.length < 3) {
+      setError("Username must have at least 3 characters");
+      return;
+    }
+
+    const success = await handleSignup(
+      username,
+      email,
+      password,
+      confirmPassword
+    );
+
     if (success) {
       navigate("/");
+      notify();
     }
   };
 

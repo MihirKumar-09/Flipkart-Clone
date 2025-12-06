@@ -39,6 +39,7 @@
 /* Login Button  */
 .btn {
   height: 100%;
+  cursor: pointer;
 }
 .btn button {
   border: none;

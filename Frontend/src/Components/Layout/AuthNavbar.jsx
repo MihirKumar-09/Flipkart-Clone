@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import MainLogo from "../../assets/HomePage/LoginPageLogo.png";
 import { useAuth } from "../../Context/AuthContext";
+import { toast } from "react-toastify";
 
 // Use for modify the navbar according to the page
 import { useLocation } from "react-router-dom";
@@ -13,6 +14,9 @@ export default function SignNavbar() {
   const [query, setQuery] = useState("");
   const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
+  const notify = () => {
+    toast.success("Logout Successfully", { autoClose: 3000 });
+  };
 
   // use for modify the navbar according to the page
   const location = useLocation();
@@ -27,6 +31,7 @@ export default function SignNavbar() {
   const logout = async () => {
     if (user) {
       handleLogout();
+      notify();
     }
   };
 

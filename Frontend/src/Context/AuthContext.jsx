@@ -12,30 +12,30 @@ export default function AuthProvider({ children }) {
     setError("");
     if (password !== confirmPassword) {
       setError("Passwords do not match");
-      return;
+      return false;
     }
 
     try {
       const res = await fetch("http://localhost:8080/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password, confirmPassword }),
+        body: JSON.stringify({ username, email, password }),
+        credentials: "include",
       });
 
       const data = await res.json();
 
       if (data.success) {
         setUser(data.user);
-        navigate("/", {
-          state: { justSignedUp: true, name: username, email: email },
-        });
+        return true;
       } else {
         setError(data.message);
-        setUser(null);
+        return false;
       }
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Try again.");
+      return false;
     }
   };
 
@@ -139,24 +139,6 @@ export default function AuthProvider({ children }) {
     }
   };
 
-  // Delete User Accout
-  const deleteUser = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/api/delete-user", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      return { success: false, message: "Server error" };
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -168,7 +150,6 @@ export default function AuthProvider({ children }) {
         checkUser,
         updateUser,
         handleLogout,
-        deleteUser,
       }}
     >
       {children}

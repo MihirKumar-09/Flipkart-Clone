@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function Buttons({ product }) {
   const { user } = useAuth();
@@ -13,6 +14,19 @@ export default function Buttons({ product }) {
   const cartItems = useSelector((state) => state.cart.items);
   const isInCart = cartItems.some((item) => item._id === product._id);
 
+  const notify = () => {
+    toast.success("Added to cart", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   const handleAddToCart = () => {
     if (!user) {
       navigate("/login");
@@ -21,6 +35,7 @@ export default function Buttons({ product }) {
 
     dispatch(addToCart(product));
     navigate("/cart");
+    notify();
   };
 
   return (
