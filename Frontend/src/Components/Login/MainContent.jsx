@@ -1,20 +1,29 @@
 import "../Signup/Signup.css";
 import SecurityLogo from "../../assets/HomePage/security.png";
 import { Link, useNavigate } from "react-router-dom";
-import { use, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../Context/AuthContext.jsx";
+
+// Import React-Toastify;
+import { ToastContainer, toast } from "react-toastify";
 
 export default function MainContent() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const navigate = useNavigate();
-  const { handleLogin, error } = useAuth();
+  const { handleLogin, error, setError } = useAuth();
 
-  const login = () => {
-    if (username && password) {
-      handleLogin(username, password);
-    } else {
-      alert("Please enter username and password");
+  const notify = () => {
+    toast.success("Login Successfully", { autoClose: 3000 });
+  };
+  const login = async () => {
+    if (!username || !password) {
+      setError("Please enter username and password");
+      return;
+    }
+    const success = await handleLogin(username, password);
+    if (success) {
+      notify();
     }
   };
 
@@ -50,6 +59,11 @@ export default function MainContent() {
               className="input-field"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  login();
+                }
+              }}
             />
             <label>Password</label>
           </div>
@@ -79,7 +93,13 @@ export default function MainContent() {
             .
           </p>
 
-          <button type="button" className="continue-btn" onClick={login}>
+          <button
+            type="button"
+            className="continue-btn"
+            onClick={() => {
+              login();
+            }}
+          >
             CONTINUE
           </button>
 

@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import "./HomeNavBar.css";
 import MainLogo from "../../assets/HomePage/MainLogo.svg";
 import { useAuth } from "../../Context/AuthContext";
+// Import React-Toastify;
+import { ToastContainer, toast } from "react-toastify";
 
 export default function HomeNavBar() {
   const [isLoginBtnHover, setIsLoginBtnHover] = useState(false);
@@ -12,6 +14,10 @@ export default function HomeNavBar() {
   const { user, handleLogout } = useAuth();
 
   const navigate = useNavigate();
+
+  const notify = () => {
+    toast.success("Logout Successfully", { autoClose: 3000 });
+  };
 
   const handleSearch = () => {
     if (!query) return;
@@ -22,6 +28,7 @@ export default function HomeNavBar() {
   const logout = async () => {
     if (user) {
       handleLogout();
+      notify();
     }
   };
 

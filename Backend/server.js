@@ -53,10 +53,10 @@ app.use(
 
 // Debug middleware
 app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-  console.log(`Session ID: ${req.sessionID}`);
-  console.log(`User authenticated: ${req.session.userId ? "YES" : "NO"}`);
-  console.log("-".repeat(50));
+  // console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  // console.log(`Session ID: ${req.sessionID}`);
+  // console.log(`User authenticated: ${req.session.userId ? "YES" : "NO"}`);
+  // console.log("-".repeat(50));
   next();
 });
 

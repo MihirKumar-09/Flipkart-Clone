@@ -7,6 +7,38 @@ export default function AuthProvider({ children }) {
 
   const navigate = useNavigate();
 
+  // Handle SignUp
+  const handleSignup = async (username, email, password, confirmPassword) => {
+    setError("");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:8080/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password, confirmPassword }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setUser(data.user);
+        navigate("/", {
+          state: { justSignedUp: true, name: username, email: email },
+        });
+      } else {
+        setError(data.message);
+        setUser(null);
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Try again.");
+    }
+  };
+
   // Handle Login;
   const handleLogin = async (username, password) => {
     try {
@@ -18,16 +50,21 @@ export default function AuthProvider({ children }) {
         body: JSON.stringify({ username: username, password: password }),
         credentials: "include",
       });
+
       const data = await res.json();
       if (data.success) {
+        setError("");
         setUser(data.user);
         navigate("/");
+        return true;
       } else {
         setError("Invalid username or password");
         setUser(null);
+        return false;
       }
     } catch (error) {
       console.log(error);
+      return false;
     }
   };
 
@@ -102,9 +139,37 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  // Delete User Accout
+  const deleteUser = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/delete-user", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return { success: false, message: "Server error" };
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ handleLogin, error, user, checkUser, updateUser, handleLogout }}
+      value={{
+        handleSignup,
+        handleLogin,
+        error,
+        setError,
+        user,
+        checkUser,
+        updateUser,
+        handleLogout,
+        deleteUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

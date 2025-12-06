@@ -12,36 +12,16 @@ export default function MainContent() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { handleSignup } = useAuth();
 
-  const handleSignup = async () => {
-    setError("");
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+  const signUp = () => {
+    if (!username || !email || !password || !confirmPassword) {
+      setError("Please enter username, email, password and confirm password");
       return;
     }
-
-    try {
-      const res = await fetch("http://localhost:8080/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setUser(data.user);
-        navigate("/", {
-          state: { justSignedUp: true, name: username, email: email },
-        });
-      } else {
-        setError(data.message);
-        setUser(null);
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Try again.");
+    const success = handleSignup(username, email, password, confirmPassword);
+    if (success) {
+      navigate("/");
     }
   };
 
@@ -124,7 +104,7 @@ export default function MainContent() {
             </a>
             .
           </p>
-          <button type="button" className="continue-btn" onClick={handleSignup}>
+          <button type="button" className="continue-btn" onClick={signUp}>
             CONTINUE
           </button>
           <Link to="/login">

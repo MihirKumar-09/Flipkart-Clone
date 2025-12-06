@@ -270,13 +270,31 @@ router.post("/logout", (req, res) => {
 });
 
 // Delete User
-router.delete("/user/delete", async (req, res) => {
+router.delete("/delete-user", async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.session.userId);
+    const userId = req.session.userId;
+
+    if (!userId) {
+      return res.status(401).json({ success: false, error: "Not logged in" });
+    }
+
+    const user = await User.findByIdAndDelete(userId);
+
     if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });
     }
-    res.json({ success: true, message: "User deleted successfully" });
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        return res
+          .status(500)
+          .json({ success: false, error: "Failed to clear session" });
+      }
+
+      res.clearCookie("connect.sid");
+      return res.json({ success: true, message: "User deleted successfully" });
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: "Failed to delete user" });
   }

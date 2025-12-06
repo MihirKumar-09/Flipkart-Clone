@@ -163,6 +163,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  position: relative;
 }
 .more button,
 .cart button {
@@ -183,8 +184,9 @@
 }
 
 .more-about-options {
-  margin-right: 180px;
-  top: 40px;
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
 .more-about-options i {
   color: #2874f0;
