@@ -1,15 +1,21 @@
 import style from "./OtherInfo.module.css";
 import { useAuth } from "../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function OtherInfo() {
   const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
+
+  const notify = () => {
+    toast.success("Logout Successfully", { autoClose: 3000, theme: "dark" });
+  };
 
   // handle logout;
   const logout = async () => {
     if (user) {
       handleLogout();
       navigate("/");
+      notify();
     }
   };
   return (

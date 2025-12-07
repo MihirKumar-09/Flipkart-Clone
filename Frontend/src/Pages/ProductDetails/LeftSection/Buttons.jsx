@@ -17,7 +17,7 @@ export default function Buttons({ product }) {
   const notify = () => {
     toast.success("Added to cart", {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
