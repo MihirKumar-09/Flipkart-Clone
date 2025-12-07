@@ -8,6 +8,7 @@ import MongoStore from "connect-mongo";
 import User from "./models/userModel.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoute.js";
+import addressRoutes from "./routes/addressRoute.js";
 
 dotenv.config();
 
@@ -113,6 +114,7 @@ app.get("/user", async (req, res) => {
 // Mount routes
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
+app.use("/api", addressRoutes);
 
 // 404 handler
 app.use((req, res) => {

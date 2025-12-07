@@ -32,6 +32,9 @@ import CartPage from "../Pages/Cart/Cart";
 // import profile
 import Profile from "../Pages/Profile/ProfilePage";
 
+// Buy Now Page;
+import BuyNow from "../Pages/BuyNow/BuyNow";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -40,6 +43,7 @@ export default function AppRoute() {
       <Route path="/grocery" element={<Grocery />} />
       <Route path="/flight" element={<Flight />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/buy-now" element={<BuyNow />} />
 
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />

@@ -21,6 +21,7 @@ export default function SignNavbar() {
   // use for modify the navbar according to the page
   const location = useLocation();
   const isCartPage = location.pathname === "/cart";
+  const isBuyNowPage = location.pathname === "/buy-now";
 
   const handleSearch = () => {
     if (!query.trim()) return;
@@ -50,128 +51,132 @@ export default function SignNavbar() {
         </Link>
 
         {/* SEARCH BAR */}
-        <div className="sign-search-bar">
-          <input
-            type="text"
-            value={query}
-            placeholder="Search for products, brands and more"
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          />
-          <span>
-            <i
-              className="fa-solid fa-magnifying-glass"
-              onClick={handleSearch}
-            ></i>
-          </span>
-        </div>
+        {!isBuyNowPage && (
+          <div className="sign-search-bar">
+            <input
+              type="text"
+              value={query}
+              placeholder="Search for products, brands and more"
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            />
+            <span>
+              <i
+                className="fa-solid fa-magnifying-glass"
+                onClick={handleSearch}
+              ></i>
+            </span>
+          </div>
+        )}
 
         {/* LOGIN BUTTON */}
-        <div
-          className="login-btn"
-          onMouseEnter={() => setIsLoginBtnHover(true)}
-          onMouseLeave={() => setIsLoginBtnHover(false)}
-        >
-          {user ? (
-            <button>{user.username}</button>
-          ) : (
-            <button onClick={() => navigate("/login")}>Login</button>
-          )}
-
-          <div className="authLoginOptions">
-            {isLoginBtnHover && (
-              <div className="loginAuthOptions">
-                {user ? (
-                  <>
-                    <div onClick={handleProfile}>
-                      <i className="fa-regular fa-user"></i>
-                      <span>My Profile</span>
-                    </div>
-                    <div>
-                      <i class="fa-brands fa-bitcoin"></i>
-                      <span>SuperCoin Zone</span>
-                    </div>
-                    <div>
-                      <i class="fa-solid fa-circle-radiation"></i>
-                      <span>Flipkart Plus Zone</span>
-                    </div>
-                    <div>
-                      <i class="fa-solid fa-box"></i>
-                      <span>Orders</span>
-                    </div>
-                    <div>
-                      <i class="fa-regular fa-heart"></i>
-                      <span>Whishlist</span>
-                    </div>
-                    <div>
-                      <i class="fa-solid fa-tag"></i>
-                      <span>Coupons</span>
-                    </div>
-                    <div>
-                      <i className="fa-regular fa-credit-card"></i>
-                      <span>Gift Cards</span>
-                    </div>
-                    <div>
-                      <i class="fa-regular fa-bell"></i>
-                      <span>Notification</span>
-                    </div>
-                    <div onClick={logout}>
-                      <i class="fa-solid fa-power-off"></i>
-                      <span>Logout</span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/signup" className="authlink">
-                      <div className="authSignUp">
-                        <p>New customer?</p>
-                        <span>Sign Up</span>
-                      </div>
-                    </Link>
-                    <div onClick={handleProfile}>
-                      <i className="fa-regular fa-user"></i>
-                      <span>My Profile</span>
-                    </div>
-                    <div>
-                      <i className="fa-brands fa-gg"></i>
-                      <span>Flipkart Plus Zone</span>
-                    </div>
-                    <div>
-                      <i class="fa-brands fa-bitcoin"></i>
-                      <span>SuperCoin Zone</span>
-                    </div>
-                    <div>
-                      <i class="fa-solid fa-box"></i>
-                      <span>Orders</span>
-                    </div>
-                    <div>
-                      <i class="fa-solid fa-heart"></i>
-                      <span>Wishlist</span>
-                    </div>
-                    <div>
-                      <i class="fa-solid fa-gift"></i>
-                      <span>Rewards</span>
-                    </div>
-                    <div>
-                      <i className="fa-regular fa-credit-card"></i>
-                      <span>Gift Cards</span>
-                    </div>
-                  </>
-                )}
-              </div>
+        {!isBuyNowPage && (
+          <div
+            className="login-btn"
+            onMouseEnter={() => setIsLoginBtnHover(true)}
+            onMouseLeave={() => setIsLoginBtnHover(false)}
+          >
+            {user ? (
+              <button>{user.username}</button>
+            ) : (
+              <button onClick={() => navigate("/login")}>Login</button>
             )}
+
+            <div className="authLoginOptions">
+              {isLoginBtnHover && (
+                <div className="loginAuthOptions">
+                  {user ? (
+                    <>
+                      <div onClick={handleProfile}>
+                        <i className="fa-regular fa-user"></i>
+                        <span>My Profile</span>
+                      </div>
+                      <div>
+                        <i class="fa-brands fa-bitcoin"></i>
+                        <span>SuperCoin Zone</span>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-circle-radiation"></i>
+                        <span>Flipkart Plus Zone</span>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-box"></i>
+                        <span>Orders</span>
+                      </div>
+                      <div>
+                        <i class="fa-regular fa-heart"></i>
+                        <span>Whishlist</span>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-tag"></i>
+                        <span>Coupons</span>
+                      </div>
+                      <div>
+                        <i className="fa-regular fa-credit-card"></i>
+                        <span>Gift Cards</span>
+                      </div>
+                      <div>
+                        <i class="fa-regular fa-bell"></i>
+                        <span>Notification</span>
+                      </div>
+                      <div onClick={logout}>
+                        <i class="fa-solid fa-power-off"></i>
+                        <span>Logout</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/signup" className="authlink">
+                        <div className="authSignUp">
+                          <p>New customer?</p>
+                          <span>Sign Up</span>
+                        </div>
+                      </Link>
+                      <div onClick={handleProfile}>
+                        <i className="fa-regular fa-user"></i>
+                        <span>My Profile</span>
+                      </div>
+                      <div>
+                        <i className="fa-brands fa-gg"></i>
+                        <span>Flipkart Plus Zone</span>
+                      </div>
+                      <div>
+                        <i class="fa-brands fa-bitcoin"></i>
+                        <span>SuperCoin Zone</span>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-box"></i>
+                        <span>Orders</span>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Wishlist</span>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-gift"></i>
+                        <span>Rewards</span>
+                      </div>
+                      <div>
+                        <i className="fa-regular fa-credit-card"></i>
+                        <span>Gift Cards</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* SELLER BUTTON */}
-        {!isCartPage && (
+        {!isCartPage && !isBuyNowPage && (
           <div className="seller">
             <button>Become a Seller</button>
           </div>
         )}
 
         {/* MORE BUTTON */}
-        {!isCartPage && (
+        {!isCartPage && !isBuyNowPage && (
           <div
             className="more aboutDiv"
             onMouseEnter={() => setIsAboutBtnHover(true)}
@@ -208,7 +213,7 @@ export default function SignNavbar() {
         )}
 
         {/* CART BUTTON */}
-        {!isCartPage && (
+        {!isCartPage && !isBuyNowPage && (
           <div className="cart">
             <i className="fa-solid fa-cart-shopping"></i>
             <Link to="/cart">

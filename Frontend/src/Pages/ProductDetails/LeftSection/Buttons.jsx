@@ -38,6 +38,14 @@ export default function Buttons({ product }) {
     notify();
   };
 
+  const handleBuyNow = () => {
+    if (!user) {
+      navigate("/login");
+      toast.error("You are not logged in");
+      return;
+    }
+  };
+
   return (
     <div className={style.Buttons}>
       {isInCart ? (
@@ -52,7 +60,7 @@ export default function Buttons({ product }) {
         </button>
       )}
 
-      <button>
+      <button onClick={handleBuyNow}>
         <i className="fa-solid fa-bolt-lightning"></i>
         <span>BUY NOW</span>
       </button>

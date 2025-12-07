@@ -1,0 +1,5 @@
+.totalMoney {
+  width: calc(100% - 65%);
+  background-color: red;
+  margin-top: 69px;
+}

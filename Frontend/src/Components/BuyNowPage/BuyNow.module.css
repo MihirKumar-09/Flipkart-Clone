@@ -1,0 +1,9 @@
+.buyNow {
+  display: flex;
+  height: auto;
+  width: 100%;
+  background-color: #f1f3f6;
+  padding: 0px 150px;
+  gap: 20px;
+  justify-content: center;
+}

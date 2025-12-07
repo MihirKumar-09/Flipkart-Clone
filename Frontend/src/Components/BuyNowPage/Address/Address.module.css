@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.addressContainer {
+  width: 65%;
+  margin-top: 69px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.address {
+  width: 100%;
+  background-color: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+.address h6 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #2874f0;
+  font-weight: 600;
+}
+.address i {
+  color: #2874f0;
+}
