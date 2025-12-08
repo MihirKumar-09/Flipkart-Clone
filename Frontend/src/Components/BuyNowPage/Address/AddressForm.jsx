@@ -1,5 +1,6 @@
 import style from "./AddressForm.module.css";
 import { useState } from "react";
+import { useAuth } from "../../../Context/AuthContext";
 
 export default function AddressForm({ onCancel, onSave }) {
   const [name, setName] = useState("");
@@ -8,6 +9,7 @@ export default function AddressForm({ onCancel, onSave }) {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  const { error, setError } = useAuth();
 
   const indianStates = [
     "Andaman and Nicobar Islands",
@@ -50,7 +52,7 @@ export default function AddressForm({ onCancel, onSave }) {
 
   const handleSubmit = async () => {
     if (!name || !mobile || !pincode || !address || !city || !state) {
-      alert("Please fill all the fields");
+      setError("All fields are required!");
       return;
     }
 
@@ -95,10 +97,17 @@ export default function AddressForm({ onCancel, onSave }) {
         />
 
         <input
-          type="text"
+          type="number"
           placeholder="10-digit mobile number"
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            // allow only digits AND max 10 characters
+            if (/^\d{0,10}$/.test(value)) {
+              setMobile(value);
+            }
+          }}
         />
       </div>
 
@@ -144,6 +153,7 @@ export default function AddressForm({ onCancel, onSave }) {
           ))}
         </select>
       </div>
+      {error && <p className={style.error}>{error}</p>}
 
       <div className={style.btns}>
         <button onClick={handleSubmit}>SAVE AND DELIVER HERE</button>

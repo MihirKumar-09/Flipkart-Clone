@@ -62,3 +62,7 @@
   background-color: transparent;
   color: #2874f0;
 }
+/* Error */
+.error {
+  color: red;
+}

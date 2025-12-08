@@ -1,11 +1,14 @@
 import style from "./Address.module.css";
 import AddressForm from "./AddressForm";
 import { useState } from "react";
+import AllAddress from "./AllAddress";
 export default function Address() {
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div className={style.addressContainer}>
+      <AllAddress />
+
       {showForm && (
         <div>
           <AddressForm
