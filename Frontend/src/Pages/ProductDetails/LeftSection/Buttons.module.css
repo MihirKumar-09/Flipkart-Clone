@@ -21,3 +21,57 @@
 .Buttons button:last-child {
   background-color: #fb641b;
 }
+
+/* allButton */
+.allButton {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonContainer {
+  height: 300px;
+  width: 500px;
+  background-color: #ffffffcc;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.primary {
+  padding: 14px 0px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+}
+.secondary {
+  padding: 14px 0px;
+  background-color: #f9fafb !important;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: black !important;
+}
+.secondary:hover {
+  background-color: #f3f4f6 !important;
+  color: white;
+}

@@ -40,10 +40,11 @@ export default function ProductTitle() {
       <div className={style.highlights}>
         <p className={style.highlightsHead}>Highlights</p>
         <div className={style.highlightsList}>
-          {product.highlights?.map((highlight) => (
-            <ul>
-              <li>{highlight}</li>
-            </ul>
+          {product.highlights?.map((item, i) => (
+            <div key={i} className={style.item}>
+              <span className={style.bullet}>•</span>
+              <span className={style.itemText}>{item}</span>
+            </div>
           ))}
         </div>
       </div>

@@ -61,20 +61,18 @@
   font-size: 1rem;
   margin: 0px 0px 10px 0px;
 }
-.highlightsList li {
-  list-style: none;
-  position: relative;
-  padding-left: 1.2em;
+.highlightsList .item {
+  display: flex;
+  gap: 10px;
 }
-
-.highlightsList li::before {
-  content: "•";
+.highlightsList .item .bullet {
   color: gray;
-  font-weight: bold;
-  position: absolute;
-  left: 0;
+  font-size: 1.2rem;
 }
-
+.itemText {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: grey;
+}
 /* discription */
 .discription {
   display: flex;

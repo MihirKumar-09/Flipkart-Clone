@@ -18,13 +18,7 @@ export default function Buttons({ product }) {
 
   const notify = () => {
     toast.success("Added to cart", {
-      position: "top-center",
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
       theme: "dark",
     });
   };
@@ -69,6 +63,16 @@ export default function Buttons({ product }) {
         <i className="fa-solid fa-bolt-lightning"></i>
         <span>BUY NOW</span>
       </button>
+
+      <div className={style.allButton}>
+        <div className={style.buttonContainer}>
+          <button className={style.primary}>Buy Now</button>
+        </div>
+        <div className={style.row}>
+          <button className={style.secondary}>Price Drop</button>
+          <button className={style.secondary}>Back In Stock</button>
+        </div>
+      </div>
     </div>
   );
 }
