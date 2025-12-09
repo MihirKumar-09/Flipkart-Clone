@@ -25,8 +25,8 @@ export default function CartItem() {
   return (
     <div className={style.cartItem}>
       {cart.map((item) => (
-        <>
-          <div className={style.item} key={item._id}>
+        <div key={item._id}>
+          <div className={style.item}>
             <div className={style.imageDiv}>
               <img
                 src={item.image?.[0]?.url || "/placeholder.png"}
@@ -46,7 +46,7 @@ export default function CartItem() {
           </div>
 
           <Button item={item} />
-        </>
+        </div>
       ))}
     </div>
   );

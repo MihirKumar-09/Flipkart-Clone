@@ -4,9 +4,11 @@ import { addToCart } from "../../../features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 import { toast } from "react-toastify";
+import { useBuyNow } from "../../../Context/BuyNowContext";
 
 export default function Buttons({ product }) {
   const { user } = useAuth();
+  const { setBuyNow } = useBuyNow();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,6 +45,9 @@ export default function Buttons({ product }) {
       navigate("/login");
       toast.error("You are not logged in");
       return;
+    } else {
+      setBuyNow(product);
+      navigate("/buy-now");
     }
   };
 

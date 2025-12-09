@@ -1,10 +1,111 @@
-.card {
+.head {
   height: auto;
   width: 100%;
+  background-color: #2874f0;
+  padding: 15px 20px;
+}
+.head h3 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+.card {
+  padding: 15px;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+}
+.activeCard {
+  border: 1px solid #2874f0;
+  background-color: #f5faff;
+}
+
+.top {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
+  padding: 0px 10px;
+}
+.top p {
+  margin: 0;
+  color: black;
+}
+.top div {
+  display: flex;
+}
+.top div p {
+  color: black;
+  margin: 0;
+}
+
+.radio {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+/* name */
+.name {
+  gap: 30px;
+  margin-bottom: 8px;
+}
+.name p:first-child {
+  font-weight: 500;
+  color: black;
+  line-height: 1.4;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.name p:nth-child(2) {
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  line-height: 1.4;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+/* address */
+.address {
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+/* cityPincode */
+.cityPincode {
+  margin-bottom: 15px;
+}
+.cityPincode p:first-child {
+  color: black;
+  line-height: 1.4;
+  font-family: sans-serif;
+}
+.cityPincode p:nth-child(2) {
+  font-size: 14px;
+  color: black;
+  font-weight: 600;
+  line-height: 1.4;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Button */
+.button {
+  height: 40px;
+  width: 200px;
+  border: none;
+  outline: none;
+  background-color: #fb641b;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  border-radius: 2px;
 }

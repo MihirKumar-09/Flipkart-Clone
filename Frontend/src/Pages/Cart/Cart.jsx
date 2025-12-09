@@ -4,11 +4,32 @@ import CartItem from "./CartItem";
 import { useSelector } from "react-redux";
 import TotalPrice from "./TotalPrice";
 import Footer from "./Footer";
+import { useAuth } from "../../Context/AuthContext";
+import { useBuyNow } from "../../Context/BuyNowContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart.items);
 
   const isEmpty = !Array.isArray(cart) || cart.length === 0;
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const { setBuyNow } = useBuyNow();
+
+  const handlePlaceOrder = () => {
+    if (!user) {
+      navigate("/login");
+      toast.error("You are not logged in");
+      return;
+    }
+    setBuyNow({
+      price: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+      quantity: cart.length,
+      items: cart,
+    });
+    navigate("/buy-now");
+  };
 
   return (
     <div className={style.cart}>
@@ -17,7 +38,7 @@ export default function Cart() {
         <div className={style.leftSection}>
           <CartItem />
           {!isEmpty && (
-            <div className={style.bottomBar}>
+            <div className={style.bottomBar} onClick={handlePlaceOrder}>
               <button>PLACE ORDER</button>
             </div>
           )}
