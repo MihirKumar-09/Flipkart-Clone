@@ -1,0 +1,16 @@
+.imageContainer {
+  height: 300px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.imageContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+}

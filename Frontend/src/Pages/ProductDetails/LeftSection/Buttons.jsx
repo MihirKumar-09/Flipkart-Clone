@@ -90,7 +90,11 @@ export default function Buttons({ product }) {
               >
                 Price Drop
               </button>
-              <button>Back In Stock</button>
+              <button
+                onClick={() => navigate("/stock-availabel", { state: product })}
+              >
+                Back In Stock
+              </button>
             </div>
           </div>
         </div>

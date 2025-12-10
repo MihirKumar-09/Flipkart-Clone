@@ -10,7 +10,7 @@ export default function ImageContainer() {
   }
   return (
     <div className={style.image}>
-      <img src={product.image[0].url} alt="" />
+      <img src={product.image[0].url} alt={product.name} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import style from "./Details.module.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 export default function Details() {
-  const navigate = useNavigate();
   const { state: product } = useLocation();
   return (
     <div className={style.detailsContainer}>

@@ -38,6 +38,9 @@ import BuyNow from "../Pages/BuyNow/BuyNow";
 // Import Price Drop
 import PriceDrop from "../Pages/PriceDrop/PriceDrop";
 
+// Import Stock available;
+import Stock from "../Pages/StockAvailabe/Stock";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -48,6 +51,7 @@ export default function AppRoute() {
       <Route path="/cart" element={<CartPage />} />
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/price-drop" element={<PriceDrop />} />
+      <Route path="/stock-availabel" element={<Stock />} />
 
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />
