@@ -35,8 +35,8 @@
   justify-content: center;
 }
 .buttonContainer {
-  height: 300px;
-  width: 500px;
+  height: 250px;
+  width: 400px;
   background-color: #ffffffaa;
   backdrop-filter: blur(10px);
   border-radius: 8px;
@@ -57,29 +57,72 @@
   cursor: pointer;
 }
 .primary {
-  background-color: #026541 !important;
-  color: #e6fffa !important;
-  padding: 15px !important;
-  border: 1px solid #0f3024 !important;
-  border-radius: 4px;
-  margin-bottom: 50px;
+  background-color: #0a8f5b !important;
+  color: #ffffff;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(10, 143, 91, 0.3);
+  margin-bottom: 30px;
 }
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(10, 143, 91, 0.4);
+}
+
+.primary:active {
+  transform: scale(0.97);
+}
+
 .row {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 .row button:first-child {
-  background-color: goldenrod !important;
-  color: #030303 !important;
-  padding: 15px !important;
-  border: 1px solid #040403 !important;
-  border-radius: 4px;
+  background: linear-gradient(135deg, #e6b34c, #c18c2f) !important;
+  color: #fff !important;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  width: 48%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(193, 140, 47, 0.35);
+}
+
+.row button:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(193, 140, 47, 0.45);
+}
+
+.row button:first-child:active {
+  transform: scale(0.97);
 }
 .row button:last-child {
-  background-color: #ff0000 !important;
-  color: #e6fffa !important;
-  padding: 15px !important;
-  border: 1px solid #0f3024 !important;
-  border-radius: 4px;
+  background: linear-gradient(135deg, #ff3c3c, #c30000) !important;
+  color: #fff !important;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  width: 48%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(255, 60, 60, 0.35);
+}
+
+.row button:last-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 60, 60, 0.45);
+}
+
+.row button:last-child:active {
+  transform: scale(0.97);
 }
