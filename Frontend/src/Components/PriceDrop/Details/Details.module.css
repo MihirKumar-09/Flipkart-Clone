@@ -1,0 +1,95 @@
+.detailsContainer {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.detailsContainer h3 {
+  width: 100%;
+  color: white;
+  margin: 0;
+  font-size: 1.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+.price {
+  color: gray;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.setprice {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.setprice p {
+  margin: 0;
+  color: gray;
+  font-size: 1.3rem;
+}
+.setprice input {
+  height: 50px;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0px 10px;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+}
+.setprice input::placeholder {
+  color: gray;
+}
+/* Auto Buy */
+.autoBuy {
+  width: 100%;
+  height: 60px;
+}
+.checkContainer {
+  display: flex;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.autoBuy p {
+  margin: 0;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: lighter;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.autoBuy input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  height: 20px;
+  width: 20px;
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+}
+.checkContainer input:checked + .checkmark::after {
+  content: " ";
+  position: absolute;
+  width: 5px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(6px, 3px) rotate(45deg);
+}

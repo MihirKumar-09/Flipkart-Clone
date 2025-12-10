@@ -1,0 +1,45 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.PriceDrop {
+  height: 100vh;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.PriceDropContainer {
+  height: 600px;
+  width: 650px;
+  background-color: #16151a;
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.PriceDropBody {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+.imageContainer {
+  width: 220px;
+  height: 220px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.detailsContainer {
+  width: calc(100% - 220px);
+  background-color: transparent;
+}
