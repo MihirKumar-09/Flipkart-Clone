@@ -21,7 +21,9 @@ export default function SignNavbar() {
   // use for modify the navbar according to the page
   const location = useLocation();
   const isCartPage = location.pathname === "/cart";
-  const isBuyNowPage = location.pathname === "/buy-now";
+
+  const checkoutPage = ["/buy-now", "/payment"];
+  const isCheckoutPage = checkoutPage.includes(location.pathname)
 
   const handleSearch = () => {
     if (!query.trim()) return;
@@ -51,7 +53,7 @@ export default function SignNavbar() {
         </Link>
 
         {/* SEARCH BAR */}
-        {!isBuyNowPage && (
+        {!isCheckoutPage && (
           <div className="sign-search-bar">
             <input
               type="text"
@@ -70,7 +72,7 @@ export default function SignNavbar() {
         )}
 
         {/* LOGIN BUTTON */}
-        {!isBuyNowPage && (
+        {!isCheckoutPage && (
           <div
             className="login-btn"
             onMouseEnter={() => setIsLoginBtnHover(true)}
@@ -169,14 +171,14 @@ export default function SignNavbar() {
         )}
 
         {/* SELLER BUTTON */}
-        {!isCartPage && !isBuyNowPage && (
+        {!isCartPage && !isCheckoutPage && (
           <div className="seller">
             <button>Become a Seller</button>
           </div>
         )}
 
         {/* MORE BUTTON */}
-        {!isCartPage && !isBuyNowPage && (
+        {!isCartPage && !isCheckoutPage && (
           <div
             className="more aboutDiv"
             onMouseEnter={() => setIsAboutBtnHover(true)}
@@ -213,7 +215,7 @@ export default function SignNavbar() {
         )}
 
         {/* CART BUTTON */}
-        {!isCartPage && !isBuyNowPage && (
+        {!isCartPage && !isCheckoutPage && (
           <div className="cart">
             <i className="fa-solid fa-cart-shopping"></i>
             <Link to="/cart">

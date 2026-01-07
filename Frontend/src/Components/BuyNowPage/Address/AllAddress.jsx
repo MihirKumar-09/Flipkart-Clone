@@ -1,5 +1,6 @@
 import style from "./AllAddress.module.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 export default function allAddress() {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -62,7 +63,9 @@ export default function allAddress() {
                 <p>{addr.pincode}</p>
               </div>
               {selectedAddress === addr._id && (
-                <button className={style.button}>DELEVER HERE</button>
+                <Link to="/payment" className="link">
+                  <button  className={style.button}>DELIVER HERE</button>
+                </Link>
               )}
             </div>
           </label>
