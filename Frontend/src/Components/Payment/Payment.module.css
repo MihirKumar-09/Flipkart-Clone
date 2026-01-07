@@ -1,4 +1,16 @@
-.payment{
-    padding: 0 150px;
-    margin-top: 70px;
+.Payment {
+  margin-top: 60px;
+  height: 100%;
+  width: 100%;
+  padding: 10px 150px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.leftSection {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

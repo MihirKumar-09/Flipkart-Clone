@@ -1,7 +1,7 @@
-import style from "./Total.module.css";
+import style from "./PriceDetails.module.css";
 import { useSelector } from "react-redux";
 
-export default function TotalMoney() {
+export default function PriceDetails() {
   const cart = useSelector((state) => state.cart.items);
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
