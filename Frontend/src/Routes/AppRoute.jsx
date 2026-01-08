@@ -38,6 +38,9 @@ import BuyNow from "../Pages/BuyNow/BuyNow";
 // Payment page;
 import Payment from "../Pages/Payment/Payment";
 
+// Order Success;
+import OrderSuccess from "../Pages/OrderSuccess/OrderSuccess";
+
 // Import Price Drop
 import PriceDrop from "../Pages/PriceDrop/PriceDrop";
 
@@ -54,6 +57,7 @@ export default function AppRoute() {
       <Route path="/cart" element={<CartPage />} />
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/orderSuccess" element={<OrderSuccess />} />
       <Route path="/price-drop" element={<PriceDrop />} />
       <Route path="/stock-availabel" element={<Stock />} />
 

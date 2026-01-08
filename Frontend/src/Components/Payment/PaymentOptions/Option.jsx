@@ -1,8 +1,5 @@
 import styles from "./Option.module.css";
-import { useState } from "react";
-export default function Option() {
-  const [payment, setPayment] = useState("online");
-
+export default function Option({ payment, setPayment }) {
   return (
     <form className={styles.paymentOptions}>
       <h4>Payment Options</h4>
