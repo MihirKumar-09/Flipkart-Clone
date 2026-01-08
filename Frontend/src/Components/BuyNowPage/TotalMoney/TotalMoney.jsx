@@ -15,6 +15,7 @@ export default function TotalMoney() {
   return (
     <div className={style.totalPrice}>
       <h2>PRICE DETAILS</h2>
+      <hr style={{ margin: "0px" }} />
 
       <div className={style.line}>
         <p>Price ({totalItems} items)</p>

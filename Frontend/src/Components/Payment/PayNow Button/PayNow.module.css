@@ -1,0 +1,18 @@
+.payNow {
+  width: 100%;
+  height: 60px;
+  background-color: red;
+  border-radius: 5px;
+}
+.payNow button {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #0b59c4;
+  color: white;
+  border: none;
+  outline: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.285);
+  font-size: 1.3rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

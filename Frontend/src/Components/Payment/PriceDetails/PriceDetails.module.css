@@ -1,12 +1,11 @@
 .totalPrice {
-  height: 100%;
-  width: 100%;
+  height: auto;
   background-color: transparent;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: white;
 }
-
 .totalPrice h2 {
   margin: 0;
   font-size: 1.1rem;

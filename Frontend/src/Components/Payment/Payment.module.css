@@ -14,3 +14,7 @@
   flex-direction: column;
   gap: 20px;
 }
+.rightSection {
+  height: 100%;
+  width: 30%;
+}
