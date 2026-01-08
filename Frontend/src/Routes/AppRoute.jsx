@@ -57,7 +57,7 @@ export default function AppRoute() {
       <Route path="/cart" element={<CartPage />} />
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
-      <Route path="/orderSuccess" element={<OrderSuccess />} />
+      <Route path="/order-success" element={<OrderSuccess />} />
       <Route path="/price-drop" element={<PriceDrop />} />
       <Route path="/stock-availabel" element={<Stock />} />
 

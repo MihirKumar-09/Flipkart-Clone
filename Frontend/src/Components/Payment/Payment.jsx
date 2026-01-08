@@ -4,7 +4,6 @@ import PaymentOptions from "./PaymentOptions/Option";
 import PriceDetails from "./PriceDetails/PriceDetails";
 import PayNow from "./PayNow Button/PayNow";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 export default function Payment() {
   const [paymentMethod, setPaymentMethod] = useState("online");
@@ -20,8 +19,13 @@ export default function Payment() {
 
     setTimeout(() => {
       setIsPaying(false);
-      notify();
-      navigate("/orderSuccess");
+      navigate("/order-success", {
+        state: {
+          paymentMethod,
+          status: "SUCCESS",
+          transactionId: "TXN" + Date.now(),
+        },
+      });
     }, 2000);
   };
   return (
