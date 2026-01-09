@@ -6,14 +6,14 @@ export default function Option({ payment, setPayment }) {
       <hr />
       <input
         type="radio"
-        id="online"
+        id="ONLINE"
         name="payment"
-        value="online"
-        checked={payment === "online"}
+        value="ONLINE"
+        checked={payment === "ONLINE"}
         onChange={(e) => setPayment(e.target.value)}
         className={styles.radio}
       />
-      <label htmlFor="online" className={styles.option}>
+      <label htmlFor="ONLINE" className={styles.option}>
         <div className={styles.left}>
           <span className={styles.icon}>💳</span>
           <div>
@@ -27,14 +27,14 @@ export default function Option({ payment, setPayment }) {
 
       <input
         type="radio"
-        id="cod"
+        id="COD"
         name="payment"
-        value="cod"
-        checked={payment === "cod"}
+        value="COD"
+        checked={payment === "COD"}
         onChange={(e) => setPayment(e.target.value)}
         className={styles.radio}
       />
-      <label htmlFor="cod" className={styles.option}>
+      <label htmlFor="COD" className={styles.option}>
         <div className={styles.left}>
           <span className={styles.icon}>📦</span>
           <div>

@@ -3,15 +3,13 @@
   width: 100vw;
   padding: 10px 150px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 20px;
 }
 .leftSection {
   width: 65%;
-  height: 90%;
+  height: 100%;
 }
 .rightSection {
   width: calc(100% - 65%);
-  height: 200px;
+  height: 100%;
 }

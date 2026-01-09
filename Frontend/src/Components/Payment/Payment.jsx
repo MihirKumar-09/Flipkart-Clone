@@ -6,13 +6,9 @@ import PayNow from "./PayNow Button/PayNow";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Payment() {
-  const [paymentMethod, setPaymentMethod] = useState("online");
+  const [paymentMethod, setPaymentMethod] = useState("ONLINE");
   const [isPaying, setIsPaying] = useState(false);
   const navigate = useNavigate();
-
-  const notify = () => {
-    toast.success("Payment Successful");
-  };
 
   const handlePay = () => {
     setIsPaying(true);
