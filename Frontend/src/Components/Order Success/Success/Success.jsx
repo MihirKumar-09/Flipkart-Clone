@@ -18,6 +18,7 @@ export default function Success() {
       </p>
       <p>order details.</p>
       <Lottie animationData={box} loop={true} className={style.box} />
+
       <button
         onClick={() => navigation("/")}
         className={style.continueShopping}

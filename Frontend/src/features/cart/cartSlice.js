@@ -57,8 +57,13 @@ export const cartSlice = createSlice({
 });
 
 // Extract action creators
-export const { addToCart, deleteCart, increaseQuantity, decreaseQuantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  deleteCart,
+  increaseQuantity,
+  decreaseQuantity,
+  clearCart,
+} = cartSlice.actions;
 
 // Export the reducers
 export default cartSlice.reducer;
