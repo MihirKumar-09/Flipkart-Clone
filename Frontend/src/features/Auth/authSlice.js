@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Load user from localStorage (PERMANENT fix for refresh)
+// initial state from localStorage
 const savedUser = localStorage.getItem("user");
-
 const initialState = {
   user: savedUser ? JSON.parse(savedUser) : null,
 };
@@ -15,7 +14,6 @@ const authSlice = createSlice({
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload));
     },
-
     logout: (state) => {
       state.user = null;
       localStorage.removeItem("user");

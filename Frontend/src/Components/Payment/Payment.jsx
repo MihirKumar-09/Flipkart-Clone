@@ -15,58 +15,67 @@ export default function Payment() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const cartItems = useSelector((state) => state.cart.items);
-  const user = useSelector((state) => state.auth.user);
-  if (!user) {
-    alert("User not logged in");
-    return null;
+
+  // 🔹 Read user immediately at top-level (not inside useEffect)
+  const user = (() => {
+    try {
+      const u = localStorage.getItem("user");
+      if (u) return JSON.parse(u);
+      return null;
+    } catch (e) {
+      return null;
+    }
+  })();
+
+  // 🔹 If user not found, redirect immediately
+  if (!user || !user._id) {
+    navigate("/login"); // ✅ safe now because read is sync
+    return null; // prevent render
   }
-  // ⬆️ MUST exist (logged-in user)
 
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + Number(item.price) * Number(item.quantity),
     0
   );
 
   const handlePay = async () => {
+    if (!user || !user._id) return;
     if (!paymentMethod || cartItems.length === 0) return;
 
     setIsPaying(true);
-
     try {
+      const payload = {
+        userId: user._id,
+        orderId: "ORD" + Date.now(),
+        transactionId: "TXN" + Date.now(),
+        products: cartItems.map((item) => ({
+          product: item._id,
+          quantity: Number(item.quantity),
+          price: Number(item.price),
+        })),
+        paymentMethod,
+        totalAmount: totalPrice,
+      };
+
       const response = await fetch("http://localhost:8080/api/orders", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          orderId: "ORD" + Date.now(),
-          transactionId: "TXN" + Date.now(),
-          products: cartItems.map((item) => ({
-            product: item._id,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          paymentMethod,
-          totalAmount: totalPrice,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error("Order failed");
+        const errMsg = await response.json();
+        throw new Error(errMsg?.message || "Order failed");
       }
 
       const savedOrder = await response.json();
-
       dispatch(placeOrder(savedOrder));
       dispatch(clearCart());
-
       navigate("/order-success");
     } catch (err) {
       console.error(err);
-      alert("Payment failed");
+      alert("Payment failed: " + err.message);
     } finally {
       setIsPaying(false);
     }
@@ -75,21 +84,20 @@ export default function Payment() {
   return (
     <div>
       <NavBar />
-
       <div className={style.Payment}>
         <div className={style.leftSection}>
           <PaymentOptions
             payment={paymentMethod}
             setPayment={setPaymentMethod}
           />
-
           <PayNow
             isPaying={isPaying}
             onPay={handlePay}
-            disabled={!paymentMethod || cartItems.length === 0}
+            disabled={
+              !paymentMethod || cartItems.length === 0 || !user || !user._id
+            }
           />
         </div>
-
         <div className={style.rightSection}>
           <PriceDetails />
         </div>

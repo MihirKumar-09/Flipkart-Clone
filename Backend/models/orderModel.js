@@ -1,34 +1,58 @@
-import express from "express";
-import Order from "../models/orderModel.js";
+import mongoose from "mongoose";
 
-const router = express.Router();
+const orderSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-// CREATE ORDER (mock payment)
-router.post("/orders", async (req, res) => {
-  try {
-    const { orderId, transactionId, products, paymentMethod, totalAmount } =
-      req.body;
-    if (!orderId || !transactionId)
-      return res.status(400).json({ message: "Missing order IDs" });
+    orderId: {
+      type: String,
+      required: true,
+    },
 
-    if (!products || products.length === 0)
-      return res.status(400).json({ message: "No products" });
+    transactionId: {
+      type: String,
+      required: true,
+    },
 
-    const order = new Order({
-      orderId,
-      transactionId,
-      products,
-      paymentMethod,
-      paymentStatus: "Paid",
-      totalAmount,
-    });
+    products: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
 
-    const savedOrder = await order.save();
-    res.status(201).json(savedOrder);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Order not saved" });
-  }
-});
+    paymentMethod: {
+      type: String,
+      required: true,
+    },
 
-export default router;
+    paymentStatus: {
+      type: String,
+      default: "Paid",
+    },
+
+    totalAmount: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const Order = mongoose.model("Order", orderSchema);
+export default Order;
