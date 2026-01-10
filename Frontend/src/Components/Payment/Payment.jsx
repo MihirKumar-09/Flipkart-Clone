@@ -17,36 +17,59 @@ export default function Payment() {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
+  const user = useSelector((state) => state.auth.user);
+  if (!user) {
+    alert("User not logged in");
+    return null;
+  }
+  // ⬆️ MUST exist (logged-in user)
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  const handlePay = () => {
-    // HARD GUARDS (important)
-    if (!paymentMethod) return;
-    if (cartItems.length === 0) return;
+  const handlePay = async () => {
+    if (!paymentMethod || cartItems.length === 0) return;
 
     setIsPaying(true);
 
-    setTimeout(() => {
-      const orderData = {
-        orderId: "ORD" + Date.now(),
-        transactionId: "TXN" + Date.now(),
-        items: cartItems,
-        totalAmount: totalPrice,
-        paymentMethod,
-        status: "SUCCESS",
-        createdAt: new Date().toISOString(),
-      };
+    try {
+      const response = await fetch("http://localhost:8080/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          orderId: "ORD" + Date.now(),
+          transactionId: "TXN" + Date.now(),
+          products: cartItems.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          paymentMethod,
+          totalAmount: totalPrice,
+        }),
+      });
 
-      dispatch(placeOrder(orderData)); // ✅ persist order
-      dispatch(clearCart()); // ✅ clear cart
+      if (!response.ok) {
+        throw new Error("Order failed");
+      }
 
-      setIsPaying(false);
+      const savedOrder = await response.json();
+
+      dispatch(placeOrder(savedOrder));
+      dispatch(clearCart());
+
       navigate("/order-success");
-    }, 2000);
+    } catch (err) {
+      console.error(err);
+      alert("Payment failed");
+    } finally {
+      setIsPaying(false);
+    }
   };
 
   return (
