@@ -1,37 +1,35 @@
 import express from "express";
-const router = express.Router();
+import mongoose from "mongoose";
 import Products from "../models/productModel.js";
 
-// Route for different section
+const router = express.Router();
+
+/* ================================
+   GET PRODUCTS BY SECTION
+   ================================ */
 router.get("/products/section", async (req, res) => {
   try {
     let { category, brand, limit, random } = req.query;
 
-    limit = Number(limit) || 1000;
+    limit = Number(limit);
+    if (!limit || limit <= 0) limit = 1000;
 
-    // Convert comma-separated categories → array
-    let categoryArray = category ? category.split(",") : null;
+    const pipeline = [];
 
-    // Convert comma-separated brands → array
-    let brandArray = brand ? brand.split(",") : null;
-
-    let pipeline = [];
-
-    if (categoryArray) {
+    if (category) {
+      const categoryArray = category.split(",").map((c) => c.trim());
       pipeline.push({
-        $match: {
-          category: { $in: categoryArray },
-        },
+        $match: { category: { $in: categoryArray } },
       });
     }
 
-    if (brandArray) {
+    if (brand) {
+      const brandArray = brand.split(",").map((b) => b.trim());
       pipeline.push({
-        $match: {
-          brand: { $in: brandArray },
-        },
+        $match: { brand: { $in: brandArray } },
       });
     }
+
     if (random === "true") {
       pipeline.push({ $sample: { size: limit } });
     } else {
@@ -39,74 +37,99 @@ router.get("/products/section", async (req, res) => {
     }
 
     const products = await Products.aggregate(pipeline);
-
-    res.json(products);
+    res.status(200).json(products);
   } catch (err) {
-    console.error("Error:", err);
+    console.error("Section products error:", err);
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
 
-// Route for search
-
+/* ================================
+   SEARCH PRODUCTS
+   ================================ */
 router.get("/products/search", async (req, res) => {
   try {
-    let query = req.query.q?.trim() || "";
-    if (!query) return res.json([]);
+    const query = req.query.q?.trim();
+    if (!query) return res.status(200).json([]);
 
-    // AUTO-LOAD from DB
-    const allCategories = await Products.distinct("category");
-    const allBrands = await Products.distinct("brand");
+    const [allCategories, allBrands] = await Promise.all([
+      Products.distinct("category"),
+      Products.distinct("brand"),
+    ]);
 
-    const words = query.split(" ");
+    const words = query.split(/\s+/);
 
     let matchedCategories = [];
     let matchedBrands = [];
 
-    words.forEach((w) => {
-      const regex = new RegExp(w, "i");
+    words.forEach((word) => {
+      const regex = new RegExp(word, "i");
 
       matchedCategories.push(...allCategories.filter((c) => regex.test(c)));
-
       matchedBrands.push(...allBrands.filter((b) => regex.test(b)));
     });
 
     matchedCategories = [...new Set(matchedCategories)];
     matchedBrands = [...new Set(matchedBrands)];
 
-    let match = {
+    const matchQuery = {
       $or: [
-        { name: { $regex: new RegExp(query, "i") } },
-        { description: { $regex: new RegExp(query, "i") } },
+        { name: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
         { brand: { $in: matchedBrands } },
         { category: { $in: matchedCategories } },
       ],
     };
 
-    const products = await Products.find(match).limit(100);
-    res.json(products);
+    const products = await Products.find(matchQuery).limit(100);
+    res.status(200).json(products);
   } catch (err) {
-    console.error(err);
+    console.error("Search error:", err);
     res.status(500).json({ error: "Search failed" });
   }
 });
 
-// Product Details Route
+/* ================================
+   PRODUCT DETAILS BY ID
+   ================================ */
 router.get("/products/:id", async (req, res) => {
   try {
-    const product = await Products.findById(req.params.id);
-    res.json(product);
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid product id" });
+    }
+
+    const product = await Products.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json(product);
   } catch (err) {
-    console.log("Faild to fetch product details", err);
-    res.status(500).json({ error: "Product not found" });
+    console.error("Product details error:", err);
+    res.status(500).json({ error: "Failed to fetch product details" });
   }
 });
 
-// Similar Products
+/* ================================
+   SIMILAR PRODUCTS BY CATEGORY
+   ================================ */
 router.get("/products/category/:category", async (req, res) => {
-  const { category } = req.params;
-  const products = await Products.find({ category });
-  res.json(products);
+  try {
+    const { category } = req.params;
+
+    if (!category) {
+      return res.status(400).json({ error: "Category is required" });
+    }
+
+    const products = await Products.find({ category }).limit(50);
+    res.status(200).json(products);
+  } catch (err) {
+    console.error("Category products error:", err);
+    res.status(500).json({ error: "Failed to fetch category products" });
+  }
 });
 
 export default router;

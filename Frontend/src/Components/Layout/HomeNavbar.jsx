@@ -142,23 +142,23 @@ export default function HomeNavBar() {
                     </div>
                   </Link>
                   <div>
-                    <i class="fa-brands fa-bitcoin"></i>
+                    <i className="fa-brands fa-bitcoin"></i>
                     <span>SuperCoin Zone</span>
                   </div>
                   <div>
-                    <i class="fa-solid fa-circle-radiation"></i>
+                    <i className="fa-solid fa-circle-radiation"></i>
                     <span>Flipkart Plus Zone</span>
                   </div>
                   <div>
-                    <i class="fa-solid fa-box"></i>
+                    <i className="fa-solid fa-box"></i>
                     <span>Orders</span>
                   </div>
                   <div>
-                    <i class="fa-regular fa-heart"></i>
+                    <i className="fa-regular fa-heart"></i>
                     <span>Whishlist</span>
                   </div>
                   <div>
-                    <i class="fa-solid fa-tag"></i>
+                    <i className="fa-solid fa-tag"></i>
                     <span>Coupons</span>
                   </div>
                   <div>
@@ -166,7 +166,7 @@ export default function HomeNavBar() {
                     <span>Gift Cards</span>
                   </div>
                   <div>
-                    <i class="fa-regular fa-bell"></i>
+                    <i className="fa-regular fa-bell"></i>
                     <span>Notification</span>
                   </div>
                   <div onClick={logout}>

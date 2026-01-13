@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import Order from "../models/orderModel.js";
 
 const router = express.Router();
@@ -14,12 +15,19 @@ router.post("/orders", async (req, res) => {
       totalAmount,
     } = req.body;
 
-    if (!userId) return res.status(400).json({ message: "User ID missing" });
-    if (!products || products.length === 0)
-      return res.status(400).json({ message: "No products" });
+    // Extra safety
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        message: "Invalid userId format - must be valid MongoDB ObjectId",
+      });
+    }
+
+    if (!products?.length) {
+      return res.status(400).json({ message: "No products in order" });
+    }
 
     const order = new Order({
-      user: userId,
+      user: userId, // Mongoose khud ObjectId mein cast karega
       orderId,
       transactionId,
       products,
@@ -31,8 +39,11 @@ router.post("/orders", async (req, res) => {
     const savedOrder = await order.save();
     res.status(201).json(savedOrder);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Order not saved" });
+    console.error("Order save error:", err);
+    res.status(500).json({
+      message: "Order not saved",
+      error: err.message,
+    });
   }
 });
 

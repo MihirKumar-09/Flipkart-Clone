@@ -1,16 +1,16 @@
 import style from "./Summary.module.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import online from "../../../assets/Order Success/online.png";
 import cod from "../../../assets/Order Success/cod.png";
 
 export default function Summary() {
   const navigate = useNavigate();
-  const order = useSelector((state) => state.order.currentOrder);
+  const { state } = useLocation();
 
-  if (!order) {
-    return null; // OrderSuccess page is already locked
-  }
+  // 🔒 direct access / refresh protection
+  if (!state) return null;
+
+  const { orderId, paymentMethod, totalAmount } = state;
 
   return (
     <div className={style.Summary}>
@@ -19,7 +19,7 @@ export default function Summary() {
 
       <div className={style.line}>
         <p>Payment Status:</p>
-        <span className={style.success}>{order.status}</span>
+        <span className={style.success}>SUCCESS</span>
       </div>
 
       <hr />
@@ -28,19 +28,26 @@ export default function Summary() {
         <p>Payment Method:</p>
         <span>
           <img
-            src={order.paymentMethod === "ONLINE" ? online : cod}
-            alt={order.paymentMethod}
+            src={paymentMethod === "ONLINE" ? online : cod}
+            alt={paymentMethod}
             className={style.image}
           />
-          {order.paymentMethod}
+          {paymentMethod}
         </span>
       </div>
 
       <hr />
 
       <div className={style.line}>
-        <p>Transaction ID:</p>
-        <span>{order.transactionId}</span>
+        <p>Order ID:</p>
+        <span>{orderId}</span>
+      </div>
+
+      <hr />
+
+      <div className={style.line}>
+        <p>Total Paid:</p>
+        <span>₹{totalAmount}</span>
       </div>
 
       <hr />

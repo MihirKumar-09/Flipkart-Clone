@@ -1,23 +1,30 @@
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import style from "./OrderSuccess.module.css";
 import Success from "./Success/Success";
 import Summary from "./Summary/Summary";
 
 export default function OrderSuccess() {
-  const order = useSelector((state) => state.order.currentOrder);
+  const { state } = useLocation();
 
-  if (!order) {
+  // ❌ direct access / refresh protection
+  if (!state) {
     return <Navigate to="/" replace />;
   }
+
+  const { orderId, paymentMethod, totalAmount } = state;
 
   return (
     <div className={style.orderSuccess}>
       <div className={style.leftSection}>
-        <Success />
+        <Success orderId={orderId} />
       </div>
+
       <div className={style.rightSection}>
-        <Summary />
+        <Summary
+          orderId={orderId}
+          paymentMethod={paymentMethod}
+          totalAmount={totalAmount}
+        />
       </div>
     </div>
   );

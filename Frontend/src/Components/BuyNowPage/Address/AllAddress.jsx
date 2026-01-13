@@ -64,7 +64,7 @@ export default function allAddress() {
               </div>
               {selectedAddress === addr._id && (
                 <Link to="/payment" className="link">
-                  <button  className={style.button}>DELIVER HERE</button>
+                  <button className={style.button}>DELIVER HERE</button>
                 </Link>
               )}
             </div>
