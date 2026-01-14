@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,52 +14,66 @@ export default function Payment() {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
+  const addressId = localStorage.getItem("selectedAddressId");
 
   const [paymentMethod, setPaymentMethod] = useState("ONLINE");
   const [isPaying, setIsPaying] = useState(false);
 
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + Number(item.price) * Number(item.quantity),
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  // 🔥 FRONTEND-ONLY PAYMENT
-  const handlePay = () => {
-    setIsPaying(true);
+  const handlePay = async () => {
+    try {
+      setIsPaying(true);
 
-    setTimeout(() => {
+      const res = await fetch("http://localhost:8080/order/place", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          cartItems,
+          addressId,
+          totalPrice,
+          payment: paymentMethod,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Order failed");
+      }
+
+      const data = await res.json();
+      dispatch(clearCart());
       navigate("/order-success", {
         replace: true,
         state: {
-          orderId: "ORD" + Date.now(),
-          paymentMethod,
-          totalAmount: totalPrice,
+          orderId: data.order.orderId,
+          paymentMethod: data.order.payment,
+          totalAmount: data.order.totalPrice,
         },
       });
-      dispatch(clearCart());
-
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    } finally {
       setIsPaying(false);
-    }, 2000);
+    }
   };
 
   return (
     <div>
       <NavBar />
-
       <div className={style.Payment}>
         <div className={style.leftSection}>
           <PaymentOptions
             payment={paymentMethod}
             setPayment={setPaymentMethod}
           />
-
-          <PayNow
-            isPaying={isPaying}
-            onPay={handlePay}
-            disabled={isPaying || cartItems.length === 0}
-          />
+          <PayNow onPay={handlePay} disabled={isPaying} />
         </div>
-
         <div className={style.rightSection}>
           <PriceDetails />
         </div>

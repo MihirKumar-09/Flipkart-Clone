@@ -104,92 +104,44 @@ router.post("/signup", async (req, res) => {
 // LOGIN ROUTE
 router.post("/login", async (req, res) => {
   try {
-    // console.log("=".repeat(50));
-    // console.log("LOGIN REQUEST RECEIVED");
-    // console.log("Body:", req.body);
-    // console.log("Session ID at start:", req.sessionID);
-    // console.log("Session at start:", req.session);
-
     const { username, email, password } = req.body;
 
-    // Validate input
     if (!password || (!username && !email)) {
-      return res.status(400).json({
-        success: false,
-        error: "Username/Email and password are required",
-      });
+      return res.status(400).json({ error: "Missing credentials" });
     }
 
-    // Find user by username or email
+    // ✅ DECLARE FIRST
     const user = await User.findOne({
-      $or: [{ username: username || "" }, { email: email || "" }],
-    });
+      $or: [{ username }, { email }],
+    }).select("+password");
 
+    // ✅ USE AFTER DECLARATION
     if (!user) {
-      console.log("User not found");
-      return res.status(401).json({
-        success: false,
-        error: "Invalid credentials",
-      });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    console.log("User found:", user.username);
-
-    // Check password
-    const isPasswordValid = await user.comparePassword(password);
-
-    if (!isPasswordValid) {
-      console.log("Invalid password");
-      return res.status(401).json({
-        success: false,
-        error: "Invalid credentials",
-      });
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    console.log("Password verified");
-
-    // Set session data
+    // ✅ SESSION SET AFTER USER EXISTS
     req.session.userId = user._id;
     req.session.username = user.username;
-    req.session.email = user.email;
 
-    console.log("Session data set:", {
-      userId: req.session.userId,
-      username: req.session.username,
-    });
-
-    // Save session explicitly
-    req.session.save((err) => {
-      if (err) {
-        console.error("Session save error:", err);
-        return res.status(500).json({
-          success: false,
-          error: "Session creation failed",
-        });
-      }
-
-      // console.log("Session saved successfully");
-      // console.log("Session after save:", req.session);
-      // console.log("Session ID after save:", req.sessionID);
-
+    req.session.save(() => {
       res.json({
         success: true,
-        message: "Login successful",
         user: {
+          _id: user._id,
           username: user.username,
           email: user.email,
-          _id: user._id,
         },
-        sessionId: req.sessionID,
       });
     });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({
-      success: false,
-      error: "Login failed",
-      details: error.message,
-    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ error: "Login failed" });
   }
 });
 

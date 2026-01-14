@@ -9,7 +9,7 @@ import User from "./models/userModel.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoute.js";
 import addressRoutes from "./routes/addressRoute.js";
-
+import orderRoute from "./routes/orderRoute.js";
 dotenv.config();
 
 const app = express();
@@ -115,6 +115,7 @@ app.get("/user", async (req, res) => {
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", addressRoutes);
+app.use("/order", orderRoute);
 
 // 404 handler
 app.use((req, res) => {

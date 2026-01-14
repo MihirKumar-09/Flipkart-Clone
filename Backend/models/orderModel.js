@@ -1,55 +1,38 @@
-import mongoose from "mongoose";
+import mongoose, { mongo, Schema } from "mongoose";
+
+const orderItemSchema = new mongoose.Schema({
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+    required: true,
+  },
+  name: String,
+  price: Number,
+  quantity: Number,
+  image: String, // ✅ SINGLE STRING
+});
 
 const orderSchema = new mongoose.Schema(
   {
+    orderId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-
-    orderId: {
-      type: String,
+    items: [orderItemSchema],
+    addressId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
       required: true,
     },
-
-    transactionId: {
-      type: String,
-      required: true,
-    },
-
-    products: [
-      {
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-        price: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
-
-    paymentMethod: {
-      type: String,
-      required: true,
-    },
-
-    paymentStatus: {
-      type: String,
-      default: "Paid",
-    },
-
-    totalAmount: {
-      type: Number,
-      required: true,
-    },
+    totalPrice: Number,
+    paymentMethod: String,
+    status: String,
   },
   { timestamps: true }
 );

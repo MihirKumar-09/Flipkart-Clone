@@ -7,7 +7,7 @@ export default function Summary() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  // 🔒 direct access / refresh protection
+  // lock direct access
   if (!state) return null;
 
   const { orderId, paymentMethod, totalAmount } = state;
