@@ -7,6 +7,7 @@ import NavBar from "../../Components/Layout/AuthNavbar";
 import PaymentOptions from "./PaymentOptions/Option";
 import PriceDetails from "./PriceDetails/PriceDetails";
 import PayNow from "./PayNow Button/PayNow";
+import { clearCart } from "../../features/cart/cartSlice";
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -35,9 +36,10 @@ export default function Payment() {
           totalAmount: totalPrice,
         },
       });
+      dispatch(clearCart());
 
       setIsPaying(false);
-    }, 800);
+    }, 2000);
   };
 
   return (
