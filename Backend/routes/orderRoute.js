@@ -1,6 +1,7 @@
 import express from "express";
 import isAuth from "../controllers/middleware.js";
 import Order from "../models/orderModel.js";
+
 const router = express.Router();
 
 router.post("/place", isAuth, async (req, res) => {
@@ -8,7 +9,6 @@ router.post("/place", isAuth, async (req, res) => {
 
   const { cartItems, addressId, payment } = req.body;
 
-  // Validate payload
   if (!cartItems || cartItems.length === 0) {
     return res.status(400).json({ message: "Cart is empty" });
   }
@@ -21,27 +21,26 @@ router.post("/place", isAuth, async (req, res) => {
     return res.status(400).json({ message: "Payment method required" });
   }
 
-  // Calculate total price
   let totalPrice = 0;
   cartItems.forEach((item) => {
     totalPrice += item.price * item.quantity;
   });
 
-  // Create order
   const orderItems = cartItems.map((item) => ({
     product: item._id,
     name: item.name,
     price: item.price,
     quantity: item.quantity,
-    image: item.image?.[0]?.url || "", // ✅ STRING ONLY
+    image: item.image?.[0]?.url || "",
   }));
+
   const newOrder = new Order({
     orderId: "ORD" + Date.now(),
     user: req.user._id,
     items: orderItems,
     addressId,
     totalPrice,
-    paymentMethod: payment,
+    paymentMethod: payment, // 🔥 FIX HERE
     status: "Pending",
   });
 

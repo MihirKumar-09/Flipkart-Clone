@@ -1,16 +1,4 @@
-import mongoose, { mongo, Schema } from "mongoose";
-
-const orderItemSchema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
-    required: true,
-  },
-  name: String,
-  price: Number,
-  quantity: Number,
-  image: String, // ✅ SINGLE STRING
-});
+import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
@@ -19,22 +7,50 @@ const orderSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    items: [orderItemSchema],
+
+    items: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        name: String,
+        price: Number,
+        quantity: Number,
+        image: String, // single image URL
+      },
+    ],
+
     addressId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Address",
       required: true,
     },
-    totalPrice: Number,
-    paymentMethod: String,
-    status: String,
+
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+
+    paymentMethod: {
+      type: String,
+      enum: ["ONLINE", "COD"],
+      required: true,
+    },
+
+    status: {
+      type: String,
+      default: "Pending",
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Order = mongoose.model("Order", orderSchema);

@@ -10,7 +10,10 @@ export default function Summary() {
   // lock direct access
   if (!state) return null;
 
-  const { orderId, paymentMethod, totalAmount } = state;
+  const { orderId, paymentMethod, totalAmount } = state || {};
+  if (!orderId || !paymentMethod || !totalAmount) {
+    return <p>Invalid order summary</p>;
+  }
 
   return (
     <div className={style.Summary}>

@@ -21,7 +21,7 @@ export default function Payment() {
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
 
   const handlePay = async () => {
@@ -40,18 +40,16 @@ export default function Payment() {
         }),
       });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Order failed");
-      }
-
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Order failed");
+
       dispatch(clearCart());
+
       navigate("/order-success", {
         replace: true,
         state: {
           orderId: data.order.orderId,
-          paymentMethod: data.order.payment,
+          paymentMethod: data.order.paymentMethod, // ✅ FIX
           totalAmount: data.order.totalPrice,
         },
       });
