@@ -41,6 +41,9 @@ import Payment from "../Pages/Payment/Payment";
 // Order Success;
 import OrderSuccess from "../Pages/OrderSuccess/OrderSuccess";
 
+// My Orders;
+import MyOrders from "../Pages/MyOrders/MyOrders";
+
 // Import Price Drop
 import PriceDrop from "../Pages/PriceDrop/PriceDrop";
 
@@ -58,6 +61,9 @@ export default function AppRoute() {
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order-success" element={<OrderSuccess />} />
+      <Route path="/my-orders" element={<MyOrders />} />
+
+      {/* New Features */}
       <Route path="/price-drop" element={<PriceDrop />} />
       <Route path="/stock-availabel" element={<Stock />} />
 

@@ -23,7 +23,7 @@ export default function SignNavbar() {
   const isCartPage = location.pathname === "/cart";
 
   const checkoutPage = ["/buy-now", "/payment"];
-  const isCheckoutPage = checkoutPage.includes(location.pathname)
+  const isCheckoutPage = checkoutPage.includes(location.pathname);
 
   const handleSearch = () => {
     if (!query.trim()) return;

@@ -5,7 +5,7 @@ import "./HomeNavBar.css";
 import MainLogo from "../../assets/HomePage/MainLogo.svg";
 import { useAuth } from "../../Context/AuthContext";
 // Import React-Toastify;
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function HomeNavBar() {
   const [isLoginBtnHover, setIsLoginBtnHover] = useState(false);
@@ -41,6 +41,11 @@ export default function HomeNavBar() {
   // Handle profile;
   const handleProfile = () => {
     if (user) navigate("/profile");
+    else navigate("/login");
+  };
+  // handle order;
+  const handleOrder = () => {
+    if (user) navigate("/my-orders");
     else navigate("/login");
   };
 
@@ -116,7 +121,7 @@ export default function HomeNavBar() {
                     <i className="fa-brands fa-gg"></i>
                     <span>Flipkart Plus Zone</span>
                   </div>
-                  <div>
+                  <div onClick={handleOrder}>
                     <i className="fa-solid fa-box-open"></i>
                     <span>Orders</span>
                   </div>
@@ -149,10 +154,13 @@ export default function HomeNavBar() {
                     <i className="fa-solid fa-circle-radiation"></i>
                     <span>Flipkart Plus Zone</span>
                   </div>
-                  <div>
-                    <i className="fa-solid fa-box"></i>
-                    <span>Orders</span>
-                  </div>
+                  <Link to="/my-orders" className="link-style">
+                    <div>
+                      <i className="fa-solid fa-box"></i>
+                      <span>Orders</span>
+                    </div>
+                  </Link>
+
                   <div>
                     <i className="fa-regular fa-heart"></i>
                     <span>Whishlist</span>
