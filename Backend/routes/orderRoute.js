@@ -40,7 +40,7 @@ router.post("/place", isAuth, async (req, res) => {
     items: orderItems,
     addressId,
     totalPrice,
-    paymentMethod: payment, // 🔥 FIX HERE
+    paymentMethod: payment,
     status: "Pending",
   });
 
@@ -51,6 +51,17 @@ router.post("/place", isAuth, async (req, res) => {
     orderId: newOrder.orderId,
     order: newOrder,
   });
+});
+
+router.get("/my-orders", isAuth, async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    });
+    res.json({ orders });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch orders" });
+  }
 });
 
 export default router;

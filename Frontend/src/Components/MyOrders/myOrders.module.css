@@ -1,0 +1,86 @@
+.mainContainer {
+  margin-top: 100px;
+  padding: 0px 150px;
+}
+.noFound {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.noFound button {
+  padding: 8px 15px;
+  border: none;
+  outline: none;
+  background-color: #2874f0;
+  color: white;
+  border-radius: 3px;
+}
+.orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.orderRow {
+  display: grid;
+  grid-template-columns: 90px 1fr 120px 260px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.imageBox img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.details {
+  min-width: 0;
+}
+
+.title {
+  font-size: 15px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
+}
+
+.meta {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.delivered {
+  color: #388e3c;
+  font-weight: 600;
+}
+
+.cancelled {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.subText {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}

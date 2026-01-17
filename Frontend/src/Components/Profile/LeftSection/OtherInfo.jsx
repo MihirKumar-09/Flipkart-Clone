@@ -20,7 +20,7 @@ export default function OtherInfo() {
   };
   return (
     <div className={style.otherInfo}>
-      <div className={style.myOrder}>
+      <div className={style.myOrder} onClick={() => navigate("/my-orders")}>
         <span>
           <i className={`fa-solid fa-file-arrow-up ${style.upload}`}></i>
           <h6>MY ORDERS</h6>
