@@ -6,6 +6,7 @@ import { useAuth } from "../../../Context/AuthContext";
 import { toast } from "react-toastify";
 import { useBuyNow } from "../../../Context/BuyNowContext";
 import { useState } from "react";
+import { setBuyNowProduct } from "../../../features/buyNow/buyNowSlice";
 
 export default function Buttons({ product }) {
   const { user } = useAuth();
@@ -42,10 +43,9 @@ export default function Buttons({ product }) {
       navigate("/login");
       toast.error("You are not logged in");
       return;
-    } else {
-      setBuyNow(product);
-      navigate("/buy-now");
     }
+    dispatch(setBuyNowProduct(product));
+    navigate("/buy-now");
   };
 
   return (

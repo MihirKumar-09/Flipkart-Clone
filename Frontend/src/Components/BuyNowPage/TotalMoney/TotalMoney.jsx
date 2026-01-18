@@ -1,24 +1,31 @@
+import { useEffect } from "react";
 import style from "./Total.module.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function TotalMoney() {
-  const cart = useSelector((state) => state.cart.items);
+  const navigate = useNavigate();
+  const buyNowProduct = useSelector((state) => state.buyNow.product);
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  useEffect(() => {
+    if (!buyNowProduct) {
+      navigate("/", { replace: true });
+    }
+  }, [buyNowProduct, navigate]);
 
-  const price = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  if (!buyNowProduct) return null;
 
+  const price = buyNowProduct.price;
   const platformFee = 7;
-
   const totalAmount = price + platformFee;
 
   return (
     <div className={style.totalPrice}>
       <h2>PRICE DETAILS</h2>
-      <hr style={{ margin: "0px" }} />
+      <hr />
 
       <div className={style.line}>
-        <p>Price ({totalItems} items)</p>
+        <p>Price (1 item)</p>
         <p>₹{price.toLocaleString("en-IN")}</p>
       </div>
 
@@ -27,7 +34,7 @@ export default function TotalMoney() {
         <p>₹{platformFee}</p>
       </div>
 
-      <hr style={{ margin: "0px" }} />
+      <hr />
 
       <div className={style.totalLine}>
         <h3>Total Amount</h3>
