@@ -13,6 +13,7 @@
   position: fixed;
   top: 0;
   z-index: 999;
+  margin-bottom: 257px !important;
 }
 .sign-options {
   height: 100%;

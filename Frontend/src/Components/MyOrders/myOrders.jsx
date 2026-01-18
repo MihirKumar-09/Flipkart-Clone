@@ -69,7 +69,9 @@ export default function MyOrders() {
                       <p className={style.subText}>
                         {order.status === "Delivered"
                           ? "Your item has been delivered"
-                          : "Your order was cancelled"}
+                          : order.status === "Pending"
+                            ? "Your order is on pending"
+                            : "Your order was cancelled"}
                       </p>
                     </div>
                   </div>
