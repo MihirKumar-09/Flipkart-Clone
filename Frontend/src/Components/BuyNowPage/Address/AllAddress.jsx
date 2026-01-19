@@ -28,12 +28,12 @@ export default function allAddress() {
   useEffect(() => {
     fetchAllAddress();
   }, []);
-
   useEffect(() => {
-    if (addresses.length > 0) {
-      setSelectedAddress(addresses[0]._id);
+    const savedAddressId = localStorage.getItem("selectedAddressId");
+    if (savedAddressId) {
+      setSelectedAddress(savedAddressId);
     }
-  }, [addresses]);
+  }, []);
 
   return (
     <div className={style.list}>
@@ -56,7 +56,10 @@ export default function allAddress() {
               name="address"
               value={addr._id}
               checked={selectedAddress === addr._id}
-              onChange={() => setSelectedAddress(addr._id)}
+              onChange={() => {
+                setSelectedAddress(addr._id);
+                localStorage.setItem("selectedAddressId", addr._id);
+              }}
               className={style.radio}
             />
 
@@ -74,21 +77,15 @@ export default function allAddress() {
               </div>
 
               {selectedAddress === addr._id && (
-                <Link
-                  to="/payment"
-                  state={{ addressId: addr._id }}
-                  className="link"
+                <button
+                  className={style.button}
+                  onClick={() => {
+                    localStorage.setItem("selectedAddressId", addr._id);
+                    navigate("/payment");
+                  }}
                 >
-                  <button
-                    className={style.button}
-                    onClick={() => {
-                      localStorage.setItem("selectedAddressId", addr._id);
-                      navigate("/payment");
-                    }}
-                  >
-                    DELIVER HERE
-                  </button>
-                </Link>
+                  DELIVER HERE
+                </button>
               )}
             </div>
           </label>

@@ -20,9 +20,12 @@ export default function Payment() {
   const [checkoutItems, setCheckoutItems] = useState([]);
   const [checkoutType, setCheckoutType] = useState(null);
 
-  // 🔐 LOAD CHECKOUT DATA (READ ONLY)
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("checkoutData"));
+    if (!addressId) {
+      navigate("/buy-now");
+      return;
+    }
 
     if (!stored || !stored.items || stored.items.length === 0) {
       navigate("/");
@@ -31,7 +34,7 @@ export default function Payment() {
 
     setCheckoutItems(stored.items);
     setCheckoutType(stored.type);
-  }, [navigate]);
+  }, [navigate, addressId]);
 
   const totalPrice = checkoutItems.reduce(
     (sum, item) => sum + item.price * (item.quantity || 1),
@@ -57,12 +60,10 @@ export default function Payment() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Order failed");
 
-      // ✅ Clear cart ONLY if cart checkout
       if (checkoutType === "CART") {
         dispatch(clearCart());
       }
 
-      // ✅ Cleanup
       localStorage.removeItem("checkoutData");
 
       navigate("/order-success", {

@@ -20,7 +20,7 @@ export default function Address() {
 
       {!showForm && (
         <div className={style.address} onClick={() => setShowForm(true)}>
-          <i class="fa-solid fa-plus"></i>
+          <i className="fa-solid fa-plus"></i>
           <h6>Add a new address</h6>
         </div>
       )}
