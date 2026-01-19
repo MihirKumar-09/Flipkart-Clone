@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import style from "./Payment.module.css";
 import NavBar from "../../Components/Layout/AuthNavbar";
@@ -13,14 +13,28 @@ export default function Payment() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const cartItems = useSelector((state) => state.cart.items);
   const addressId = localStorage.getItem("selectedAddressId");
 
   const [paymentMethod, setPaymentMethod] = useState("ONLINE");
   const [isPaying, setIsPaying] = useState(false);
+  const [checkoutItems, setCheckoutItems] = useState([]);
+  const [checkoutType, setCheckoutType] = useState(null);
 
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+  // 🔐 LOAD CHECKOUT DATA (READ ONLY)
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("checkoutData"));
+
+    if (!stored || !stored.items || stored.items.length === 0) {
+      navigate("/");
+      return;
+    }
+
+    setCheckoutItems(stored.items);
+    setCheckoutType(stored.type);
+  }, [navigate]);
+
+  const totalPrice = checkoutItems.reduce(
+    (sum, item) => sum + item.price * (item.quantity || 1),
     0,
   );
 
@@ -33,7 +47,7 @@ export default function Payment() {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({
-          cartItems,
+          cartItems: checkoutItems,
           addressId,
           totalPrice,
           payment: paymentMethod,
@@ -43,18 +57,23 @@ export default function Payment() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Order failed");
 
-      dispatch(clearCart());
+      // ✅ Clear cart ONLY if cart checkout
+      if (checkoutType === "CART") {
+        dispatch(clearCart());
+      }
+
+      // ✅ Cleanup
+      localStorage.removeItem("checkoutData");
 
       navigate("/order-success", {
         replace: true,
         state: {
           orderId: data.order.orderId,
-          paymentMethod: data.order.paymentMethod, // ✅ FIX
+          paymentMethod: data.order.paymentMethod,
           totalAmount: data.order.totalPrice,
         },
       });
     } catch (err) {
-      console.error(err);
       alert(err.message);
     } finally {
       setIsPaying(false);
@@ -73,7 +92,7 @@ export default function Payment() {
           <PayNow onPay={handlePay} disabled={isPaying} />
         </div>
         <div className={style.rightSection}>
-          <PriceDetails />
+          <PriceDetails items={checkoutItems} />
         </div>
       </div>
     </div>

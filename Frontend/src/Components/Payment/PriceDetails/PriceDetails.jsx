@@ -1,15 +1,13 @@
 import style from "./PriceDetails.module.css";
-import { useSelector } from "react-redux";
 
-export default function PriceDetails() {
-  const cart = useSelector((state) => state.cart.items);
+export default function PriceDetails({ items = [], total }) {
+  const totalItems = items.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-
-  const price = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const price =
+    total ??
+    items.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
 
   const platformFee = 7;
-
   const totalAmount = price + platformFee;
 
   return (

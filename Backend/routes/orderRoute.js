@@ -41,7 +41,6 @@ router.post("/place", isAuth, async (req, res) => {
     addressId,
     totalPrice,
     paymentMethod: payment,
-    status: "Pending",
   });
 
   await newOrder.save();

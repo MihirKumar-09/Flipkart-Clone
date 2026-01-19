@@ -6,11 +6,9 @@ import { useAuth } from "../../../Context/AuthContext";
 import { toast } from "react-toastify";
 import { useBuyNow } from "../../../Context/BuyNowContext";
 import { useState } from "react";
-import { setBuyNowProduct } from "../../../features/buyNow/buyNowSlice";
 
 export default function Buttons({ product }) {
   const { user } = useAuth();
-  const { setBuyNow } = useBuyNow();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +31,13 @@ export default function Buttons({ product }) {
       return;
     }
 
-    dispatch(addToCart(product));
+    dispatch(
+      addToCart({
+        ...product,
+        quantity: 1, // enforce consistency
+      }),
+    );
+
     navigate("/cart");
     notify();
   };
@@ -44,7 +48,21 @@ export default function Buttons({ product }) {
       toast.error("You are not logged in");
       return;
     }
-    dispatch(setBuyNowProduct(product));
+
+    // 🔐 WRITE CHECKOUT CONTEXT
+    localStorage.setItem(
+      "checkoutData",
+      JSON.stringify({
+        type: "BUY_NOW",
+        items: [
+          {
+            ...product,
+            quantity: 1, // explicit, never assume
+          },
+        ],
+      }),
+    );
+
     navigate("/buy-now");
   };
 

@@ -23,11 +23,24 @@ export default function Cart() {
       toast.error("You are not logged in");
       return;
     }
-    setBuyNow({
-      price: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
-      quantity: cart.length,
-      items: cart,
-    });
+
+    if (!cart || cart.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+
+    // 🔐 WRITE CHECKOUT CONTEXT (CART)
+    localStorage.setItem(
+      "checkoutData",
+      JSON.stringify({
+        type: "CART",
+        items: cart.map((item) => ({
+          ...item,
+          quantity: item.quantity || 1,
+        })),
+      }),
+    );
+
     navigate("/buy-now");
   };
 

@@ -21,7 +21,7 @@ export default function MyOrders() {
         }
         setOrders(data.orders);
       } catch (err) {
-        console.error("Error fetching orders:", error.message);
+        console.error("Error fetching orders:", err.message);
       }
     };
     fetchOrders();
@@ -59,19 +59,34 @@ export default function MyOrders() {
                     <div className={style.status}>
                       <span
                         className={
-                          order.status === "Delivered"
+                          order.status === "DELIVERED"
                             ? style.delivered
-                            : style.cancelled
+                            : order.status === "CANCELLED"
+                              ? style.cancelled
+                              : order.status === "SHIPPED"
+                                ? style.shipped
+                                : order.status === "CONFIRMED"
+                                  ? style.confirmed
+                                  : order.status === "PLACED"
+                                    ? style.placed
+                                    : style.inProgress
                         }
                       >
                         ● {order.status}
                       </span>
+
                       <p className={style.subText}>
-                        {order.status === "Delivered"
-                          ? "Your item has been delivered"
-                          : order.status === "Pending"
-                            ? "Your order is on pending"
-                            : "Your order was cancelled"}
+                        {order.status === "PLACED"
+                          ? "Your order has been placed"
+                          : order.status === "CONFIRMED"
+                            ? "Your order has been confirmed"
+                            : order.status === "SHIPPED"
+                              ? "Your item has been shipped"
+                              : order.status === "DELIVERED"
+                                ? "Your item has been delivered"
+                                : order.status === "CANCELLED"
+                                  ? "Your order was cancelled"
+                                  : "Unknown order status"}
                       </p>
                     </div>
                   </div>

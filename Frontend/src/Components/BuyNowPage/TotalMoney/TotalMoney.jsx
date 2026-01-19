@@ -1,31 +1,26 @@
-import { useEffect } from "react";
 import style from "./Total.module.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-export default function TotalMoney() {
-  const navigate = useNavigate();
-  const buyNowProduct = useSelector((state) => state.buyNow.product);
+export default function TotalMoney({ items = [] }) {
+  if (!items || items.length === 0) return null;
 
-  useEffect(() => {
-    if (!buyNowProduct) {
-      navigate("/", { replace: true });
-    }
-  }, [buyNowProduct, navigate]);
+  const totalItems = items.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
-  if (!buyNowProduct) return null;
+  const price = items.reduce(
+    (acc, item) => acc + item.price * (item.quantity || 1),
+    0,
+  );
 
-  const price = buyNowProduct.price;
   const platformFee = 7;
   const totalAmount = price + platformFee;
 
   return (
     <div className={style.totalPrice}>
       <h2>PRICE DETAILS</h2>
-      <hr />
 
       <div className={style.line}>
-        <p>Price (1 item)</p>
+        <p>
+          Price ({totalItems} item{totalItems > 1 ? "s" : ""})
+        </p>
         <p>₹{price.toLocaleString("en-IN")}</p>
       </div>
 

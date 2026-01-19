@@ -68,15 +68,32 @@
   flex-direction: column;
   gap: 6px;
 }
-
-.delivered {
-  color: #388e3c;
+.status span {
   font-weight: 600;
 }
 
+.placed {
+  color: #1e88e5;
+}
+
+.confirmed {
+  color: #6a1b9a;
+}
+
+.shipped {
+  color: #fb8c00;
+}
+
+.delivered {
+  color: #2e7d32;
+}
+
 .cancelled {
-  color: #d32f2f;
-  font-weight: 600;
+  color: #c62828;
+}
+
+.inProgress {
+  color: #616161;
 }
 
 .subText {
