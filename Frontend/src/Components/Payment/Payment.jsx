@@ -19,6 +19,19 @@ export default function Payment() {
   const [isPaying, setIsPaying] = useState(false);
   const [checkoutItems, setCheckoutItems] = useState([]);
   const [checkoutType, setCheckoutType] = useState(null);
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get("/api/auth/check", {
+          withCredentials: true,
+        });
+      } catch {
+        navigate("/login");
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("checkoutData"));

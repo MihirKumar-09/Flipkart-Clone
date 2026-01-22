@@ -11,18 +11,18 @@ export default function BuyNow() {
   const [checkoutType, setCheckoutType] = useState(null);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("checkoutData"));
+    const checkAuth = async () => {
+      try {
+        await axios.get("/api/auth/check", {
+          withCredentials: true,
+        });
+      } catch {
+        navigate("/login");
+      }
+    };
 
-    if (!stored || !stored.items || stored.items.length === 0) {
-      navigate("/");
-      return;
-    }
-
-    setCheckoutItems(stored.items);
-    setCheckoutType(stored.type);
-  }, [navigate]);
-
-  // ⛔ Prevent rendering until data is ready
+    checkAuth();
+  }, []);
   if (checkoutItems.length === 0) return null;
 
   return (
