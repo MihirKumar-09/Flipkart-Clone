@@ -118,7 +118,7 @@ app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", addressRoutes);
 app.use("/order", orderRoute);
-app.use("/api", authRoute);
+app.use("/api/auth", authRoute);
 
 // 404 handler
 app.use((req, res) => {

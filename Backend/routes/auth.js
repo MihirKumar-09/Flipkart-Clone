@@ -1,10 +1,12 @@
 import express from "express";
 import isAuth from "../middlewares/middleware.js";
 const router = express.Router();
-router.get("/auth/check", isAuth, (req, res) => {
+router.get("/check", isAuth, (req, res) => {
   res.status(200).json({
-    success: true,
-    userId: req.session.userId,
+    user: {
+      _id: req.session.userId,
+      username: req.session.username,
+    },
   });
 });
 export default router;

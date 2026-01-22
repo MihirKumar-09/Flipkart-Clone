@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useAuth } from "../../Context/AuthContext.jsx";
 
 // Import React-Toastify;
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function MainContent() {
   const [username, setUsername] = useState("");

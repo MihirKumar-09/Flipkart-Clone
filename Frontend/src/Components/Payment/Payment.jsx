@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 import style from "./Payment.module.css";
 import NavBar from "../../Components/Layout/AuthNavbar";
@@ -9,45 +10,66 @@ import PriceDetails from "./PriceDetails/PriceDetails";
 import PayNow from "./PayNow Button/PayNow";
 import { clearCart } from "../../features/cart/cartSlice";
 
+axios.defaults.withCredentials = true;
+
 export default function Payment() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const addressId = localStorage.getItem("selectedAddressId");
-
-  const [paymentMethod, setPaymentMethod] = useState("ONLINE");
-  const [isPaying, setIsPaying] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [checkoutItems, setCheckoutItems] = useState([]);
   const [checkoutType, setCheckoutType] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("ONLINE");
+  const [isPaying, setIsPaying] = useState(false);
+
+  const addressId = localStorage.getItem("selectedAddressId");
+
+  // -----------------------
+  // 1️⃣ Check authentication
+  // -----------------------
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get("/api/auth/check", {
-          withCredentials: true,
-        });
+        const res = await axios.get("http://localhost:8080/api/auth/check");
+        if (!res.data.user) throw new Error("Not logged in");
+        setUser(res.data.user);
       } catch {
         navigate("/login");
+      } finally {
+        setLoading(false);
       }
     };
-
     checkAuth();
-  }, []);
+  }, [navigate]);
 
+  // -----------------------
+  // 2️⃣ Load checkout data + validate address
+  // -----------------------
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("checkoutData"));
-    if (!addressId) {
-      navigate("/buy-now");
-      return;
-    }
+    if (!loading && user) {
+      const stored = JSON.parse(localStorage.getItem("checkoutData"));
 
-    if (!stored || !stored.items || stored.items.length === 0) {
-      navigate("/");
-      return;
-    }
+      if (!stored || !stored.items || stored.items.length === 0) {
+        // No checkout data → redirect home
+        navigate("/");
+        return;
+      }
 
-    setCheckoutItems(stored.items);
-    setCheckoutType(stored.type);
-  }, [navigate, addressId]);
+      if (!addressId) {
+        // No selected address → redirect BuyNow
+        navigate("/buy-now");
+        return;
+      }
+
+      setCheckoutItems(stored.items);
+      setCheckoutType(stored.type || null);
+    }
+  }, [loading, user, navigate, addressId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>Redirecting to login...</div>;
+  if (checkoutItems.length === 0) return <div>No items to checkout.</div>;
 
   const totalPrice = checkoutItems.reduce(
     (sum, item) => sum + item.price * (item.quantity || 1),
@@ -73,9 +95,7 @@ export default function Payment() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Order failed");
 
-      if (checkoutType === "CART") {
-        dispatch(clearCart());
-      }
+      if (checkoutType === "CART") dispatch(clearCart());
 
       localStorage.removeItem("checkoutData");
 

@@ -39,31 +39,46 @@ export default function AuthProvider({ children }) {
     }
   };
 
-  // Handle Login;
   const handleLogin = async (username, password) => {
     try {
+      // 1️⃣ LOGIN → session create
       const res = await fetch("http://localhost:8080/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify({ username, password }),
         credentials: "include",
       });
 
-      const data = await res.json();
-      if (data.success) {
-        setError("");
-        setUser(data.user);
-        navigate("/");
-        return true;
-      } else {
+      if (!res.ok) {
         setError("Invalid username or password");
         setUser(null);
         return false;
       }
+
+      // 2️⃣ CHECK-LOGIN → session verify
+      const checkRes = await fetch("http://localhost:8080/api/auth/check", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!checkRes.ok) {
+        setUser(null);
+        return false;
+      }
+
+      const checkData = await checkRes.json();
+
+      // 3️⃣ FRONTEND AUTH STATE SET
+      setUser(checkData.user);
+      setError("");
+      navigate("/");
+
+      return true;
     } catch (error) {
       console.log(error);
+      setUser(null);
       return false;
     }
   };

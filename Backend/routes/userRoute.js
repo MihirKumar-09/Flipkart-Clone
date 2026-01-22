@@ -105,37 +105,28 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
-    if (!password || (!username && !email)) {
+    if (!password || (!username && !email))
       return res.status(400).json({ error: "Missing credentials" });
-    }
 
-    const user = await User.findOne({
-      $or: [{ username }, { email }],
-    }).select("+password");
-
-    if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+    const user = await User.findOne({ $or: [{ username }, { email }] }).select(
+      "+password",
+    );
+    if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
     const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+    if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
 
-    // SESSION SET AFTER USER EXISTS
     req.session.userId = user._id;
     req.session.username = user.username;
 
-    req.session.save(() => {
-      res.json({
-        success: true,
-        user: {
-          _id: user._id,
-          username: user.username,
-          email: user.email,
-        },
-      });
+    // await session save before sending response
+    await new Promise((resolve, reject) => {
+      req.session.save((err) => (err ? reject(err) : resolve()));
+    });
+
+    res.json({
+      success: true,
+      user: { _id: user._id, username: user.username, email: user.email },
     });
   } catch (err) {
     console.error("Login error:", err);
