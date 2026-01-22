@@ -110,12 +110,10 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Missing credentials" });
     }
 
-    // ✅ DECLARE FIRST
     const user = await User.findOne({
       $or: [{ username }, { email }],
     }).select("+password");
 
-    // ✅ USE AFTER DECLARATION
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
@@ -125,7 +123,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    // ✅ SESSION SET AFTER USER EXISTS
+    // SESSION SET AFTER USER EXISTS
     req.session.userId = user._id;
     req.session.username = user.username;
 
@@ -197,27 +195,11 @@ router.get("/check-login", (req, res) => {
 //   }
 // });
 
-// Logout Route
+// Logout route ;
 router.post("/logout", (req, res) => {
-  console.log("Logout request received");
-
-  // Destroy session
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Logout error:", err);
-      return res.status(500).json({
-        success: false,
-        error: "Logout failed",
-      });
-    }
-
-    // Clear session cookie
+  req.session.destroy(() => {
     res.clearCookie("connect.sid");
-
-    res.json({
-      success: true,
-      message: "Logged out successfully",
-    });
+    res.status(200).json({ success: true });
   });
 });
 

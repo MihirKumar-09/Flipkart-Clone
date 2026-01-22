@@ -10,6 +10,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoute.js";
 import addressRoutes from "./routes/addressRoute.js";
 import orderRoute from "./routes/orderRoute.js";
+import authRoute from "./routes/auth.js";
 dotenv.config();
 
 const app = express();
@@ -35,6 +36,7 @@ app.use(cors(corsOptions));
 // --------------------
 app.use(
   session({
+    name: "connect.sid",
     secret: process.env.SESSION_SECRET || "secret-key",
     resave: false,
     saveUninitialized: false,
@@ -49,7 +51,7 @@ app.use(
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     },
-  })
+  }),
 );
 
 // Debug middleware
@@ -116,6 +118,7 @@ app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", addressRoutes);
 app.use("/order", orderRoute);
+app.use("/api", authRoute);
 
 // 404 handler
 app.use((req, res) => {

@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import TotalPrice from "./TotalPrice";
 import Footer from "./Footer";
 import { useAuth } from "../../Context/AuthContext";
-import { useBuyNow } from "../../Context/BuyNowContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart.items);
@@ -14,8 +14,6 @@ export default function Cart() {
   const isEmpty = !Array.isArray(cart) || cart.length === 0;
   const { user } = useAuth();
   const navigate = useNavigate();
-
-  const { setBuyNow } = useBuyNow();
 
   const handlePlaceOrder = () => {
     if (!user) {
@@ -29,7 +27,6 @@ export default function Cart() {
       return;
     }
 
-    // 🔐 WRITE CHECKOUT CONTEXT (CART)
     localStorage.setItem(
       "checkoutData",
       JSON.stringify({
@@ -43,6 +40,19 @@ export default function Cart() {
 
     navigate("/buy-now");
   };
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get("/api/auth/check", {
+          withCredentials: true,
+        });
+      } catch {
+        navigate("/login");
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   return (
     <div className={style.cart}>

@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoute";
 import Layout from "../Components/Layout/Layout";
 // Home
 import Home from "../Pages/Home/HomePage";
@@ -57,7 +58,14 @@ export default function AppRoute() {
       <Route path="/flipkart-minutes" element={<FlipkartMinutes />} />
       <Route path="/grocery" element={<Grocery />} />
       <Route path="/flight" element={<Flight />} />
-      <Route path="/cart" element={<CartPage />} />
+      <Route
+        path="/cart"
+        element={
+          <ProtectedRoute>
+            <CartPage />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order-success" element={<OrderSuccess />} />
