@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-
 import style from "./Payment.module.css";
 import NavBar from "../../Components/Layout/AuthNavbar";
 import PaymentOptions from "./PaymentOptions/Option";
@@ -25,9 +24,6 @@ export default function Payment() {
 
   const addressId = localStorage.getItem("selectedAddressId");
 
-  // -----------------------
-  // 1️⃣ Check authentication
-  // -----------------------
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -43,21 +39,16 @@ export default function Payment() {
     checkAuth();
   }, [navigate]);
 
-  // -----------------------
-  // 2️⃣ Load checkout data + validate address
-  // -----------------------
   useEffect(() => {
     if (!loading && user) {
       const stored = JSON.parse(localStorage.getItem("checkoutData"));
 
       if (!stored || !stored.items || stored.items.length === 0) {
-        // No checkout data → redirect home
         navigate("/");
         return;
       }
 
       if (!addressId) {
-        // No selected address → redirect BuyNow
         navigate("/buy-now");
         return;
       }
@@ -96,21 +87,22 @@ export default function Payment() {
       if (!res.ok) throw new Error(data.message || "Order failed");
 
       if (checkoutType === "CART") dispatch(clearCart());
-
       localStorage.removeItem("checkoutData");
 
-      navigate("/order-success", {
-        replace: true,
-        state: {
-          orderId: data.order.orderId,
-          paymentMethod: data.order.paymentMethod,
-          totalAmount: data.order.totalPrice,
-        },
-      });
+      setTimeout(() => {
+        setIsPaying(false);
+        navigate("/order-success", {
+          replace: true,
+          state: {
+            orderId: data.order.orderId,
+            paymentMethod: data.order.paymentMethod,
+            totalAmount: data.order.totalPrice,
+          },
+        });
+      }, 3000);
     } catch (err) {
-      alert(err.message);
-    } finally {
       setIsPaying(false);
+      alert(err.message);
     }
   };
 
@@ -123,7 +115,7 @@ export default function Payment() {
             payment={paymentMethod}
             setPayment={setPaymentMethod}
           />
-          <PayNow onPay={handlePay} disabled={isPaying} />
+          <PayNow onPay={handlePay} isPaying={isPaying} />
         </div>
         <div className={style.rightSection}>
           <PriceDetails items={checkoutItems} />
