@@ -51,6 +51,9 @@ import PriceDrop from "../Pages/PriceDrop/PriceDrop";
 // Import Stock available;
 import Stock from "../Pages/StockAvailabe/Stock";
 
+//! Admin page and admin route ;
+import AdminPage from "../Pages/Admin/Admin";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -66,6 +69,8 @@ export default function AppRoute() {
           </ProtectedRoute>
         }
       />
+      {/* Admin Page */}
+      <Route path="/admin" element={<AdminPage />} />
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order-success" element={<OrderSuccess />} />

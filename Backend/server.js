@@ -30,6 +30,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
+app.set("trust proxy", 1);
 
 // --------------------
 // SESSION CONFIGURATION

@@ -1,12 +1,20 @@
 import express from "express";
 import isAuth from "../middlewares/middleware.js";
+import User from "../models/userModel.js";
 const router = express.Router();
-router.get("/check", isAuth, (req, res) => {
+router.get("/check", isAuth, async (req, res) => {
+  const user = await User.findById(req.session.userId).select(
+    "_id username email role",
+  );
+
+  if (!user) {
+    return res.status(401).json({ success: false });
+  }
+
   res.status(200).json({
-    user: {
-      _id: req.session.userId,
-      username: req.session.username,
-    },
+    success: true,
+    user,
   });
 });
+
 export default router;

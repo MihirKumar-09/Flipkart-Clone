@@ -12,6 +12,8 @@ export default function HomeNavBar() {
   const [isAboutBtnHover, setIsAboutBtnHover] = useState(false);
   const [query, setQuery] = useState("");
   const { user, handleLogout } = useAuth();
+  console.log("Logged user:", user);
+  console.log("User role:", user?.role);
 
   const navigate = useNavigate();
 
@@ -140,6 +142,13 @@ export default function HomeNavBar() {
                 </div>
               ) : (
                 <div className="accountOptions">
+                  {user?.role === "ADMIN" && (
+                    <div onClick={() => navigate("/admin")}>
+                      <i className="fa-solid fa-user-shield"></i>
+                      <span>Admin Panel</span>
+                    </div>
+                  )}
+
                   <Link to="/profile" className="link-style">
                     <div>
                       <i className="fa-regular fa-circle-user"></i>

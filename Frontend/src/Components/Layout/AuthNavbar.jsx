@@ -17,6 +17,8 @@ export default function SignNavbar() {
   const notify = () => {
     toast.success("Logout Successfully", { autoClose: 3000 });
   };
+  console.log("Logged user:", user);
+  console.log("User role:", user?.role);
 
   // use for modify the navbar according to the page
   const location = useLocation();

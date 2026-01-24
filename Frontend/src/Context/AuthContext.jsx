@@ -86,19 +86,18 @@ export default function AuthProvider({ children }) {
   // Check user login or not ;
   const checkUser = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/check-login", {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await fetch("http://localhost:8080/api/auth/check", {
+        method: "GET",
         credentials: "include",
       });
-      const data = await res.json();
-      if (data.success) {
-        setUser(data.user);
-      } else {
+
+      if (!res.ok) {
         setUser(null);
+        return;
       }
+
+      const data = await res.json();
+      setUser(data.user);
     } catch (err) {
       console.log(err);
       setUser(null);

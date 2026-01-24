@@ -126,7 +126,12 @@ router.post("/login", async (req, res) => {
 
     res.json({
       success: true,
-      user: { _id: user._id, username: user.username, email: user.email },
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (err) {
     console.error("Login error:", err);
@@ -134,26 +139,26 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Check user log in or not ?
-router.get("/check-login", (req, res) => {
-  if (req.session.userId) {
-    res.json({
-      success: true,
-      message: "User is logged in",
-      user: {
-        username: req.session.username,
-        email: req.session.email,
-        mobile: req.session.mobile,
-        _id: req.session.userId,
-      },
-    });
-  } else {
-    res.json({
-      success: false,
-      message: "User is not logged in",
-    });
-  }
-});
+// // Check user log in or not ?
+// router.get("/check-login", (req, res) => {
+//   if (req.session.userId) {
+//     res.json({
+//       success: true,
+//       message: "User is logged in",
+//       user: {
+//         username: req.session.username,
+//         email: req.session.email,
+//         mobile: req.session.mobile,
+//         _id: req.session.userId,
+//       },
+//     });
+//   } else {
+//     res.json({
+//       success: false,
+//       message: "User is not logged in",
+//     });
+//   }
+// });
 
 //! Profile Route to show profile;
 // router.get("/profile", async (req, res) => {
