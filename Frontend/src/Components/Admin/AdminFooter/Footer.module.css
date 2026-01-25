@@ -1,0 +1,62 @@
+.adminFooter {
+  height: 60px;
+  width: 100%;
+  background-color: #2874f0;
+  padding: 0 100px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.adminFooter img {
+  height: 35px;
+}
+/* Profile Section */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.profile img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Button */
+.profileBtn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* DropDown */
+.dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+
+  background-color: white;
+  border-radius: 4px;
+  width: 150px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 2000;
+}
+.dropdown div {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.dropdown div:hover {
+  background-color: #fafafa;
+}

@@ -1,8 +1,21 @@
+import AdminFooter from "./AdminFooter/Footer";
+import AdminSidebar from "./AdminSidebar/Sidebar";
+// import AdminOrders from ".AdminOrders/Orders";
+
 import style from "./Admin.module.css";
-export default function Admin() {
+
+export default function AdminPage() {
   return (
-    <div>
-      <h1>Admin Panel</h1>
-    </div>
+    <>
+      <AdminFooter />
+
+      <div className={style.adminLayout}>
+        {/* LEFT SIDEBAR */}
+        <AdminSidebar />
+
+        {/* RIGHT CONTENT */}
+        <div className={style.adminContent}>{/* <AdminOrders /> */}</div>
+      </div>
+    </>
   );
 }

@@ -1,0 +1,12 @@
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  margin-top: 60px; /* footer/navbar height */
+  background-color: #f1f3f6;
+}
+
+.adminContent {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
