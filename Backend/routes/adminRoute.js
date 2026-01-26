@@ -17,4 +17,21 @@ router.get("/orders", isAuth, isAdmin, async (req, res) => {
     });
   }
 });
+// Update order status;
+router.patch("/admin/orders/:id", async (req, res) => {
+  try {
+    const { status } = req.body;
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { $set: { status } },
+      { new: true },
+    );
+    if (!order) {
+      return res.status(404).json({ message: "Order not found!" });
+    }
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 export default router;
