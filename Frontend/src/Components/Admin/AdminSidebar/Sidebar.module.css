@@ -4,8 +4,9 @@
   border-right: 1px solid #ddd;
   padding: 20px;
 
-  position: sticky;
-  top: 60px; /* below navbar */
+  position: fixed;
+  top: 60px;
+  left: 0px;
   height: calc(100vh - 60px);
 }
 

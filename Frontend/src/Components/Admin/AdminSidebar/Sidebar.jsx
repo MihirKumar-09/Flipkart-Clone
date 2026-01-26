@@ -3,8 +3,6 @@ import style from "./Sidebar.module.css";
 export default function AdminSidebar() {
   return (
     <div className={style.sidebar}>
-      <h3>Admin Panel</h3>
-
       <NavLink to="/admin" end className={style.link}>
         Orders
       </NavLink>
