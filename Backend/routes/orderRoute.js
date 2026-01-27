@@ -1,6 +1,7 @@
 import express from "express";
 import isAuth from "../middlewares/middleware.js";
 import Order from "../models/orderModel.js";
+import Product from "../models/productModel.js";
 
 const router = express.Router();
 
@@ -20,12 +21,35 @@ router.post("/place", isAuth, async (req, res) => {
   if (!payment) {
     return res.status(400).json({ message: "Payment method required" });
   }
+  // Validate stock ;
+  for (const item of cartItems) {
+    const product = await Product.findById(item._id);
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+    if (product.stock < item.quantity) {
+      return res.status(400).json({
+        message: `Only ${product.stock} items left for ${product.name}`,
+      });
+    }
+  }
 
+  // Reduce stock;
+  for (const item of cartItems) {
+    await Product.findByIdAndUpdate(item._id, {
+      $inc: { stock: -item.quantity },
+    });
+  }
+
+  // Calculate total price
   let totalPrice = 0;
   cartItems.forEach((item) => {
     totalPrice += item.price * item.quantity;
   });
 
+  // Ready order items;
   const orderItems = cartItems.map((item) => ({
     product: item._id,
     name: item.name,
@@ -34,6 +58,7 @@ router.post("/place", isAuth, async (req, res) => {
     image: item.image?.[0]?.url || "",
   }));
 
+  // Create order
   const newOrder = new Order({
     orderId: "ORD" + Date.now(),
     user: req.user._id,

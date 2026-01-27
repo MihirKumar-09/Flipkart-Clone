@@ -3,6 +3,7 @@ const router = express.Router();
 import isAuth from "../middlewares/middleware.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
+import Product from "../models/productModel.js";
 router.get("/orders", isAuth, isAdmin, async (req, res) => {
   try {
     const page = Math.max(Number(req.query.page) || 1, 1);
@@ -52,6 +53,15 @@ router.patch("/orders/:id", async (req, res) => {
     );
     if (!order) {
       return res.status(404).json({ message: "Order not found!" });
+    }
+    const oldStatus = order.status;
+    const newStatus = status;
+    if (oldStatus !== "CANCELLED" && newStatus === "CANCELLED") {
+      for (const item of order.items) {
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: { stock: item.quantity },
+        });
+      }
     }
     res.json(order);
     console.log("UPDATING ORDER ID:", req.params.id);
