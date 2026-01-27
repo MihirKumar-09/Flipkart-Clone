@@ -46,27 +46,37 @@ router.get("/orders", isAuth, isAdmin, async (req, res) => {
 router.patch("/orders/:id", async (req, res) => {
   try {
     const { status } = req.body;
-    const order = await Order.findByIdAndUpdate(
-      req.params.id,
-      { $set: { status } },
-      { new: true },
-    );
+
+    const order = await Order.findById(req.params.id);
+
     if (!order) {
       return res.status(404).json({ message: "Order not found!" });
     }
+
     const oldStatus = order.status;
     const newStatus = status;
+
+    console.log("OLD:", oldStatus, "NEW:", newStatus);
+
+    // Restore stock after admin cancel;
     if (oldStatus !== "CANCELLED" && newStatus === "CANCELLED") {
       for (const item of order.items) {
+        console.log("RESTORING STOCK:", item.product.toString(), item.quantity);
+
         await Product.findByIdAndUpdate(item.product, {
           $inc: { stock: item.quantity },
         });
       }
     }
+
+    order.status = newStatus;
+    await order.save();
+
     res.json(order);
-    console.log("UPDATING ORDER ID:", req.params.id);
+    console.log("UPDATED ORDER ID:", req.params.id);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 export default router;
