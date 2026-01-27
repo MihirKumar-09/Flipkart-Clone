@@ -14,7 +14,7 @@ export default function AdminOrders() {
         setLoading(true);
 
         const res = await fetch(
-          `http://localhost:8080/api/admin/orders?page=${page}&limit=10`,
+          `http://localhost:8080/api/admin/orders?page=${page}&limit=20`,
           { credentials: "include" },
         );
 

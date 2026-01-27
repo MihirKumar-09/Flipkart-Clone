@@ -7,7 +7,7 @@ import Product from "../models/productModel.js";
 router.get("/orders", isAuth, isAdmin, async (req, res) => {
   try {
     const page = Math.max(Number(req.query.page) || 1, 1);
-    const limit = Math.max(Number(req.query.limit) || 10, 1);
+    const limit = Math.max(Number(req.query.limit) || 20, 1);
 
     const totalOrders = await Order.countDocuments();
     const totalPages = Math.ceil(totalOrders / limit);
