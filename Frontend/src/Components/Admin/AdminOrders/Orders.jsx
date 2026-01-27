@@ -1,39 +1,53 @@
-import { useEffectEvent } from "react";
-import style from "./Orders.module.css";
 import { useEffect, useState } from "react";
+import style from "./Orders.module.css";
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  // Fetch all orders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/admin/orders", {
-          credentials: "include",
-        });
-        if (!res.ok) {
-          throw new Error(`HTTP error! ${res.status}`);
-        }
+        setLoading(true);
+
+        const res = await fetch(
+          `http://localhost:8080/api/admin/orders?page=${page}&limit=10`,
+          { credentials: "include" },
+        );
+
         const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed");
+        }
+
         setOrders(data.orders || []);
+        setTotalPages(data.totalPages || 1);
       } catch (err) {
-        console.error("Failed to fetch orders", err);
+        console.error("Fetch error:", err);
+        setOrders([]);
       } finally {
         setLoading(false);
       }
     };
-    fetchOrders();
-  }, []);
 
-  // Update the order status ;
+    fetchOrders();
+  }, [page]);
+
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages);
+    if (page < 1) setPage(1);
+  }, [page, totalPages]);
+
+  // Update Status
   const updateStatus = async (id, status) => {
     try {
       const res = await fetch(`http://localhost:8080/api/admin/orders/${id}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ status }),
       });
@@ -41,16 +55,16 @@ export default function AdminOrders() {
       const updatedOrder = await res.json();
 
       setOrders((prev) =>
-        prev.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order,
-        ),
+        prev.map((o) => (o._id === updatedOrder._id ? updatedOrder : o)),
       );
     } catch (err) {
-      console.error("Status update failed", err);
+      console.error("Update failed", err);
     }
   };
 
-  if (loading) return <p>Loading orders...</p>;
+  if (loading) {
+    return <p>Loading orders...</p>;
+  }
 
   return (
     <div className={style.container}>
@@ -58,10 +72,7 @@ export default function AdminOrders() {
         <table className={style.table}>
           <thead>
             <tr>
-              <th>
-                <span>Order ID</span>
-                <i class="fa-solid fa-arrow-down"></i>
-              </th>
+              <th>Order ID</th>
               <th>Customer</th>
               <th>Total</th>
               <th>Status</th>
@@ -82,7 +93,7 @@ export default function AdminOrders() {
                 <tr key={order._id}>
                   <td>{order.orderId}</td>
                   <td>{order.user?.username || "Guest"}</td>
-                  <td>₹{order.totalPrice}</td>
+                  <td>₹{order.totalPrice.toLocaleString("en-IN")}</td>
 
                   <td>
                     <span
@@ -121,12 +132,24 @@ export default function AdminOrders() {
             )}
           </tbody>
         </table>
+
         <div className={style.pageNavigation}>
-          <button>
-            <i class="fa-solid fa-angle-left"></i>
+          <button
+            disabled={page === 1 || loading}
+            onClick={() => setPage((p) => p - 1)}
+          >
+            <i class="fa-solid fa-angles-left"></i>
           </button>
-          <button>
-            <i class="fa-solid fa-angle-right"></i>
+
+          <span>
+            Page {page} of {totalPages}
+          </span>
+
+          <button
+            disabled={page === totalPages || loading}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            <i class="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>

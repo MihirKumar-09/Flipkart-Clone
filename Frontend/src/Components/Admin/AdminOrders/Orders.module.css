@@ -1,6 +1,7 @@
 .container {
   padding: 20px;
   height: calc(100vh - 60px);
+  width: 100%;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -12,9 +13,9 @@
 
 /* CARD */
 .card {
-  background: #ffffff;
+  background-color: #ffffff;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -90,6 +91,14 @@
 .pageNavigation button {
   border: none;
   background-color: transparent;
+  transition: all ease 0.3s;
+}
+.pageNavigation button:hover {
+  transform: scale(1.1);
+}
+.pageNavigation button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 .pageNavigation button i {
   font-size: 1.4rem;
