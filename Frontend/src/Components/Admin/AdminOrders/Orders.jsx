@@ -23,14 +23,26 @@ export default function AdminOrders() {
 
   // Update the order status ;
   const updateStatus = async (id, status) => {
-    await fetch(`http://localhost:8080/api/admin/order/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ status }),
-    });
+    try {
+      const res = await fetch(`http://localhost:8080/api/admin/orders/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ status }),
+      });
 
-    setOrders((prev) => prev.map((o) => (o._id === id ? { ...o, status } : o)));
+      const updatedOrder = await res.json();
+
+      setOrders((prev) =>
+        prev.map((order) =>
+          order._id === updatedOrder._id ? updatedOrder : order,
+        ),
+      );
+    } catch (err) {
+      console.error("Status update failed", err);
+    }
   };
 
   if (loading) return <p>Loading orders...</p>;

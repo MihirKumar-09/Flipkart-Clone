@@ -18,7 +18,7 @@ router.get("/orders", isAuth, isAdmin, async (req, res) => {
   }
 });
 // Update order status;
-router.patch("/admin/orders/:id", async (req, res) => {
+router.patch("/orders/:id", async (req, res) => {
   try {
     const { status } = req.body;
     const order = await Order.findByIdAndUpdate(
@@ -30,6 +30,7 @@ router.patch("/admin/orders/:id", async (req, res) => {
       return res.status(404).json({ message: "Order not found!" });
     }
     res.json(order);
+    console.log("UPDATING ORDER ID:", req.params.id);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
