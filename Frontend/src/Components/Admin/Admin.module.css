@@ -1,6 +1,5 @@
 .adminLayout {
   display: flex;
-  min-height: 100vh;
   margin-top: 60px;
   background-color: #f1f3f6;
   height: calc(100vh - 60px);
@@ -9,12 +8,15 @@
 
 .adminContent {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+  overflow-y: auto; /* IMPORTANT */
+  scrollbar-width: none; /* Firefox */
 }
+
+/* Chrome, Edge, Safari */
 .adminContent::-webkit-scrollbar {
   display: none;
 }

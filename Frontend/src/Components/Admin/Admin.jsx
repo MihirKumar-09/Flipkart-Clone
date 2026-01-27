@@ -10,10 +10,8 @@ export default function AdminPage() {
       <AdminFooter />
 
       <div className={style.adminLayout}>
-        {/* LEFT SIDEBAR */}
         <AdminSidebar />
 
-        {/* RIGHT CONTENT */}
         <div className={style.adminContent}>
           <AdminOrders />
         </div>

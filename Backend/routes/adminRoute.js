@@ -5,7 +5,9 @@ import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
 router.get("/orders", isAuth, isAdmin, async (req, res) => {
   try {
-    const orders = await Order.find().populate("user", "username email");
+    const orders = await Order.find()
+      .sort({ createdAt: -1 }) //Send new order first;
+      .populate("user", "username email");
     res.status(200).json({
       success: true,
       orders,

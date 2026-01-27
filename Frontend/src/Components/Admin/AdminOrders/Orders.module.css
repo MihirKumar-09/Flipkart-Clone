@@ -1,7 +1,8 @@
 .container {
   padding: 20px;
   height: calc(100vh - 60px);
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .container h2 {
@@ -75,6 +76,21 @@
 .select {
   padding: 6px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: none;
   cursor: pointer;
+}
+
+/* pageNavigation */
+.pageNavigation {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pageNavigation button {
+  border: none;
+  background-color: transparent;
+}
+.pageNavigation button i {
+  font-size: 1.4rem;
 }

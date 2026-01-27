@@ -1,3 +1,4 @@
+import { useEffectEvent } from "react";
 import style from "./Orders.module.css";
 import { useEffect, useState } from "react";
 
@@ -5,20 +6,24 @@ export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch all orders;
   useEffect(() => {
-    fetch("http://localhost:8080/api/admin/orders", {
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/api/admin/orders", {
+          credentials: "include",
+        });
+        if (!res.ok) {
+          throw new Error(`HTTP error! ${res.status}`);
+        }
+        const data = await res.json();
         setOrders(data.orders || []);
+      } catch (err) {
+        console.error("Failed to fetch orders", err);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => {
-        setOrders([]);
-        setLoading(false);
-      });
+      }
+    };
+    fetchOrders();
   }, []);
 
   // Update the order status ;
@@ -49,13 +54,14 @@ export default function AdminOrders() {
 
   return (
     <div className={style.container}>
-      <h2>Orders</h2>
-
       <div className={style.card}>
         <table className={style.table}>
           <thead>
             <tr>
-              <th>Order ID</th>
+              <th>
+                <span>Order ID</span>
+                <i class="fa-solid fa-arrow-down"></i>
+              </th>
               <th>Customer</th>
               <th>Total</th>
               <th>Status</th>
@@ -96,10 +102,18 @@ export default function AdminOrders() {
                       onChange={(e) => updateStatus(order._id, e.target.value)}
                       className={style.select}
                     >
-                      <option value="PENDING">Pending</option>
-                      <option value="SHIPPED">Shipped</option>
-                      <option value="DELIVERED">Delivered</option>
-                      <option value="CANCELLED">Cancelled</option>
+                      <option value="PENDING" style={{ color: "#856404" }}>
+                        Pending
+                      </option>
+                      <option value="SHIPPED" style={{ color: "#0d47a1" }}>
+                        Shipped
+                      </option>
+                      <option value="DELIVERED" style={{ color: "green" }}>
+                        Delivered
+                      </option>
+                      <option value="CANCELLED" style={{ color: "red" }}>
+                        Cancelled
+                      </option>
                     </select>
                   </td>
                 </tr>
@@ -107,6 +121,14 @@ export default function AdminOrders() {
             )}
           </tbody>
         </table>
+        <div className={style.pageNavigation}>
+          <button>
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+          <button>
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+        </div>
       </div>
     </div>
   );
