@@ -1,47 +1,33 @@
-import { useEffect, useState } from "react";
-import style from "./Orders.module.css";
-
-export default function AdminOrders() {
+import style from "./Delivery.module.css";
+import { useEffect, useEffectEvent, useState } from "react";
+export default function DeliveryOrder() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch all orders
+  // Fetch all delivered products;
   useEffect(() => {
-    const fetchOrders = async () => {
+    const fetchOrder = async () => {
       try {
         setLoading(true);
-
         const res = await fetch(
-          `http://localhost:8080/api/admin/orders?page=${page}&limit=20`,
-          { credentials: "include" },
+          `http://localhost:8080/api/admin/orders/delivery?page=${page}&limit=20`,
+          {
+            credentials: "include",
+          },
         );
-
         const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.message || "Failed");
-        }
-
         setOrders(data.orders || []);
-        setTotalPages(data.totalPages || 1);
       } catch (err) {
-        console.error("Fetch error:", err);
+        console.log(err);
         setOrders([]);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchOrders();
-  }, [page]);
-
-  useEffect(() => {
-    if (page > totalPages) setPage(totalPages);
-    if (page < 1) setPage(1);
-  }, [page, totalPages]);
-
+    fetchOrder();
+  }, []);
   // Update Status
   const updateStatus = async (id, status) => {
     try {
@@ -62,10 +48,7 @@ export default function AdminOrders() {
     }
   };
 
-  if (loading) {
-    return <p>Loading orders...</p>;
-  }
-
+  if (loading) return <p>Loading Delivery Orders...</p>;
   return (
     <div className={style.container}>
       <div className={style.card}>
@@ -83,10 +66,8 @@ export default function AdminOrders() {
 
           <tbody>
             {orders.length === 0 ? (
-              <tr>
-                <td colSpan="6" align="center">
-                  No orders found
-                </td>
+              <tr colSpan="6" align="center">
+                <td>No delivery orders</td>
               </tr>
             ) : (
               orders.map((order) => (
@@ -94,7 +75,6 @@ export default function AdminOrders() {
                   <td>{order.orderId}</td>
                   <td>{order.user?.username || "Guest"}</td>
                   <td>₹{order.totalPrice.toLocaleString("en-IN")}</td>
-
                   <td>
                     <span
                       className={`${style.status} ${
@@ -104,18 +84,13 @@ export default function AdminOrders() {
                       {order.status}
                     </span>
                   </td>
-
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-
                   <td>
                     <select
                       value={order.status}
                       onChange={(e) => updateStatus(order._id, e.target.value)}
                       className={style.select}
                     >
-                      <option value="SHIPPED" style={{ color: "#0d47a1" }}>
-                        Shipped
-                      </option>
                       <option
                         value="OUT_OF_DELIVERY"
                         style={{ color: "green" }}
@@ -135,7 +110,6 @@ export default function AdminOrders() {
             )}
           </tbody>
         </table>
-
         <div className={style.pageNavigation}>
           <button
             disabled={page === 1 || loading}

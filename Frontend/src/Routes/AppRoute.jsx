@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoute";
+import AdminProtectedRoute from "../Components/ProtectedRoute/AdminProtectRoute/AdminProtectRoute";
 import Layout from "../Components/Layout/Layout";
 // Home
 import Home from "../Pages/Home/HomePage";
@@ -53,6 +54,14 @@ import Stock from "../Pages/StockAvailabe/Stock";
 
 //! Admin page and admin route ;
 import AdminPage from "../Pages/Admin/Admin";
+// Admin All orders;
+import AdminOrder from "../Components/Admin/AdminOrders/Orders";
+// Admin Delivery page;
+import AdminDelivery from "../Components/Admin/DeliveryOrders/DeliveryOrders";
+// Admin Return page;
+import AdminReturn from "../Components/Admin/Returns/Returns";
+// Admin Analytics;
+import AdminAnalytics from "../Components/Admin/Analytics/Analytics";
 
 export default function AppRoute() {
   return (
@@ -70,7 +79,15 @@ export default function AppRoute() {
         }
       />
       {/* Admin Page */}
-      <Route path="/admin" element={<AdminPage />} />
+      <Route element={<AdminProtectedRoute />}>
+        <Route path="/admin" element={<AdminPage />}>
+          <Route index element={<AdminOrder />} />
+          <Route path="delivery" element={<AdminDelivery />} />
+          <Route path="returns" element={<AdminReturn />} />
+          <Route path="analytics" element={<AdminAnalytics />} />
+        </Route>
+      </Route>
+
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order-success" element={<OrderSuccess />} />

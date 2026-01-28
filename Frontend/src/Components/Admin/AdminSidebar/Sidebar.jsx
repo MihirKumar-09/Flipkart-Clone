@@ -7,12 +7,15 @@ export default function AdminSidebar() {
         Orders
       </NavLink>
 
-      <NavLink to="/admin/products" className={style.link}>
-        Products
+      <NavLink to="delivery" className={style.link}>
+        Delivery
       </NavLink>
 
-      <NavLink to="/admin/users" className={style.link}>
-        Users
+      <NavLink to="returns" className={style.link}>
+        Returns
+      </NavLink>
+      <NavLink to="/analytics" className={style.link}>
+        Analytics
       </NavLink>
     </div>
   );

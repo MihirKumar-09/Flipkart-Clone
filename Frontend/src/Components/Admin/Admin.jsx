@@ -1,6 +1,6 @@
 import AdminFooter from "./AdminNavbar/Navbar";
 import AdminSidebar from "./AdminSidebar/Sidebar";
-import AdminOrders from "./AdminOrders/Orders";
+import { Outlet } from "react-router-dom";
 
 import style from "./Admin.module.css";
 
@@ -13,7 +13,7 @@ export default function AdminPage() {
         <AdminSidebar />
 
         <div className={style.adminContent}>
-          <AdminOrders />
+          <Outlet />
         </div>
       </div>
     </>

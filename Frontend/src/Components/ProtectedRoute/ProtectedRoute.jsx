@@ -1,16 +1,14 @@
-import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 const ProtectedRoute = ({ children }) => {
   const [ok, setOk] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get("/api/auth/check", {
+        const res = await axios.get("/api/auth/check", {
           withCredentials: true,
         });
+
+        console.log("AUTH CHECK RESPONSE:", res.data);
         setOk(true);
       } catch (err) {
         setOk(false);
