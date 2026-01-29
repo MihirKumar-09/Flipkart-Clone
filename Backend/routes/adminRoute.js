@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 const router = express.Router();
 import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";

@@ -92,7 +92,7 @@ export default function DeliveryOrder() {
                       className={style.select}
                     >
                       <option
-                        value="OUT_OF_DELIVERY"
+                        value="OUT_FOR_DELIVERY"
                         style={{ color: "green" }}
                       >
                         Out for Delivery

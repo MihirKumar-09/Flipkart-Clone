@@ -113,11 +113,14 @@ export default function AdminOrders() {
                       onChange={(e) => updateStatus(order._id, e.target.value)}
                       className={style.select}
                     >
+                      <option value="PLACED" style={{ color: "#0d47a1" }}>
+                        Placed
+                      </option>
                       <option value="SHIPPED" style={{ color: "#0d47a1" }}>
                         Shipped
                       </option>
                       <option
-                        value="OUT_OF_DELIVERY"
+                        value="OUT_FOR_DELIVERY"
                         style={{ color: "green" }}
                       >
                         Out for Delivery
