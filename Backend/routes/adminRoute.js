@@ -1,6 +1,6 @@
 import express, { json } from "express";
 const router = express.Router();
-import isAuth from "../middlewares/middleware.js";
+import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
@@ -44,7 +44,7 @@ router.get("/orders", isAuth, isAdmin, async (req, res) => {
 });
 
 // Update order status;
-router.patch("/orders/:id", async (req, res) => {
+router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
   try {
     const { status } = req.body;
 

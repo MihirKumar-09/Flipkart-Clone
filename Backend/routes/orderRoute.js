@@ -1,5 +1,5 @@
 import express from "express";
-import isAuth from "../middlewares/middleware.js";
+import isAuth from "../middlewares/isAuth.js";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 

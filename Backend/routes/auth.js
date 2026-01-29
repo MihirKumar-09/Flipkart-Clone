@@ -1,6 +1,5 @@
 import express from "express";
-import isAuth from "../middlewares/middleware.js";
-// import User from "../models/userModel.js";
+import isAuth from "../middlewares/isAuth.js";
 const router = express.Router();
 router.get("/check", isAuth, async (req, res) => {
   res.status(200).json({
