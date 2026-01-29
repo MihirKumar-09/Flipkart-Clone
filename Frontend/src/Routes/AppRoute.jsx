@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoute";
+import AdminProtectedRoute from "../Components/ProtectedRoute/AdminProtectedRoute";
 import Layout from "../Components/Layout/Layout";
 // Home
 import Home from "../Pages/Home/HomePage";
@@ -78,11 +79,14 @@ export default function AppRoute() {
         }
       />
       {/* Admin Page */}
-      <Route path="/admin" element={<AdminPage />}>
-        <Route index element={<AdminOrder />} />
-        <Route path="delivery" element={<AdminDelivery />} />
-        <Route path="returns" element={<AdminReturn />} />
-        <Route path="analytics" element={<AdminAnalytics />} />
+
+      <Route element={<AdminProtectedRoute />}>
+        <Route path="/admin" element={<AdminPage />}>
+          <Route index element={<AdminOrder />} />
+          <Route path="delivery" element={<AdminDelivery />} />
+          <Route path="returns" element={<AdminReturn />} />
+          <Route path="analytics" element={<AdminAnalytics />} />
+        </Route>
       </Route>
 
       <Route path="/buy-now" element={<BuyNow />} />

@@ -4,6 +4,18 @@ import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
+// Admin check ;
+router.get("/check-admin", isAuth, isAdmin, async (req, res) => {
+  res.status(200).json({
+    success: true,
+    user: {
+      _id: req.user._id,
+      username: req.user.username,
+      email: req.user.email,
+      role: req.user.role,
+    },
+  });
+});
 // Fetch all orders;
 router.get("/orders", isAuth, isAdmin, async (req, res) => {
   try {

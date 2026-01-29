@@ -1,6 +1,9 @@
 import express from "express";
 import isAuth from "../middlewares/isAuth.js";
+
 const router = express.Router();
+
+// Check normal ;
 router.get("/check", isAuth, async (req, res) => {
   res.status(200).json({
     success: true,
