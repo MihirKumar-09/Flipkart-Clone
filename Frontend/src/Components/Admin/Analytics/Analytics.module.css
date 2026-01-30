@@ -4,3 +4,8 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
+.chart {
+  width: 100%;
+  background-color: aqua;
+  height: 300px;
+}
