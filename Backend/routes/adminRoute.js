@@ -1,10 +1,11 @@
-import express from "express";
+import express, { json } from "express";
 const router = express.Router();
 import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
+import { getRounds } from "bcrypt";
 
 // Admin check ;
 router.get("/check-admin", isAuth, isAdmin, async (req, res) => {
@@ -174,4 +175,93 @@ router.get("/orders/analytics", isAuth, isAdmin, async (req, res) => {
   }
 });
 
+// Generate monthly revenue;
+router.get(
+  "/orders/analytics/monthly-revenue",
+  isAuth,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const revenue = await Order.aggregate([
+        {
+          $match: {
+            status: "DELIVERED",
+          },
+        },
+        {
+          $group: {
+            _id: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+            },
+            totalRevenue: { $sum: "$totalPrice" },
+          },
+        },
+        {
+          $sort: {
+            "_id.year": 1,
+            "_id.month": 1,
+          },
+        },
+      ]);
+
+      res.status(200).json(revenue);
+    } catch (err) {
+      console.error("Monthly revenue error:", err);
+      res.status(500).json({ message: "Monthly revenue fetch failed" });
+    }
+  },
+);
+
+// Fetch top selling products;
+router.get(
+  "/orders/analytics/top-products",
+  isAuth,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const topProducts = await Order.aggregate([
+        { $match: { items: { $exists: true, $ne: [] } } },
+        { $unwind: "$items" },
+        {
+          $addFields: {
+            "items.product": { $toObjectId: "$items.product" },
+          },
+        },
+        {
+          $group: {
+            _id: "$items.product",
+            totalSold: { $sum: "$items.quantity" },
+            revenue: {
+              $sum: { $multiply: ["$items.quantity", "$items.price"] },
+            },
+          },
+        },
+        { $sort: { totalSold: -1 } },
+        { $limit: 5 },
+        {
+          $lookup: {
+            from: "products",
+            localField: "_id",
+            foreignField: "_id",
+            as: "product",
+          },
+        },
+        { $unwind: "$product" },
+        {
+          $project: {
+            _id: 0,
+            productId: "$product._id",
+            name: "$product.name",
+            totalSold: 1,
+            revenue: 1,
+          },
+        },
+      ]);
+      res.status(200).json(topProducts);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+);
 export default router;
