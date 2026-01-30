@@ -95,7 +95,7 @@ export default function HomeNavBar() {
           ) : (
             <Link to="/login" className="link">
               <button className="loginBtn">
-                <i className="fa-regular fa-circle-user"></i>Login
+                <i className="fa-regular fa-circle-user"></i>Account
                 <i className="fa-solid fa-angle-down arrowIcon"></i>
               </button>
             </Link>

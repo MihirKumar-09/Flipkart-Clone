@@ -3,7 +3,9 @@ const router = express.Router();
 import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
+import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
+
 // Admin check ;
 router.get("/check-admin", isAuth, isAdmin, async (req, res) => {
   res.status(200).json({
@@ -125,6 +127,50 @@ router.get("/orders/delivery", isAuth, isAdmin, async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch deliver products" });
+  }
+});
+router.get("/orders/analytics", isAuth, isAdmin, async (req, res) => {
+  try {
+    // Total Orders;
+    const totalOrders = await Order.countDocuments();
+
+    // Cancel Orders;
+    const cancelledOrders = await Order.countDocuments({
+      status: "CANCELLED",
+    });
+
+    // Active orders;
+    const activeOrders = await Order.countDocuments({
+      status: { $in: ["PLACED", "SHIPPED"] },
+    });
+
+    // Total revenue (Only delivery orders);
+    const revenueData = await Order.aggregate([
+      { $match: { status: "DELIVERED" } },
+      {
+        $group: {
+          _id: null,
+          totalRevenue: { $sum: "$totalPrice" },
+        },
+      },
+    ]);
+
+    const totalRevenue =
+      revenueData.length > 0 ? revenueData[0].totalRevenue : 0;
+
+    // Total user;
+    const totalUsers = await User.countDocuments();
+
+    res.status(200).json({
+      totalOrders,
+      totalRevenue,
+      totalUsers,
+      cancelledOrders,
+      activeOrders,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to fetch analytics data" });
   }
 });
 
