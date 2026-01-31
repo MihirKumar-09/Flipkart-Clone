@@ -36,19 +36,18 @@ export default function Analytics() {
   }, []);
   // Fetch top products;
   useEffect(() => {
-    if (!user?.user?.token) return;
-    console.log("Token sent to backend:", user.user.token);
-
     const fetchTopProducts = async () => {
       try {
-        const res = await axios(
+        const res = await axios.get(
           "http://localhost:8080/api/admin/orders/analytics/top-products",
-          { headers: { Authorization: `Bearer ${user.user.token}` } },
+          {
+            withCredentials: true, // <-- send MongoDB session cookie
+          },
         );
-        setTopProducts(res.data);
         console.log("TOP PRODUCTS DATA:", res.data);
+        setTopProducts(res.data);
       } catch (err) {
-        console.log(
+        console.error(
           "TOP PRODUCTS API ERROR:",
           err.response?.data || err.message,
         );
@@ -56,7 +55,7 @@ export default function Analytics() {
     };
 
     fetchTopProducts();
-  }, [user?.user?.token]);
+  }, []);
 
   if (!summary) return <p>Loading....</p>;
 
@@ -88,11 +87,12 @@ export default function Analytics() {
         <div className={style.doughnutGraph}>
           <OrderStatusChart summary={summary} />
         </div>
-        <div className={style.doughnutGraph}>
-          <MonthlyRevenueChart data={monthlyRevenue} />
-        </div>
+
         <div className={style.doughnutGraph}>
           <TopSellingProductsChart data={topProducts} />
+        </div>
+        <div className={style.doughnutGraph}>
+          <MonthlyRevenueChart data={monthlyRevenue} />
         </div>
       </section>
     </div>

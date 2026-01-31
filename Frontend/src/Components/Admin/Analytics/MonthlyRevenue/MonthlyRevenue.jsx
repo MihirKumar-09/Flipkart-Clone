@@ -4,18 +4,22 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Tooltip,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Tooltip,
   Legend,
 );
+
 export default function MonthlyRevenueChart({ data }) {
   if (!data || data.length === 0) return null;
 
@@ -23,16 +27,45 @@ export default function MonthlyRevenueChart({ data }) {
 
   const revenueData = data.map((item) => item.totalRevenue);
 
+  const onOffRaw = [1, 1, 0, 1, 0, 1, 1];
+  const onOffData = onOffRaw.map((v) => (v === 1 ? 100 : 0));
+
   const chartData = {
     labels,
     datasets: [
       {
+        type: "bar",
         label: "Monthly Revenue (₹)",
         data: revenueData,
-        borderColor: "#4CAF50",
-        backgroundColor: "rgba(76,175,80,0.2)",
-        tension: 0.4,
-        fill: true,
+        backgroundColor: [
+          "#FF6384",
+          "#FFCE56",
+          "#36A2EB",
+          "#FF6384",
+          "#FFCE56",
+          "#4BC0C0",
+          "#FF6384",
+        ],
+        borderColor: "transparent",
+        borderWidth: 0,
+        yAxisID: "y",
+        order: 2,
+      },
+      {
+        type: "line",
+        label: "Status (ON/OFF)",
+        data: onOffData,
+        borderColor: "#2196F3",
+        backgroundColor: "rgba(33, 150, 243, 0.1)",
+        borderWidth: 3,
+        pointRadius: 0,
+        tension: 0,
+        stepped: "before",
+        fill: false,
+        yAxisID: "y1",
+        order: 1,
+        barThickness: 20,
+        maxBarThickness: 25,
       },
     ],
   };
@@ -40,7 +73,64 @@ export default function MonthlyRevenueChart({ data }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            if (context.dataset.type === "line") {
+              return `Status: ${context.raw === 100 ? "ON" : "OFF"}`;
+            }
+            return `${context.dataset.label}: ₹${context.raw.toLocaleString()}`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        type: "linear",
+        position: "left",
+        title: {
+          display: true,
+          text: "Revenue / Value",
+        },
+        beginAtZero: true,
+        max: 60,
+        ticks: {
+          stepSize: 20,
+        },
+      },
+      y1: {
+        type: "linear",
+        position: "right",
+        title: {
+          display: true,
+          text: "ON / OFF",
+        },
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 100,
+          callback: (value) =>
+            value === 100 ? "ON" : value === 0 ? "OFF" : "",
+        },
+        grid: {
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
-  return <Line data={chartData} options={options} />;
+  return <Bar data={chartData} options={options} />;
 }

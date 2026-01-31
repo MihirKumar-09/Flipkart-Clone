@@ -8,6 +8,7 @@ import {
   Filler,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
   CategoryScale,
@@ -16,18 +17,17 @@ ChartJS.register(
   Tooltip,
   Legend,
   Filler,
+  ChartDataLabels,
 );
 
 export default function TopSellingProductsChart({ data }) {
-  console.log("TOP PRODUCTS DATA:", data);
-
   if (!data) return <p>Loading...</p>;
 
   const chartData = {
     labels: data.map((item) => item.name),
     datasets: [
       {
-        label: "Units Sold",
+        label: "Top Selling Products",
         data: data.map((item) => item.totalSold),
         backgroundColor: "#4CAF50",
         borderRadius: 6,
@@ -36,12 +36,25 @@ export default function TopSellingProductsChart({ data }) {
   };
 
   const options = {
-    indexAxis: "y",
+    indexAxis: "x",
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: { display: true, position: "top" },
+      title: { display: true, text: "Top Selling Products" },
+      datalabels: {
+        display: false,
+      },
+    },
     scales: {
-      x: { beginAtZero: true },
+      y: {
+        ticks: { display: false },
+        grid: { drawTicks: false, drawBorder: false },
+      },
+      x: {
+        beginAtZero: false,
+        ticks: { display: false },
+      },
     },
   };
 

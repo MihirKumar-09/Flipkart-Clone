@@ -213,41 +213,58 @@ router.get(
   },
 );
 
-// Fetch top selling products;
+// routes/admin.js
 router.get(
   "/orders/analytics/top-products",
   isAuth,
   isAdmin,
   async (req, res) => {
     try {
-      const topProducts = await Order.aggregate([
-        { $match: { items: { $exists: true, $ne: [] } } },
+      const pipeline = [
+        // Only orders that have items
+        { $match: { "items.0": { $exists: true } } },
+
+        // Flatten items array
         { $unwind: "$items" },
+
+        // Convert string product IDs to ObjectId for lookup
         {
           $addFields: {
-            "items.product": { $toObjectId: "$items.product" },
+            productIdObj: { $toObjectId: "$items.product" },
           },
         },
+
+        // Group by product
         {
           $group: {
-            _id: "$items.product",
+            _id: "$productIdObj",
             totalSold: { $sum: "$items.quantity" },
             revenue: {
               $sum: { $multiply: ["$items.quantity", "$items.price"] },
             },
           },
         },
+
+        // Sort top-selling products
         { $sort: { totalSold: -1 } },
+
+        // Take top 5
         { $limit: 5 },
+
+        // Lookup product details
         {
           $lookup: {
-            from: "products",
+            from: "products", // collection name must match exactly
             localField: "_id",
             foreignField: "_id",
             as: "product",
           },
         },
+
+        // Flatten product array
         { $unwind: "$product" },
+
+        // Project only the needed fields
         {
           $project: {
             _id: 0,
@@ -257,11 +274,21 @@ router.get(
             revenue: 1,
           },
         },
-      ]);
+      ];
+
+      const topProducts = await Order.aggregate(pipeline);
+
+      console.log("Top Products Result:", topProducts);
+
       res.status(200).json(topProducts);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      console.error("Top Products Aggregation Error:", error.stack || error);
+      res.status(500).json({
+        message: "Failed to fetch top products",
+        error: error.message,
+      });
     }
   },
 );
+
 export default router;
