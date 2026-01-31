@@ -3,15 +3,15 @@ import SummaryCard from "./SummaryCard/SummaryCard";
 import OrderStatusChart from "./OrderStatusGraph/OrderStatusGraph";
 import MonthlyRevenueChart from "./MonthlyRevenue/MonthlyRevenue";
 import TopSellingProductsChart from "./TopProductsGraph/TopProducts";
-import { use, useEffect, useState } from "react";
+import LowStockChart from "./LowStockGraph/LowStockGraph";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../../Context/AuthContext";
 export default function Analytics() {
   const [summary, setSummary] = useState(null);
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
   const [topProducts, setTopProducts] = useState([]);
-  const user = useAuth();
-  console.log("ANALYTICS RENDER USER:", user);
+  const [lowStock, setLowStock] = useState([]);
 
   // Fetch analytics data;
   useEffect(() => {
@@ -19,7 +19,6 @@ export default function Analytics() {
       const res = await axios.get(
         "http://localhost:8080/api/admin/orders/analytics",
       );
-      console.log(res.data);
       setSummary(res.data);
     };
     fetchSummary();
@@ -40,11 +39,9 @@ export default function Analytics() {
       try {
         const res = await axios.get(
           "http://localhost:8080/api/admin/orders/analytics/top-products",
-          {
-            withCredentials: true, // <-- send MongoDB session cookie
-          },
+          { withCredentials: true },
         );
-        console.log("TOP PRODUCTS DATA:", res.data);
+
         setTopProducts(res.data);
       } catch (err) {
         console.error(
@@ -55,6 +52,24 @@ export default function Analytics() {
     };
 
     fetchTopProducts();
+  });
+
+  // Fetch low stock products;
+  useEffect(() => {
+    const fetchLowStockProducts = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/api/admin/orders/analytics/low-stocks?threshold=5",
+          {
+            withCredentials: true,
+          },
+        );
+        setLowStock(res.data);
+      } catch (err) {
+        console.log("Low stock API error : ", err);
+      }
+    };
+    fetchLowStockProducts();
   }, []);
 
   if (!summary) return <p>Loading....</p>;
@@ -94,6 +109,10 @@ export default function Analytics() {
         <div className={style.doughnutGraph}>
           <MonthlyRevenueChart data={monthlyRevenue} />
         </div>
+      </section>
+
+      <section className={style.secondChart}>
+        <LowStockChart data={lowStock} />
       </section>
     </div>
   );

@@ -40,8 +40,8 @@ export default function TopSellingProductsChart({ data }) {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: true, position: "top" },
-      title: { display: true, text: "Top Selling Products" },
+      legend: { display: true, position: "bottom" },
+      title: { display: false, text: "Top Selling Products" },
       datalabels: {
         display: false,
       },

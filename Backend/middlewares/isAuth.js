@@ -12,7 +12,6 @@ const isAuth = async (req, res, next) => {
     }
 
     req.user = user;
-    console.log("ROLE FROM DB:", req.user.role);
     next();
   } catch (err) {
     console.error("isAuth error:", err);

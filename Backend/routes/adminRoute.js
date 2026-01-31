@@ -213,7 +213,7 @@ router.get(
   },
 );
 
-// routes/admin.js
+// Fetch top selling products;
 router.get(
   "/orders/analytics/top-products",
   isAuth,
@@ -221,23 +221,12 @@ router.get(
   async (req, res) => {
     try {
       const pipeline = [
-        // Only orders that have items
-        { $match: { "items.0": { $exists: true } } },
-
-        // Flatten items array
         { $unwind: "$items" },
 
-        // Convert string product IDs to ObjectId for lookup
-        {
-          $addFields: {
-            productIdObj: { $toObjectId: "$items.product" },
-          },
-        },
-
-        // Group by product
         {
           $group: {
-            _id: "$productIdObj",
+            _id: "$items.product",
+            name: { $first: "$items.name" },
             totalSold: { $sum: "$items.quantity" },
             revenue: {
               $sum: { $multiply: ["$items.quantity", "$items.price"] },
@@ -245,31 +234,14 @@ router.get(
           },
         },
 
-        // Sort top-selling products
         { $sort: { totalSold: -1 } },
-
-        // Take top 5
         { $limit: 5 },
 
-        // Lookup product details
-        {
-          $lookup: {
-            from: "products", // collection name must match exactly
-            localField: "_id",
-            foreignField: "_id",
-            as: "product",
-          },
-        },
-
-        // Flatten product array
-        { $unwind: "$product" },
-
-        // Project only the needed fields
         {
           $project: {
             _id: 0,
-            productId: "$product._id",
-            name: "$product.name",
+            productId: "$_id",
+            name: 1,
             totalSold: 1,
             revenue: 1,
           },
@@ -278,8 +250,6 @@ router.get(
 
       const topProducts = await Order.aggregate(pipeline);
 
-      console.log("Top Products Result:", topProducts);
-
       res.status(200).json(topProducts);
     } catch (error) {
       console.error("Top Products Aggregation Error:", error.stack || error);
@@ -287,6 +257,26 @@ router.get(
         message: "Failed to fetch top products",
         error: error.message,
       });
+    }
+  },
+);
+
+// Fetch low stock products;
+router.get(
+  "/orders/analytics/low-stocks",
+  isAuth,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const threshold = parseInt(req.query.threshold) || 5; // refer boundary and limitation alert;
+      const products = await Product.find({ stock: { $lte: threshold } })
+        .sort({ stock: 1 }) //lowest stock
+        .select("name stock"); //products name and stock
+
+      res.status(200).json(products);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Failed to fetch low-stock products" });
     }
   },
 );

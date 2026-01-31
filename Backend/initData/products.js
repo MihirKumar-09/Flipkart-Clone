@@ -6,7 +6,7 @@ const mobiles = [
     price: 150000,
     category: "Mobiles",
     brand: "Apple",
-    stock: 320,
+    stock: 3,
     image: [
       {
         url: "https://i.pinimg.com/736x/19/b2/f6/19b2f6dc397a1be6fd5005303264a7c9.jpg",
@@ -2716,7 +2716,7 @@ const furniture = [
     price: 22999,
     category: "SofaSet",
     brand: "ComfiCasa",
-    stock: 15,
+    stock: 1,
     image: [
       {
         url: "https://i.pinimg.com/736x/e6/0b/e2/e60be29b43a5344b66890359370f50f9.jpg",

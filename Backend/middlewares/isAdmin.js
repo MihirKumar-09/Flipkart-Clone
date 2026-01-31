@@ -10,7 +10,6 @@ const isAdmin = async (req, res, next) => {
   if (!user || user.role != "ADMIN") {
     return res.status(403).json({ message: "ADMIN access only" });
   }
-  console.log("USER ROLE:", req.user?.role);
 
   next();
 };

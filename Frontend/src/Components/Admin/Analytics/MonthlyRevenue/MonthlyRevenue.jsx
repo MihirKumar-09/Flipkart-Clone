@@ -79,7 +79,7 @@ export default function MonthlyRevenueChart({ data }) {
     },
     plugins: {
       legend: {
-        position: "top",
+        position: "bottom",
       },
       tooltip: {
         callbacks: {
