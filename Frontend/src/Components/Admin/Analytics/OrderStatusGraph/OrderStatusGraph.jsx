@@ -4,7 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function OrderStatusChart({ summary }) {
-  if (!summary) return null;
+  if (!summary) return <p>No Order Status</p>;
   const delivered =
     summary.totalOrders - summary.activeOrders - summary.cancelledOrders;
 

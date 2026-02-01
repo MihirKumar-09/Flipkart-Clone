@@ -21,7 +21,7 @@ ChartJS.register(
 );
 
 export default function TopSellingProductsChart({ data }) {
-  if (!data) return <p>Loading...</p>;
+  if (!data) return <p>No Top Selling Products</p>;
 
   const chartData = {
     labels: data.map((item) => item.name),

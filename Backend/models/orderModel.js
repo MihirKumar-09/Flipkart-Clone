@@ -24,7 +24,7 @@ const orderSchema = new mongoose.Schema(
         name: String,
         price: Number,
         quantity: Number,
-        image: String, // single image URL
+        image: String,
       },
     ],
 
@@ -56,6 +56,17 @@ const orderSchema = new mongoose.Schema(
         "CANCELLED",
       ],
       default: "PLACED",
+    },
+    paidAt: {
+      type: Date,
+    },
+
+    deliveredAt: {
+      type: Date,
+    },
+
+    cancelledAt: {
+      type: Date,
     },
   },
   { timestamps: true },

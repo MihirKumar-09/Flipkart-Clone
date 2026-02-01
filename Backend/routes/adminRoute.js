@@ -74,23 +74,31 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
 
     console.log("OLD:", oldStatus, "NEW:", newStatus);
 
-    // Restore stock after admin cancel;
+    // ✅ Restore stock if cancelled
     if (oldStatus !== "CANCELLED" && newStatus === "CANCELLED") {
       for (const item of order.items) {
-        console.log("RESTORING STOCK:", item.product.toString(), item.quantity);
-
         await Product.findByIdAndUpdate(item.product, {
           $inc: { stock: item.quantity },
         });
       }
     }
 
+    // ✅ Set deliveredAt ONLY ONCE
+    if (oldStatus !== "DELIVERED" && newStatus === "DELIVERED") {
+      order.deliveredAt = new Date();
+    }
+
+    // (Optional but recommended)
+    if (oldStatus !== "PAID" && newStatus === "PAID") {
+      order.paidAt = new Date();
+    }
+
     order.status = newStatus;
     await order.save();
 
     res.json(order);
-    console.log("UPDATED ORDER ID:", req.params.id);
   } catch (err) {
+    console.error("Order update error:", err);
     res.status(500).json({ message: err.message });
   }
 });
@@ -186,13 +194,24 @@ router.get(
         {
           $match: {
             status: "DELIVERED",
+            deliveredAt: { $exists: true },
           },
         },
         {
           $group: {
             _id: {
-              year: { $year: "$createdAt" },
-              month: { $month: "$createdAt" },
+              year: {
+                $year: {
+                  date: "$deliveredAt",
+                  timezone: "Asia/Kolkata",
+                },
+              },
+              month: {
+                $month: {
+                  date: "$deliveredAt",
+                  timezone: "Asia/Kolkata",
+                },
+              },
             },
             totalRevenue: { $sum: "$totalPrice" },
           },
