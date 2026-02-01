@@ -1,28 +1,35 @@
-import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-const ProtectedRoute = ({ children }) => {
-  const [ok, setOk] = useState(null);
+// frontend/src/Routes/ProtectedRoute.jsx
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import axios from "axios";
+
+const ProtectedRoute = ({ requiredRole }) => {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("/api/auth/check", {
+        const res = await axios.get("http://localhost:8080/api/auth/check", {
           withCredentials: true,
         });
-
-        console.log("AUTH CHECK RESPONSE:", res.data);
-        setOk(true);
-      } catch (err) {
-        setOk(false);
+        setUser(res.data.user);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
-  if (ok === null) return null;
+  if (loading) return <div>Loading...</div>;
 
-  return ok ? children : <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/login" replace />;
+  if (requiredRole && user.role !== requiredRole)
+    return <Navigate to="/" replace />;
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

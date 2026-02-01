@@ -70,14 +70,10 @@ export default function AppRoute() {
       <Route path="/flipkart-minutes" element={<FlipkartMinutes />} />
       <Route path="/grocery" element={<Grocery />} />
       <Route path="/flight" element={<Flight />} />
-      <Route
-        path="/cart"
-        element={
-          <ProtectedRoute>
-            <CartPage />
-          </ProtectedRoute>
-        }
-      />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/cart" element={<CartPage />} />
+      </Route>
+
       {/* Admin Page */}
 
       <Route element={<AdminProtectedRoute />}>

@@ -74,7 +74,6 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
 
     console.log("OLD:", oldStatus, "NEW:", newStatus);
 
-    // ✅ Restore stock if cancelled
     if (oldStatus !== "CANCELLED" && newStatus === "CANCELLED") {
       for (const item of order.items) {
         await Product.findByIdAndUpdate(item.product, {
@@ -83,12 +82,10 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
       }
     }
 
-    // ✅ Set deliveredAt ONLY ONCE
     if (oldStatus !== "DELIVERED" && newStatus === "DELIVERED") {
       order.deliveredAt = new Date();
     }
 
-    // (Optional but recommended)
     if (oldStatus !== "PAID" && newStatus === "PAID") {
       order.paidAt = new Date();
     }
@@ -103,7 +100,6 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
   }
 });
 
-// Fetch out_of_deliver and deliver product;
 router.get("/orders/delivery", isAuth, isAdmin, async (req, res) => {
   try {
     const page = Math.max(Number(req.query.page) || 1, 1);
@@ -299,5 +295,13 @@ router.get(
     }
   },
 );
+
+router.get("/orders/debug-session", (req, res) => {
+  res.json({
+    sessionId: req.sessionID,
+    userId: req.session?.userId,
+    session: req.session,
+  });
+});
 
 export default router;

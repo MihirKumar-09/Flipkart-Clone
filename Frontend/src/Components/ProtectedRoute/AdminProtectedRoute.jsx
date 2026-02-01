@@ -1,31 +1,36 @@
-import { Outlet, useNavigate } from "react-router-dom";
+// ProtectedRoute.jsx
 import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify";
 
-const AdminProtectedRoute = () => {
-  const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(true);
+const AdminProtectedRoute = ({ requiredRole }) => {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const checkAdmin = async () => {
+    const fetchUser = async () => {
       try {
-        await axios.get("http://localhost:8080/api/admin/check-admin", {
-          withCredentials: true,
+        const res = await axios.get("http://localhost:8080/api/auth/check", {
+          withCredentials: true, // very important if you use cookies/sessions
         });
-
-        // admin → allow render
-        setIsAdmin(false);
+        setUser(res.data.user || null);
       } catch (err) {
-        toast.error("Admin access only");
-        navigate("/", { replace: true });
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
     };
 
-    checkAdmin();
+    fetchUser();
   }, []);
 
-  return <Outlet />;
+  if (loading) return <div>Loading...</div>; // optional spinner
+
+  if (!user) return <Navigate to="/login" replace />; // not logged in
+  if (requiredRole && user.role !== requiredRole)
+    return <Navigate to="/" replace />; // not authorized
+
+  return <Outlet />; // render nested routes
 };
 
 export default AdminProtectedRoute;
