@@ -4,14 +4,15 @@ import OrderStatusChart from "./OrderStatusGraph/OrderStatusGraph";
 import MonthlyRevenueChart from "./MonthlyRevenue/MonthlyRevenue";
 import TopSellingProductsChart from "./TopProductsGraph/TopProducts";
 import LowStockChart from "./LowStockGraph/LowStockGraph";
+import DailyOrderStatusChart from "./DailyOrderStatus/DailyOrder";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../../Context/AuthContext";
 export default function Analytics() {
   const [summary, setSummary] = useState(null);
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
   const [topProducts, setTopProducts] = useState([]);
   const [lowStock, setLowStock] = useState([]);
+  const [dailyOrderStatus, setDailyOrderStatus] = useState([]);
 
   // Fetch analytics data;
   useEffect(() => {
@@ -72,6 +73,22 @@ export default function Analytics() {
     fetchLowStockProducts();
   }, []);
 
+  //fetch daily order status;
+  useEffect(() => {
+    const fetchDailyOrderStatus = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/api/admin/orders/analytics/daily-status?days=7",
+          { withCredentials: true },
+        );
+        setDailyOrderStatus(res.data.data);
+      } catch (err) {
+        console.log("Daily order status API failed : ", err);
+      }
+    };
+    fetchDailyOrderStatus();
+  }, []);
+
   if (!summary) return <p>Loading....</p>;
 
   const formatINR = (amount) => {
@@ -112,7 +129,12 @@ export default function Analytics() {
       </section>
 
       <section className={style.secondChart}>
-        <LowStockChart data={lowStock} />
+        <div className={style.doughnutGraph}>
+          <LowStockChart data={lowStock} />
+        </div>
+        <div className={style.doughnutGraph}>
+          <DailyOrderStatusChart data={dailyOrderStatus} />
+        </div>
       </section>
     </div>
   );

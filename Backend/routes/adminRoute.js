@@ -296,12 +296,79 @@ router.get(
   },
 );
 
-router.get("/orders/debug-session", (req, res) => {
-  res.json({
-    sessionId: req.sessionID,
-    userId: req.session?.userId,
-    session: req.session,
-  });
-});
+// Fetch daily order status
+router.get(
+  "/orders/analytics/daily-status",
+  isAuth,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const days = Number(req.query.days) || 7;
+
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - days);
+
+      const data = await Order.aggregate([
+        {
+          $match: {
+            createdAt: { $gte: startDate },
+            status: { $in: ["DELIVERED", "CANCELLED", "PLACED"] },
+          },
+        },
+        {
+          $group: {
+            _id: {
+              date: {
+                $dateToString: {
+                  format: "%Y-%m-%d",
+                  date: "$createdAt",
+                },
+              },
+              status: "$status",
+            },
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $group: {
+            _id: "$_id.date",
+            counts: {
+              $push: {
+                k: "$_id.status",
+                v: "$count",
+              },
+            },
+          },
+        },
+        {
+          $addFields: {
+            counts: { $arrayToObject: "$counts" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            date: "$_id",
+            DELIVERED: { $ifNull: ["$counts.DELIVERED", 0] },
+            CANCELLED: { $ifNull: ["$counts.CANCELLED", 0] },
+            PLACED: { $ifNull: ["$counts.PLACED", 0] },
+          },
+        },
+        { $sort: { date: 1 } },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        data,
+      });
+    } catch (err) {
+      console.error("Daily order status error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch daily order status",
+      });
+    }
+  },
+);
 
 export default router;
