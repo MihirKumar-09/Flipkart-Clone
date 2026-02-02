@@ -2,7 +2,7 @@ import style from "./myOrders.module.css";
 import Navbar from "../Layout/AuthNavbar";
 import Footer from "../../Components/Layout/Footer/Footer";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export default function MyOrders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
@@ -43,53 +43,55 @@ export default function MyOrders() {
             <div className={style.orderList}>
               {orders.map((order) =>
                 order.items.map((item) => (
-                  <div key={item._id} className={style.orderRow}>
-                    <div className={style.imageBox}>
-                      <img src={item.image} alt={item.name} />
-                    </div>
+                  <Link to="/order-status" className="link">
+                    <div key={item._id} className={style.orderRow}>
+                      <div className={style.imageBox}>
+                        <img src={item.image} alt={item.name} />
+                      </div>
 
-                    <div className={style.details}>
-                      <p className={style.title}>{item.name}</p>
-                    </div>
+                      <div className={style.details}>
+                        <p className={style.title}>{item.name}</p>
+                      </div>
 
-                    <div className={style.price}>
-                      ₹{item.price.toLocaleString("en-IN")}
-                    </div>
+                      <div className={style.price}>
+                        ₹{item.price.toLocaleString("en-IN")}
+                      </div>
 
-                    <div className={style.status}>
-                      <span
-                        className={
-                          order.status === "DELIVERED"
-                            ? style.delivered
-                            : order.status === "CANCELLED"
-                              ? style.cancelled
+                      <div className={style.status}>
+                        <span
+                          className={
+                            order.status === "DELIVERED"
+                              ? style.delivered
+                              : order.status === "CANCELLED"
+                                ? style.cancelled
+                                : order.status === "SHIPPED"
+                                  ? style.shipped
+                                  : order.status === "CONFIRMED"
+                                    ? style.confirmed
+                                    : order.status === "PLACED"
+                                      ? style.placed
+                                      : style.inProgress
+                          }
+                        >
+                          ● {order.status}
+                        </span>
+
+                        <p className={style.subText}>
+                          {order.status === "PLACED"
+                            ? "Your order has been placed"
+                            : order.status === "CONFIRMED"
+                              ? "Your order has been confirmed"
                               : order.status === "SHIPPED"
-                                ? style.shipped
-                                : order.status === "CONFIRMED"
-                                  ? style.confirmed
-                                  : order.status === "PLACED"
-                                    ? style.placed
-                                    : style.inProgress
-                        }
-                      >
-                        ● {order.status}
-                      </span>
-
-                      <p className={style.subText}>
-                        {order.status === "PLACED"
-                          ? "Your order has been placed"
-                          : order.status === "CONFIRMED"
-                            ? "Your order has been confirmed"
-                            : order.status === "SHIPPED"
-                              ? "Your item has been shipped"
-                              : order.status === "DELIVERED"
-                                ? "Your item has been delivered"
-                                : order.status === "CANCELLED"
-                                  ? "Your order was cancelled"
-                                  : "Unknown order status"}
-                      </p>
+                                ? "Your item has been shipped"
+                                : order.status === "DELIVERED"
+                                  ? "Your item has been delivered"
+                                  : order.status === "CANCELLED"
+                                    ? "Your order was cancelled"
+                                    : "Unknown order status"}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 )),
               )}
             </div>

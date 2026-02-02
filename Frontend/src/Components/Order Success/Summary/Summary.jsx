@@ -1,7 +1,5 @@
 import style from "./Summary.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import online from "../../../assets/Order Success/online.png";
-import cod from "../../../assets/Order Success/cod.png";
 
 export default function Summary() {
   const navigate = useNavigate();
@@ -30,11 +28,11 @@ export default function Summary() {
       <div className={style.line}>
         <p>Payment Method:</p>
         <span>
-          <img
-            src={paymentMethod === "ONLINE" ? online : cod}
-            alt={paymentMethod}
-            className={style.image}
-          />
+          {paymentMethod === "ONLINE" ? (
+            <i class="fa-solid fa-landmark"></i>
+          ) : (
+            <i class="fa-solid fa-money-bills"></i>
+          )}
           {paymentMethod}
         </span>
       </div>
