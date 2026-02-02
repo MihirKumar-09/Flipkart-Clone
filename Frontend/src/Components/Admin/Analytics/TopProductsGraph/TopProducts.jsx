@@ -5,62 +5,72 @@ import {
   BarElement,
   Tooltip,
   Legend,
-  Filler,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import { useMemo } from "react";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-  Legend,
-  Filler,
-  ChartDataLabels,
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export default function TopSellingProductsChart({ data }) {
-  if (!data) return <p>No Top Selling Products</p>;
+  // ✅ HARD GUARD
+  if (!Array.isArray(data) || data.length === 0) {
+    return <p>No Top Selling Products</p>;
+  }
 
-  const chartData = {
-    labels: data.map((item) => item.name),
-    datasets: [
-      {
-        label: "Top Selling Products",
-        data: data.map((item) => item.totalSold),
-        backgroundColor: "#4CAF50",
-        borderRadius: 6,
-      },
-    ],
-  };
+  // ✅ DEFINE COLORS (YOU PROBABLY MISSED THIS)
+  const colors = [
+    "#2563eb",
+    "#16a34a",
+    "#f59e0b",
+    "#ef4444",
+    "#8b5cf6",
+    "#06b6d4",
+  ];
 
-  const options = {
-    indexAxis: "x",
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: "bottom" },
-      title: { display: false, text: "Top Selling Products" },
-      datalabels: {
-        display: false,
-      },
-    },
-    scales: {
-      y: {
-        ticks: { display: false },
-        grid: { drawTicks: false, drawBorder: false },
-      },
-      x: {
-        beginAtZero: false,
-        ticks: { display: false },
-      },
-    },
-  };
-
-  return (
-    <div style={{ height: "350px", width: "100%" }}>
-      <Bar data={chartData} options={options} />
-    </div>
+  // ✅ MEMOIZED DATA
+  const chartData = useMemo(
+    () => ({
+      labels: data.map((item) => item.name),
+      datasets: [
+        {
+          label: "Top Selling Products",
+          data: data.map((item) => item.totalSold),
+          backgroundColor: data.map((_, i) => colors[i % colors.length]),
+          borderRadius: 8,
+          barThickness: 40,
+        },
+      ],
+    }),
+    [data],
   );
+
+  // ✅ MEMOIZED OPTIONS
+  const options = useMemo(
+    () => ({
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `Sold: ${ctx.raw}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: { display: false },
+          grid: { display: false },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 },
+        },
+      },
+    }),
+    [],
+  );
+
+  return <Bar data={chartData} options={options} />;
 }

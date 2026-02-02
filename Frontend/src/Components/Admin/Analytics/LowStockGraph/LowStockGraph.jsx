@@ -76,9 +76,5 @@ export default function LowStockChart({ data }) {
     },
   };
 
-  return (
-    <div style={{ height: "400px", width: "100%" }}>
-      <Bar data={chartData} options={options} />
-    </div>
-  );
+  return <Bar data={chartData} options={options} />;
 }

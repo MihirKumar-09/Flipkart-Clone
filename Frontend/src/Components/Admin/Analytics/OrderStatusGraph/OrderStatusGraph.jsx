@@ -22,10 +22,10 @@ export default function OrderStatusChart({ summary }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    cutout: "65%",
+    cutout: "0%",
     plugins: {
       legend: {
-        position: "bottom",
+        position: "right",
         labels: {
           padding: 20,
           font: {

@@ -4,7 +4,7 @@ import OrderStatusChart from "./OrderStatusGraph/OrderStatusGraph";
 import MonthlyRevenueChart from "./MonthlyRevenue/MonthlyRevenue";
 import TopSellingProductsChart from "./TopProductsGraph/TopProducts";
 import LowStockChart from "./LowStockGraph/LowStockGraph";
-import DailyOrderStatusChart from "./DailyOrderStatus/DailyOrder";
+import DailyOrderStatusChart from "./PaymentMethod/DailyOrder";
 import { useEffect, useState } from "react";
 import axios from "axios";
 export default function Analytics() {
@@ -43,7 +43,7 @@ export default function Analytics() {
           { withCredentials: true },
         );
 
-        setTopProducts(res.data);
+        setTopProducts(res.data.data);
       } catch (err) {
         console.error(
           "TOP PRODUCTS API ERROR:",
@@ -53,7 +53,7 @@ export default function Analytics() {
     };
 
     fetchTopProducts();
-  });
+  }, []);
 
   // Fetch low stock products;
   useEffect(() => {
@@ -73,12 +73,12 @@ export default function Analytics() {
     fetchLowStockProducts();
   }, []);
 
-  //fetch daily order status;
+  //fetch payment method;
   useEffect(() => {
     const fetchDailyOrderStatus = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/admin/orders/analytics/daily-status?days=7",
+          "http://localhost:8080/api/admin/orders/analytics/payment-method",
           { withCredentials: true },
         );
         setDailyOrderStatus(res.data.data);
@@ -121,14 +121,14 @@ export default function Analytics() {
         </div>
 
         <div className={style.doughnutGraph}>
-          <TopSellingProductsChart data={topProducts} />
-        </div>
-        <div className={style.doughnutGraph}>
           <MonthlyRevenueChart data={monthlyRevenue} />
         </div>
       </section>
 
       <section className={style.secondChart}>
+        <div className={style.doughnutGraph}>
+          <TopSellingProductsChart data={topProducts} />
+        </div>
         <div className={style.doughnutGraph}>
           <LowStockChart data={lowStock} />
         </div>

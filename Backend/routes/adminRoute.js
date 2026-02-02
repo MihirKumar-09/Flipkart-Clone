@@ -237,7 +237,6 @@ router.get(
     try {
       const pipeline = [
         { $unwind: "$items" },
-
         {
           $group: {
             _id: "$items.product",
@@ -248,10 +247,8 @@ router.get(
             },
           },
         },
-
         { $sort: { totalSold: -1 } },
         { $limit: 5 },
-
         {
           $project: {
             _id: 0,
@@ -265,12 +262,15 @@ router.get(
 
       const topProducts = await Order.aggregate(pipeline);
 
-      res.status(200).json(topProducts);
+      res.status(200).json({
+        success: true,
+        data: topProducts,
+      });
     } catch (error) {
-      console.error("Top Products Aggregation Error:", error.stack || error);
+      console.error("Top Products Aggregation Error:", error);
       res.status(500).json({
+        success: false,
         message: "Failed to fetch top products",
-        error: error.message,
       });
     }
   },
@@ -296,65 +296,32 @@ router.get(
   },
 );
 
-// Fetch daily order status
+// Fetch daily payment method ;
 router.get(
-  "/orders/analytics/daily-status",
+  "/orders/analytics/payment-method",
   isAuth,
   isAdmin,
   async (req, res) => {
     try {
-      const days = Number(req.query.days) || 7;
-
-      const startDate = new Date();
-      startDate.setDate(startDate.getDate() - days);
-
       const data = await Order.aggregate([
         {
           $match: {
-            createdAt: { $gte: startDate },
-            status: { $in: ["DELIVERED", "CANCELLED", "PLACED"] },
+            paymentMethod: { $in: ["COD", "ONLINE"] },
           },
         },
         {
           $group: {
-            _id: {
-              date: {
-                $dateToString: {
-                  format: "%Y-%m-%d",
-                  date: "$createdAt",
-                },
-              },
-              status: "$status",
-            },
-            count: { $sum: 1 },
-          },
-        },
-        {
-          $group: {
-            _id: "$_id.date",
-            counts: {
-              $push: {
-                k: "$_id.status",
-                v: "$count",
-              },
-            },
-          },
-        },
-        {
-          $addFields: {
-            counts: { $arrayToObject: "$counts" },
+            _id: "$paymentMethod",
+            totalOrders: { $sum: 1 },
           },
         },
         {
           $project: {
             _id: 0,
-            date: "$_id",
-            DELIVERED: { $ifNull: ["$counts.DELIVERED", 0] },
-            CANCELLED: { $ifNull: ["$counts.CANCELLED", 0] },
-            PLACED: { $ifNull: ["$counts.PLACED", 0] },
+            method: "$_id",
+            totalOrders: 1,
           },
         },
-        { $sort: { date: 1 } },
       ]);
 
       res.status(200).json({
@@ -362,10 +329,10 @@ router.get(
         data,
       });
     } catch (err) {
-      console.error("Daily order status error:", err);
+      console.error("Payment method analytics error:", err);
       res.status(500).json({
         success: false,
-        message: "Failed to fetch daily order status",
+        message: "Failed to fetch payment method analytics",
       });
     }
   },
