@@ -1,7 +1,7 @@
 export default function Return() {
   return (
     <div>
-      <h2>Return </h2>
+      <p>Currently Unavailable </p>
     </div>
   );
 }

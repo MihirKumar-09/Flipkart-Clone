@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import style from "./Sidebar.module.css";
+
 export default function AdminSidebar() {
   return (
     <div className={style.sidebar}>
@@ -30,6 +31,7 @@ export default function AdminSidebar() {
       >
         Returns
       </NavLink>
+
       <NavLink
         to="analytics"
         className={({ isActive }) =>
