@@ -43,7 +43,11 @@ export default function MyOrders() {
             <div className={style.orderList}>
               {orders.map((order) =>
                 order.items.map((item) => (
-                  <Link to="/order-status" className="link">
+                  <Link
+                    key={order._id}
+                    to={`/order-status/${order._id}`}
+                    className="link"
+                  >
                     <div key={item._id} className={style.orderRow}>
                       <div className={style.imageBox}>
                         <img src={item.image} alt={item.name} />

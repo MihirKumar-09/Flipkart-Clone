@@ -1,0 +1,4 @@
+.right {
+  width: calc(100% - 65%);
+  background-color: aqua;
+}

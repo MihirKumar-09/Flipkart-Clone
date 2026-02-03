@@ -88,4 +88,35 @@ router.get("/my-orders", isAuth, async (req, res) => {
   }
 });
 
+// Fetch Specific Orders;
+router.get("/:orderId", isAuth, async (req, res) => {
+  try {
+    const { orderId } = req.params; //get order id from URL;
+
+    const order = await Order.findById(orderId).populate(
+      "items.product",
+      "name highlights price",
+    );
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Compare order user with (req.user._id) ;
+    const orderUserId =
+      typeof order.user === "object"
+        ? order.user._id.toString()
+        : order.user.toString();
+
+    if (req.user.role !== "ADMIN" && orderUserId !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Something went wrong!" });
+    }
+
+    res.json(order);
+  } catch (err) {
+    console.error("Server error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 export default router;

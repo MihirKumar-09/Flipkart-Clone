@@ -1,0 +1,8 @@
+.orderStatusContainer {
+  width: 100%;
+  display: flex;
+  padding: 0px 150px;
+  border: 1px solid black;
+  gap: 30px;
+  margin-top: 60px;
+}

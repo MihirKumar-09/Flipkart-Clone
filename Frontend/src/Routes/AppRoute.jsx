@@ -95,7 +95,7 @@ export default function AppRoute() {
       {/* Orders Page */}
       <Route path="/order-success" element={<OrderSuccess />} />
       <Route path="/my-orders" element={<MyOrders />} />
-      <Route path="/order-status" element={<OrderStatus />} />
+      <Route path="/order-status/:orderId" element={<OrderStatus />} />
 
       {/* New Features */}
       <Route path="/price-drop" element={<PriceDrop />} />
