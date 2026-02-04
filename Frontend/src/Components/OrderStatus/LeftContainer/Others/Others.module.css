@@ -1,0 +1,21 @@
+.otherDetails {
+  width: 100%;
+  background-color: #fff;
+  padding: 5px 10px;
+}
+.otherDetails p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin: 0;
+}
+.copyBtn {
+  border: none !important;
+  background: transparent;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  color: #2874f0;
+}

@@ -93,10 +93,10 @@ router.get("/:orderId", isAuth, async (req, res) => {
   try {
     const { orderId } = req.params; //get order id from URL;
 
-    const order = await Order.findById(orderId).populate(
-      "items.product",
-      "name highlights price",
-    );
+    const order = await Order.findById(orderId)
+      .populate("items.product", "name highlights price")
+      .populate("user", "username email")
+      .populate("addressId");
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });

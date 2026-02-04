@@ -9,6 +9,8 @@ import LeftContainer from "./LeftContainer/Left";
 import RightContainer from "./RightContainer/Right";
 // Import NavBar ;
 import NavBar from "../../Components/Layout/AuthNavbar";
+// Import footer ;
+import Footer from "../../Components/Layout/Footer/Footer";
 export default function OrderStatus() {
   const [order, setOrder] = useState(null);
   const { orderId } = useParams();
@@ -32,8 +34,9 @@ export default function OrderStatus() {
       <NavBar />
       <div className={style.orderStatusContainer}>
         <LeftContainer order={order} />
-        <RightContainer />
+        <RightContainer order={order} />
       </div>
+      <Footer />
     </div>
   );
 }

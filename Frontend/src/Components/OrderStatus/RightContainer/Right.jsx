@@ -1,11 +1,11 @@
 import style from "./Right.module.css";
 import UserDetails from "./UserDetails/UserDetails";
 import PriceDetails from "./PriceDetails/PriceDetails";
-export default function RightContainer() {
+export default function RightContainer({ order }) {
   return (
     <div className={style.right}>
-      <UserDetails />
-      <PriceDetails />
+      <UserDetails order={order} />
+      <PriceDetails order={order} />
     </div>
   );
 }

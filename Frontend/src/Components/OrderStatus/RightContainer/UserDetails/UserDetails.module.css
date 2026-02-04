@@ -1,0 +1,45 @@
+.userDetails {
+  background-color: #fff;
+  width: 100%;
+  padding: 30px 15px;
+}
+.userDetails h5 {
+  font-family: serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.details {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Address */
+.address {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0px;
+}
+.address span {
+  display: flex;
+  gap: 10px;
+}
+.address span h6 {
+  font-size: 0.8rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+.address .home {
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  font-size: 0.8rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

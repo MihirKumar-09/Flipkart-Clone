@@ -5,9 +5,11 @@ import Others from "./Others/Others";
 export default function LeftContainer({ order }) {
   return (
     <div className={style.left}>
-      <ProductDetails order={order} />
-      <hr style={{ margin: "0px" }} />
-      <OrderStatus order={order} />
+      <div>
+        <ProductDetails order={order} />
+        <hr style={{ margin: "0px" }} />
+        <OrderStatus order={order} />
+      </div>
       <Others order={order} />
     </div>
   );

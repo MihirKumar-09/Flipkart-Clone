@@ -1,4 +1,6 @@
 .left {
   width: 65%;
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
