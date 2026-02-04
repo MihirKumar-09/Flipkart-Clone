@@ -3,6 +3,29 @@ export default function PriceDetails({ order }) {
   const price = order.totalPrice;
   const platformFee = 7;
   const totalPrice = price + platformFee;
+
+  const downloadInvoice = async (orderId) => {
+    const res = await fetch(`http://localhost:8080/order/${orderId}/invoice`, {
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error("Invoice download failed");
+    }
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Invoice-${orderId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className={style.priceDetails}>
       <h5>Price details</h5>
@@ -44,6 +67,13 @@ export default function PriceDetails({ order }) {
             )}
             <span style={{ marginLeft: "6px" }}>{order.paymentMethod}</span>
           </span>
+        </div>
+        <div
+          className={style.downloadInvoice}
+          onClick={() => downloadInvoice(order._id)}
+        >
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span>Download Invoice</span>
         </div>
       </div>
     </div>

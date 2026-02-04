@@ -48,7 +48,7 @@ export default function Summary() {
 
       <div className={style.line}>
         <p>Total Paid:</p>
-        <span>₹{totalAmount}</span>
+        <span>₹{totalAmount.toLocaleString("en-IN")}</span>
       </div>
 
       <hr />

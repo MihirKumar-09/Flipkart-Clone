@@ -6,8 +6,8 @@ import Summary from "./Summary/Summary";
 export default function OrderSuccess() {
   const { state } = useLocation();
 
-  if (!state) {
-    return <Navigate to="/login" replace />;
+  if (!state?.orderId) {
+    return <Navigate to="/" replace />;
   }
 
   const { orderId, paymentMethod, totalAmount } = state;

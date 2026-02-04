@@ -26,6 +26,7 @@ export default function MyOrders() {
     };
     fetchOrders();
   }, []);
+
   return (
     <>
       <Navbar />
@@ -58,7 +59,7 @@ export default function MyOrders() {
                       </div>
 
                       <div className={style.price}>
-                        ₹{item.price.toLocaleString("en-IN")}
+                        ₹{order.totalPrice.toLocaleString("en-IN")}
                       </div>
 
                       <div className={style.status}>

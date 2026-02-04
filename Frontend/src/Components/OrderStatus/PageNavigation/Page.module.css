@@ -1,0 +1,29 @@
+.page {
+  height: 40px;
+  width: 100%;
+  margin-top: 60px;
+  padding: 0px 150px;
+  display: flex;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  color: gray;
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.8rem;
+}
+
+.breadcrumb a:hover {
+  color: #2874f0;
+  text-decoration: underline;
+}
+
+.separator {
+  color: #878787;
+}
