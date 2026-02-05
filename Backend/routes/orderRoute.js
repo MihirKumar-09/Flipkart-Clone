@@ -102,7 +102,7 @@ router.get("/my-orders", isAuth, async (req, res) => {
 // Fetch Specific Orders;
 router.get("/:orderId", isAuth, async (req, res) => {
   try {
-    const { orderId } = req.params; //get order id from URL;
+    const { orderId } = req.params;
 
     const order = await Order.findById(orderId)
       .populate("items.product", "name highlights price")
@@ -113,7 +113,6 @@ router.get("/:orderId", isAuth, async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    // Compare order user with (req.user._id) ;
     const orderUserId =
       typeof order.user === "object"
         ? order.user._id.toString()
@@ -123,7 +122,20 @@ router.get("/:orderId", isAuth, async (req, res) => {
       return res.status(403).json({ message: "Something went wrong!" });
     }
 
-    res.json(order);
+    const itemsPrice = order.items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
+
+    const platformFee = 7;
+    const totalPrice = itemsPrice + platformFee;
+
+    res.json({
+      ...order.toObject(),
+      itemsPrice,
+      platformFee,
+      totalPrice,
+    });
   } catch (err) {
     console.error("Server error:", err);
     res.status(500).json({ message: "Server error" });

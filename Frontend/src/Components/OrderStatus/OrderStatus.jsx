@@ -17,7 +17,7 @@ import Page from "./PageNavigation/Page";
 export default function OrderStatus() {
   const [order, setOrder] = useState(null);
   const { orderId } = useParams();
-
+  console.log("ORDER IN PARENT:", order);
   // Fetch Order from backend;
   useEffect(() => {
     const fetchOrders = async () => {
