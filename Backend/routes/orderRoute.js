@@ -181,7 +181,7 @@ router.get("/:orderId/invoice", isAuth, async (req, res) => {
     doc.end();
   } catch (err) {
     console.error("Invoice error:", err);
-    res.status(500).end(); // DO NOT send JSON
+    res.status(500).end();
   }
 });
 
