@@ -173,9 +173,10 @@ router.get("/:orderId/invoice", isAuth, async (req, res) => {
     order.items.forEach((item, i) => {
       doc.text(`${i + 1}. ${item.name}  x${item.quantity}  ₹${item.price}`);
     });
-
+    const platformFee = 7;
+    const totalPrice = order.totalPrice + platformFee;
     doc.moveDown();
-    doc.text(`Total Amount: ₹${order.totalPrice}`);
+    doc.text(`Total Amount: ₹${totalPrice.toLocaleString("en-IN")}`);
     doc.font("Helvetica");
 
     doc.end();
