@@ -6,86 +6,87 @@ import PDFDocument from "pdfkit";
 
 const router = express.Router();
 
+// Order place;
 router.post("/place", isAuth, async (req, res) => {
-  const { cartItems, addressId, payment } = req.body;
+  try {
+    const { cartItems, addressId, payment } = req.body;
 
-  if (!cartItems || cartItems.length === 0) {
-    return res.status(400).json({ message: "Cart is empty" });
-  }
+    if (!cartItems || cartItems.length === 0) {
+      return res.status(400).json({ message: "Cart is empty" });
+    }
 
-  if (!addressId) {
-    return res.status(400).json({ message: "Address is required" });
-  }
+    if (!addressId) {
+      return res.status(400).json({ message: "Address is required" });
+    }
 
-  if (!payment) {
-    return res.status(400).json({ message: "Payment method required" });
-  }
+    if (!payment) {
+      return res.status(400).json({ message: "Payment method required" });
+    }
 
-  // Validate stock
-  for (const item of cartItems) {
-    if (!item.quantity || item.quantity <= 0) {
-      return res.status(400).json({
-        message: `Invalid quantity for ${item.name}`,
+    for (const item of cartItems) {
+      if (!item.quantity || item.quantity <= 0) {
+        return res.status(400).json({
+          message: `Invalid quantity for ${item.name}`,
+        });
+      }
+
+      const product = await Product.findById(item._id);
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      if (product.stock < item.quantity) {
+        return res.status(400).json({
+          message: `Only ${product.stock} items left for ${product.name}`,
+        });
+      }
+    }
+
+    for (const item of cartItems) {
+      await Product.findByIdAndUpdate(item._id, {
+        $inc: { stock: -item.quantity },
       });
     }
 
-    const product = await Product.findById(item._id);
-    if (!product) {
-      return res.status(404).json({
-        message: "Product not found",
+    const createdOrders = [];
+
+    for (const item of cartItems) {
+      const itemsPrice = item.price * item.quantity;
+      const platformFee = 7;
+      const totalPrice = itemsPrice + platformFee;
+
+      const order = new Order({
+        orderId: "ORD" + Date.now() + Math.floor(Math.random() * 1000),
+        user: req.user._id,
+        items: [
+          {
+            product: item._id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image?.[0]?.url || "",
+          },
+        ],
+        addressId,
+        itemsPrice,
+        platformFee,
+        totalPrice,
+        paymentMethod: payment,
+        status: "PLACED",
       });
+
+      await order.save();
+      createdOrders.push(order);
     }
 
-    if (product.stock < item.quantity) {
-      return res.status(400).json({
-        message: `Only ${product.stock} items left for ${product.name}`,
-      });
-    }
-  }
-
-  // Reduce stock
-  for (const item of cartItems) {
-    await Product.findByIdAndUpdate(item._id, {
-      $inc: { stock: -item.quantity },
+    res.status(201).json({
+      message: "Orders created successfully",
+      orders: createdOrders,
     });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
-
-  // Calculate price
-  let itemsPrice = 0;
-  cartItems.forEach((item) => {
-    itemsPrice += item.price * item.quantity;
-  });
-
-  const platformFee = 7;
-  const totalPrice = itemsPrice + platformFee;
-
-  // Order items
-  const orderItems = cartItems.map((item) => ({
-    product: item._id,
-    name: item.name,
-    price: item.price,
-    quantity: item.quantity,
-    image: item.image?.[0]?.url || "",
-  }));
-
-  const newOrder = new Order({
-    orderId: "ORD" + Date.now(),
-    user: req.user._id,
-    items: orderItems,
-    addressId,
-    itemsPrice,
-    platformFee,
-    totalPrice,
-    paymentMethod: payment,
-  });
-
-  await newOrder.save();
-
-  res.status(201).json({
-    message: "Order created successfully",
-    orderId: newOrder.orderId,
-    order: newOrder,
-  });
 });
 
 router.get("/my-orders", isAuth, async (req, res) => {

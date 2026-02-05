@@ -78,7 +78,6 @@ export default function Payment() {
         body: JSON.stringify({
           cartItems: checkoutItems,
           addressId,
-          totalPrice,
           payment: paymentMethod,
         }),
       });
@@ -88,15 +87,15 @@ export default function Payment() {
 
       if (checkoutType === "CART") dispatch(clearCart());
       localStorage.removeItem("checkoutData");
-
+      const firstOrder = data.orders[0];
       setTimeout(() => {
         setIsPaying(false);
         navigate("/order-success", {
           replace: true,
           state: {
-            orderId: data.order.orderId,
-            paymentMethod: data.order.paymentMethod,
-            totalAmount: data.order.totalPrice,
+            orderId: firstOrder.orderId,
+            paymentMethod: firstOrder.paymentMethod,
+            totalAmount: firstOrder.totalPrice,
           },
         });
       }, 3000);
