@@ -61,7 +61,7 @@ router.get("/orders", isAuth, isAdmin, async (req, res) => {
 // Update order status;
 router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
   try {
-    const { status } = req.body;
+    const { status: newStatus } = req.body;
 
     const order = await Order.findById(req.params.id);
 
@@ -70,7 +70,6 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
     }
 
     const oldStatus = order.status;
-    const newStatus = status;
 
     console.log("OLD:", oldStatus, "NEW:", newStatus);
 
@@ -80,14 +79,27 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
           $inc: { stock: item.quantity },
         });
       }
+      if (!order.cancelledAt) {
+        order.cancelledAt = new Date();
+      }
+    }
+
+    if (oldStatus !== "CONFIRMED" && newStatus === "CONFIRMED") {
+      if (!order.confirmedAt) order.confirmedAt = new Date();
+    }
+
+    if (oldStatus !== "SHIPPED" && newStatus === "SHIPPED") {
+      if (!order.shippedAt) order.shippedAt = new Date();
+    }
+
+    if (oldStatus !== "OUT_FOR_DELIVERY" && newStatus === "OUT_FOR_DELIVERY") {
+      if (!order.outForDeliveryAt) {
+        order.outForDeliveryAt = new Date();
+      }
     }
 
     if (oldStatus !== "DELIVERED" && newStatus === "DELIVERED") {
-      order.deliveredAt = new Date();
-    }
-
-    if (oldStatus !== "PAID" && newStatus === "PAID") {
-      order.paidAt = new Date();
+      if (!order.deliveredAt) order.deliveredAt = new Date();
     }
 
     order.status = newStatus;

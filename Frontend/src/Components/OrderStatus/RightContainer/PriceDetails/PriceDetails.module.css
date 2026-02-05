@@ -16,6 +16,7 @@
   gap: 12px;
   border-radius: 20px;
   border: 1px solid rgba(128, 128, 128, 0.247);
+  margin-bottom: 12px;
 }
 .allPrice div {
   display: flex;
@@ -53,4 +54,16 @@
 }
 .downloadInvoice i {
   font-size: 1.2rem;
+}
+/* Offer */
+.offer {
+  padding: 12px 10px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.247);
+  display: flex;
+  justify-content: space-between;
+}
+.offer span span i {
+  margin-right: 4px;
 }

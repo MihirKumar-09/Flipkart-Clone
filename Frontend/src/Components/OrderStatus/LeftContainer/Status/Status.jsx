@@ -2,45 +2,55 @@ import styles from "./Status.module.css";
 
 const STATUS_FLOW = [
   { key: "PLACED", label: "Order Placed" },
-  { key: "CONFIRMED", label: "Order Confirmed" },
   { key: "SHIPPED", label: "Shipped" },
   { key: "OUT_FOR_DELIVERY", label: "Out for Delivery" },
   { key: "DELIVERED", label: "Delivered" },
 ];
 
 export default function Status({ order }) {
+  if (!order || !order.status) return null;
+
   const isDelivered = order.status === "DELIVERED";
 
-  // ✅ If delivered → show only 2 states
+  // 1️⃣ Decide visible steps
   const visibleSteps = isDelivered
     ? [
-        { key: "PLACED", label: "Order Placed", date: order.createdAt },
-        { key: "DELIVERED", label: "Delivered", date: order.deliveredAt },
+        { key: "PLACED", label: "Order Placed" },
+        { key: "DELIVERED", label: "Delivered" },
       ]
-    : STATUS_FLOW.map((step) => ({
-        ...step,
-        date:
-          step.key === "PLACED"
-            ? order.createdAt
-            : step.key === "DELIVERED"
-              ? order.deliveredAt
-              : null,
-      }));
+    : STATUS_FLOW;
 
+  // 2️⃣ Current status index (ALWAYS from full flow)
   const currentIndex = STATUS_FLOW.findIndex((s) => s.key === order.status);
+
+  // 3️⃣ Date mapping (NO fake dates)
+  const getDateForStep = (key) => {
+    switch (key) {
+      case "PLACED":
+        return order.createdAt;
+      case "SHIPPED":
+        return order.shippedAt;
+      case "OUT_FOR_DELIVERY":
+        return order.outForDeliveryAt;
+      case "DELIVERED":
+        return order.deliveredAt;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className={styles.timeline}>
       {visibleSteps.map((step, index) => {
-        const isCompleted = isDelivered
-          ? true
-          : STATUS_FLOW.findIndex((s) => s.key === step.key) <= currentIndex;
+        const stepIndex = STATUS_FLOW.findIndex((s) => s.key === step.key);
+
+        const isCompleted = isDelivered ? true : stepIndex <= currentIndex;
 
         return (
           <TimelineItem
             key={step.key}
             label={step.label}
-            date={step.date}
+            date={isCompleted ? getDateForStep(step.key) : null}
             isCompleted={isCompleted}
             isLast={index === visibleSteps.length - 1}
           />

@@ -57,17 +57,13 @@ const orderSchema = new mongoose.Schema(
       ],
       default: "PLACED",
     },
-    paidAt: {
-      type: Date,
-    },
 
-    deliveredAt: {
-      type: Date,
-    },
+    confirmedAt: Date,
+    shippedAt: Date,
+    outForDeliveryAt: Date,
 
-    cancelledAt: {
-      type: Date,
-    },
+    deliveredAt: Date,
+    cancelledAt: Date,
   },
   { timestamps: true },
 );

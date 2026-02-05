@@ -29,3 +29,7 @@
   margin-top: 10px;
   border-radius: 10px;
 }
+.star i {
+  cursor: pointer;
+  font-size: 1.4rem;
+}

@@ -76,6 +76,17 @@ export default function PriceDetails({ order }) {
           <span>Download Invoice</span>
         </div>
       </div>
+      <div className={style.offer}>
+        <span>
+          <span>
+            <i class="fa-solid fa-trophy"></i>
+          </span>
+          <span>offers earned</span>
+        </span>
+        <span>
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+      </div>
     </div>
   );
 }

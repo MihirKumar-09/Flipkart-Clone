@@ -35,7 +35,7 @@ export default function OrderStatus() {
   return (
     <div>
       <NavBar />
-      <Page />
+      <Page order={order} />
       <div className={style.orderStatusContainer}>
         <LeftContainer order={order} />
         <RightContainer order={order} />

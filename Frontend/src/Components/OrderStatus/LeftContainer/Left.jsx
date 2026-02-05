@@ -11,7 +11,7 @@ export default function LeftContainer({ order }) {
         <hr style={{ margin: "0px" }} />
         <OrderStatus order={order} />
       </div>
-      <Rating />
+      <Rating order={order} />
       <Others order={order} />
     </div>
   );
