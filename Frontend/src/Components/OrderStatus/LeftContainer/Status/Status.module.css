@@ -1,13 +1,12 @@
 .timeline {
   display: flex;
   flex-direction: column;
-  padding: 10px 20px;
+  padding: 16px;
   background-color: #fff;
 }
-
 .item {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 
 .left {
@@ -17,49 +16,68 @@
 }
 
 .circle {
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.274);
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  font-size: 13px;
+  font-size: 10px;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.completed {
+  background-color: #16a34a;
+  color: #fff;
+}
+
+.pending {
+  border: 2px solid #d1d5db;
+  background-color: #fff;
+}
+
+.cancelled {
+  background-color: #dc2626;
+  color: #fff;
+}
+
 .line {
-  width: 2.6px;
-  height: 40px;
+  width: 2px;
+  flex-grow: 1;
+  margin-top: 0; /* ⛔ removed gap */
+}
+
+.completedLine {
+  background-color: #16a34a;
+}
+
+.pendingLine {
+  background-color: #d1d5db;
+}
+
+.cancelledLine {
+  background-color: #dc2626;
 }
 
 .right {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+  padding-bottom: 16px;
 }
 
 .label {
   font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.cancelledText {
+  color: #dc2626;
   font-weight: 600;
 }
 
 .date {
-  font-size: 13px;
+  font-size: 12px;
   color: #6b7280;
-}
-
-.completed {
-  background: #0f9d58;
-  color: white;
-}
-
-.pending {
-  background: #e5e7eb;
-}
-
-.completedLine {
-  background: #0f9d58;
-}
-
-.pendingLine {
-  background: #d1d5db;
 }

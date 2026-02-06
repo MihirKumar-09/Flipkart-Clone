@@ -157,7 +157,6 @@ router.get("/:orderId/invoice", isAuth, async (req, res) => {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    // Headers FIRST
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
@@ -196,6 +195,48 @@ router.get("/:orderId/invoice", isAuth, async (req, res) => {
   } catch (err) {
     console.error("Invoice error:", err);
     res.status(500).end();
+  }
+});
+
+// User can cancel the order;
+router.patch("/:orderId/cancel", isAuth, async (req, res) => {
+  try {
+    // Find order
+    const order = await Order.findById(req.params.orderId);
+    // If order not exist;
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    // If already cancel;
+    if (order.status === "CANCELLED") {
+      return res.status(400).json({ message: "Order already cancelled" });
+    }
+
+    // Not cancel after delivery;
+    if (order.status === "DELIVERED") {
+      return res
+        .status(400)
+        .json({ message: "Delivery product can not be cancelled" });
+    }
+
+    // Restore stock;
+    const bulkOps = order.items.map((item) => ({
+      updateOne: {
+        filter: { _id: item.product },
+        update: { $inc: { stock: item.quantity } },
+      },
+    }));
+
+    await Product.bulkWrite(bulkOps);
+
+    // Cancel order;
+    order.status = "CANCELLED";
+    order.cancelledAt = new Date();
+
+    await order.save();
+    res.json(order);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to cancel the order !" });
   }
 });
 

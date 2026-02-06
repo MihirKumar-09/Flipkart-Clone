@@ -91,6 +91,12 @@ export default function SignNavbar() {
                 <div className="loginAuthOptions">
                   {user ? (
                     <>
+                      {user?.role === "ADMIN" && (
+                        <div onClick={() => navigate("/admin")}>
+                          <i className="fa-solid fa-user-shield"></i>
+                          <span>Admin Panel</span>
+                        </div>
+                      )}
                       <div onClick={handleProfile}>
                         <i className="fa-regular fa-user"></i>
                         <span>My Profile</span>
@@ -109,7 +115,7 @@ export default function SignNavbar() {
                       </div>
                       <div>
                         <i class="fa-regular fa-heart"></i>
-                        <span>Whishlist</span>
+                        <span>Wishlist</span>
                       </div>
                       <div>
                         <i class="fa-solid fa-tag"></i>
