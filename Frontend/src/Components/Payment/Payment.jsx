@@ -62,11 +62,6 @@ export default function Payment() {
   if (!user) return <div>Redirecting to login...</div>;
   if (checkoutItems.length === 0) return <div>No items to checkout.</div>;
 
-  const totalPrice = checkoutItems.reduce(
-    (sum, item) => sum + item.price * (item.quantity || 1),
-    0,
-  );
-
   const handlePay = async () => {
     try {
       setIsPaying(true);

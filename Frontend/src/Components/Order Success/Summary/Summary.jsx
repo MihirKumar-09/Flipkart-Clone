@@ -53,7 +53,7 @@ export default function Summary() {
 
       <hr />
 
-      <button onClick={() => navigate("/")}>Continue Shopping</button>
+      <button onClick={() => navigate("/my-orders")}>Track Order</button>
     </div>
   );
 }
