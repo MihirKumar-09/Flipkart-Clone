@@ -109,7 +109,7 @@ export default function SignNavbar() {
                         <i class="fa-solid fa-circle-radiation"></i>
                         <span>Flipkart Plus Zone</span>
                       </div>
-                      <div>
+                      <div onClick={() => navigate("/my-orders")}>
                         <i class="fa-solid fa-box"></i>
                         <span>Orders</span>
                       </div>

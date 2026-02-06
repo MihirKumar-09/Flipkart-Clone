@@ -45,3 +45,48 @@
 .cancel:active {
   transform: scale(0.97);
 }
+/* Return options */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.returnOptions {
+  width: 320px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.reasons label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+.returnOptions * {
+  box-sizing: border-box;
+}
+
+.reasons input {
+  outline: none;
+}
