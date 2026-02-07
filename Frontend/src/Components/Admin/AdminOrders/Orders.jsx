@@ -108,30 +108,58 @@ export default function AdminOrders() {
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
 
                   <td>
-                    <select
-                      value={order.status}
-                      onChange={(e) => updateStatus(order._id, e.target.value)}
-                      className={style.select}
-                    >
-                      <option value="PLACED" style={{ color: "#0d47a1" }}>
-                        Placed
-                      </option>
-                      <option value="SHIPPED" style={{ color: "#0d47a1" }}>
-                        Shipped
-                      </option>
-                      <option
-                        value="OUT_FOR_DELIVERY"
-                        style={{ color: "green" }}
+                    {order.status === "PLACED" && (
+                      <select
+                        value={order.status}
+                        onChange={(e) =>
+                          updateStatus(order._id, e.target.value)
+                        }
+                        className={style.select}
                       >
-                        Out for Delivery
-                      </option>
-                      <option value="DELIVERED" style={{ color: "green" }}>
-                        Delivered
-                      </option>
-                      <option value="CANCELLED" style={{ color: "red" }}>
-                        Cancelled
-                      </option>
-                    </select>
+                        <option value="PLACED" disabled>
+                          Placed
+                        </option>
+                        <option value="SHIPPED">Shipped</option>
+                        <option value="CANCELLED">Cancelled</option>
+                      </select>
+                    )}
+
+                    {order.status === "SHIPPED" && (
+                      <select
+                        value={order.status}
+                        onChange={(e) =>
+                          updateStatus(order._id, e.target.value)
+                        }
+                        className={style.select}
+                      >
+                        <option value="SHIPPED" disabled>
+                          Shipped
+                        </option>
+                        <option value="OUT_FOR_DELIVERY">
+                          Out for Delivery
+                        </option>
+                        <option value="CANCELLED">Cancelled</option>
+                      </select>
+                    )}
+
+                    {order.status === "OUT_FOR_DELIVERY" && (
+                      <select
+                        value={order.status}
+                        onChange={(e) =>
+                          updateStatus(order._id, e.target.value)
+                        }
+                        className={style.select}
+                      >
+                        <option value="OUT_FOR_DELIVERY" disabled>
+                          Out for Delivery
+                        </option>
+                        <option value="DELIVERED">Delivered</option>
+                      </select>
+                    )}
+
+                    {order.status === "DELIVERED" && <span>Delivered</span>}
+
+                    {order.status === "CANCELLED" && <span>Cancelled</span>}
                   </td>
                 </tr>
               ))

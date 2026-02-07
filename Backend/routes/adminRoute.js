@@ -39,7 +39,18 @@ router.get("/orders", isAuth, isAdmin, async (req, res) => {
 
     const skip = (page - 1) * limit;
 
-    const orders = await Order.find()
+    const allowedStatuses = [
+      "PLACED",
+      "CONFIRMED",
+      "SHIPPED",
+      "OUT_FOR_DELIVERY",
+      "DELIVERED",
+      "CANCELLED",
+    ];
+
+    const orders = await Order.find({
+      status: { $in: allowedStatuses },
+    })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)

@@ -1,15 +1,6 @@
 import style from "./Returns.module.css";
 import { useEffect, useState } from "react";
 
-const statusClassMap = {
-  RETURN_REQUESTED: style.returnRequested,
-  RETURN_APPROVED: style.returnApproved,
-  RETURN_RECEIVED: style.returnReceived,
-  REFUND_INITIATED: style.refundInitiated,
-  REFUNDED: style.refunded,
-  RETURN_REJECTED: style.returnRejected,
-};
-
 export default function Return() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,9 +41,7 @@ export default function Return() {
         body: JSON.stringify({ status }),
       });
 
-      if (!res.ok) {
-        throw new Error("Update failed");
-      }
+      if (!res.ok) throw new Error("Update failed");
 
       const updatedOrder = await res.json();
 
@@ -75,7 +64,7 @@ export default function Return() {
             <th>User</th>
             <th>Total</th>
             <th>Status</th>
-            <th>Updated</th>
+            <th>Reason</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -94,27 +83,49 @@ export default function Return() {
                 <td>{order.user?.username || "Guest"}</td>
                 <td>₹{order.totalPrice}</td>
 
+                {/* Status label */}
                 <td>
-                  <span
-                    className={`${style.status} ${
-                      statusClassMap[order.status]
-                    }`}
-                  >
+                  <span className={style.status}>
                     {order.status.replaceAll("_", " ")}
                   </span>
                 </td>
 
-                <td>{new Date(order.updatedAt).toLocaleDateString()}</td>
+                {/* Reason column */}
+                <td>{order.returnReason || "N/A"}</td>
 
+                {/* Action column */}
                 <td>
-                  <select
-                    value={order.status}
-                    onChange={(e) => updateStatus(order._id, e.target.value)}
-                  >
-                    <option value="RETURN_REQUESTED">Return Requested</option>
-                    <option value="RETURN_APPROVED">Return Approved</option>
-                    <option value="RETURN_COMPLETED">Return Completed</option>
-                  </select>
+                  {order.status === "RETURN_REQUESTED" && (
+                    <select
+                      value={order.status}
+                      onChange={(e) => updateStatus(order._id, e.target.value)}
+                      className={`${style.status} ${style.requested}`}
+                    >
+                      <option value="RETURN_REQUESTED" disabled>
+                        Return Requested
+                      </option>
+                      <option value="RETURN_APPROVED">Approve Return</option>
+                    </select>
+                  )}
+
+                  {order.status === "RETURN_APPROVED" && (
+                    <select
+                      value={order.status}
+                      onChange={(e) => updateStatus(order._id, e.target.value)}
+                      className={`${style.status} ${style.return_approved}`}
+                    >
+                      <option value="RETURN_APPROVED" disabled>
+                        Return Approved
+                      </option>
+                      <option value="RETURN_COMPLETED">Complete Return</option>
+                    </select>
+                  )}
+
+                  {order.status === "RETURN_COMPLETED" && (
+                    <span className={`${style.status} ${style.completed}`}>
+                      Return Completed
+                    </span>
+                  )}
                 </td>
               </tr>
             ))
@@ -122,9 +133,10 @@ export default function Return() {
         </tbody>
       </table>
 
+      {/* Pagination */}
       <div className={style.pageNavigation}>
         <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-          ‹
+          <i className="fa-solid fa-angles-left"></i>
         </button>
         <span>
           Page {page} of {totalPages}
@@ -133,7 +145,7 @@ export default function Return() {
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
         >
-          ›
+          <i className="fa-solid fa-angles-right"></i>
         </button>
       </div>
     </div>

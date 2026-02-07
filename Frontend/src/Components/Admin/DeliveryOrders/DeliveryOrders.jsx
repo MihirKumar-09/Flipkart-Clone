@@ -97,15 +97,21 @@ export default function DeliveryOrder() {
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
 
                   <td>
-                    <select
-                      value={order.status}
-                      onChange={(e) => updateStatus(order._id, e.target.value)}
-                      className={style.select}
-                    >
-                      <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
-                      <option value="DELIVERED">Delivered</option>
-                      <option value="CANCELLED">Cancelled</option>
-                    </select>
+                    {order.status === "OUT_FOR_DELIVERY" && (
+                      <select
+                        value={order.status}
+                        onChange={(e) =>
+                          updateStatus(order._id, e.target.value)
+                        }
+                        className={style.select}
+                      >
+                        <option value="OUT_FOR_DELIVERY" disabled>
+                          Out for Delivery
+                        </option>
+                        <option value="DELIVERED">Delivered</option>
+                      </select>
+                    )}
+                    {order.status === "DELIVERED" && <span>Delivered</span>}
                   </td>
                 </tr>
               ))
