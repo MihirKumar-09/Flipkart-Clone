@@ -54,6 +54,9 @@ const orderSchema = new mongoose.Schema(
         "OUT_FOR_DELIVERY",
         "DELIVERED",
         "CANCELLED",
+        "RETURN_REQUESTED",
+        "RETURN_APPROVED",
+        "RETURN_COMPLETED",
       ],
       default: "PLACED",
     },
@@ -64,6 +67,9 @@ const orderSchema = new mongoose.Schema(
 
     deliveredAt: Date,
     cancelledAt: Date,
+    returnRequestedAt: Date,
+    returnApprovedAt: Date,
+    returnCompleteAt: Date,
   },
   { timestamps: true },
 );

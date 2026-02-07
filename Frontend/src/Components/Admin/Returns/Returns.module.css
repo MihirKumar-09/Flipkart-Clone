@@ -66,7 +66,11 @@
   color: #b71c1c;
   border: 1px solid #f5c6cb;
 }
-
+.return_requested {
+  background-color: #ff80113d;
+  color: #ff7f11;
+  border: 1px solid #ff7f11;
+}
 /* SELECT */
 .select {
   padding: 6px;

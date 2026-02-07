@@ -101,6 +101,24 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
     if (oldStatus !== "DELIVERED" && newStatus === "DELIVERED") {
       if (!order.deliveredAt) order.deliveredAt = new Date();
     }
+    if (oldStatus !== "RETURN_REQUESTED" && newStatus === "RETURN_REQUESTED") {
+      if (!order.returnRequestedAt) {
+        order.returnRequestedAt = new Date();
+      }
+    }
+    if (oldStatus !== "RETURN_APPROVED" && newStatus === "RETURN_APPROVED") {
+      if (!order.returnApprovedAt) {
+        order.returnApprovedAt = new Date();
+      }
+    }
+    if (newStatus === "RETURN_COMPLETED" && !order.returnCompleteAt) {
+      for (const item of order.items) {
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: { stock: item.quantity },
+        });
+      }
+      order.returnCompleteAt = new Date();
+    }
 
     order.status = newStatus;
     await order.save();
@@ -146,6 +164,44 @@ router.get("/orders/delivery", isAuth, isAdmin, async (req, res) => {
     res.status(500).json({ message: "Failed to fetch deliver products" });
   }
 });
+
+// Fetch return product;
+router.get("/orders/returns", isAdmin, async (req, res) => {
+  try {
+    const page = Math.max(Number(req.query.page) || 1, 1);
+    const limit = Math.max(Number(req.query.limit) || 20, 1);
+
+    const RETURN_STATUSES = [
+      "RETURN_REQUESTED",
+      "RETURN_APPROVED",
+      "RETURN_COMPLETED",
+    ];
+
+    const totalOrders = await Order.countDocuments({
+      status: { $in: RETURN_STATUSES },
+    });
+
+    const totalPages = Math.ceil(totalOrders / limit);
+    const skip = (page - 1) * limit;
+
+    const orders = await Order.find({
+      status: { $in: RETURN_STATUSES },
+    })
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .populate("user", "username email");
+
+    res.status(200).json({
+      orders,
+      totalPages,
+      currentPage: page,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch return products" });
+  }
+});
+
 router.get("/orders/analytics", isAuth, isAdmin, async (req, res) => {
   try {
     // Total Orders;

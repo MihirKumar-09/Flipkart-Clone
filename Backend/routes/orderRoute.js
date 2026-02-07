@@ -239,5 +239,24 @@ router.patch("/:orderId/cancel", isAuth, async (req, res) => {
     res.status(500).json({ message: "Failed to cancel the order !" });
   }
 });
+router.patch("/:orderId/return", isAuth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId);
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    if (order.status !== "DELIVERED") {
+      return res.status(400).json({ message: "Return not allowed" });
+    }
+
+    order.status = "RETURN_REQUESTED";
+    order.returnRequestedAt = new Date();
+
+    await order.save();
+    res.json(order);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: "Return request failed" });
+  }
+});
 
 export default router;

@@ -1,34 +1,39 @@
 import style from "./Delivery.module.css";
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useState } from "react";
+
 export default function DeliveryOrder() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch all delivered products;
+  // Fetch delivery orders
   useEffect(() => {
-    const fetchOrder = async () => {
+    const fetchOrders = async () => {
       try {
         setLoading(true);
+
         const res = await fetch(
           `http://localhost:8080/api/admin/orders/delivery?page=${page}&limit=20`,
-          {
-            credentials: "include",
-          },
+          { credentials: "include" },
         );
+
         const data = await res.json();
+
         setOrders(data.orders || []);
+        setTotalPages(data.totalPages || 1);
       } catch (err) {
-        console.log(err);
+        console.error(err);
         setOrders([]);
       } finally {
         setLoading(false);
       }
     };
-    fetchOrder();
-  }, []);
-  // Update Status
+
+    fetchOrders();
+  }, [page]);
+
+  // Update order status
   const updateStatus = async (id, status) => {
     try {
       const res = await fetch(`http://localhost:8080/api/admin/orders/${id}`, {
@@ -44,11 +49,12 @@ export default function DeliveryOrder() {
         prev.map((o) => (o._id === updatedOrder._id ? updatedOrder : o)),
       );
     } catch (err) {
-      console.error("Update failed", err);
+      console.error("Status update failed", err);
     }
   };
 
   if (loading) return <p>Loading Delivery Orders...</p>;
+
   return (
     <div className={style.container}>
       <div className={style.card}>
@@ -60,14 +66,16 @@ export default function DeliveryOrder() {
               <th>Total</th>
               <th>Status</th>
               <th>Date</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
             {orders.length === 0 ? (
-              <tr colSpan="6" align="center">
-                <td>No delivery orders</td>
+              <tr>
+                <td colSpan="6" align="center">
+                  No delivery orders
+                </td>
               </tr>
             ) : (
               orders.map((order) => (
@@ -75,6 +83,7 @@ export default function DeliveryOrder() {
                   <td>{order.orderId}</td>
                   <td>{order.user?.username || "Guest"}</td>
                   <td>₹{order.totalPrice.toLocaleString("en-IN")}</td>
+
                   <td>
                     <span
                       className={`${style.status} ${
@@ -84,25 +93,18 @@ export default function DeliveryOrder() {
                       {order.status}
                     </span>
                   </td>
+
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+
                   <td>
                     <select
                       value={order.status}
                       onChange={(e) => updateStatus(order._id, e.target.value)}
                       className={style.select}
                     >
-                      <option
-                        value="OUT_FOR_DELIVERY"
-                        style={{ color: "green" }}
-                      >
-                        Out for Delivery
-                      </option>
-                      <option value="DELIVERED" style={{ color: "green" }}>
-                        Delivered
-                      </option>
-                      <option value="CANCELLED" style={{ color: "red" }}>
-                        Cancelled
-                      </option>
+                      <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
+                      <option value="DELIVERED">Delivered</option>
+                      <option value="CANCELLED">Cancelled</option>
                     </select>
                   </td>
                 </tr>
@@ -110,12 +112,14 @@ export default function DeliveryOrder() {
             )}
           </tbody>
         </table>
+
+        {/* Pagination */}
         <div className={style.pageNavigation}>
           <button
             disabled={page === 1 || loading}
             onClick={() => setPage((p) => p - 1)}
           >
-            <i class="fa-solid fa-angles-left"></i>
+            <i className="fa-solid fa-angles-left"></i>
           </button>
 
           <span>
@@ -126,7 +130,7 @@ export default function DeliveryOrder() {
             disabled={page === totalPages || loading}
             onClick={() => setPage((p) => p + 1)}
           >
-            <i class="fa-solid fa-angles-right"></i>
+            <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>
