@@ -20,6 +20,11 @@ export default function Buttons({ order }) {
     const diffInDays =
       (today.getTime() - deliveredDate.getTime()) / (1000 * 60 * 60 * 24);
 
+    console.log("Delivered At:", deliveredDate);
+    console.log("Today:", today);
+    console.log("Diff in days:", diffInDays);
+    console.log("RETURN_WINDOW_DAYS:", RETURN_WINDOW_DAYS);
+
     return diffInDays <= RETURN_WINDOW_DAYS;
   };
 

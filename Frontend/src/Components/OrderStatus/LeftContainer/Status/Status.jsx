@@ -13,61 +13,34 @@ const RETURN_FLOW = [
   { key: "RETURN_COMPLETED", label: "Return Completed" },
 ];
 
-const RETURN_CANCELLED_STEP = {
-  key: "RETURN_CANCELLED",
-  label: "Return Cancelled",
-};
-
 export default function Status({ order }) {
   if (!order || !order.status) return null;
 
   let visibleSteps = [];
 
-  // 1️⃣ Order cancelled
   if (order.status === "CANCELLED") {
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "CANCELLED", label: "Cancelled" },
     ];
-  }
-
-  // 2️⃣ Return rejected
-  else if (order.status === "RETURN_REQUEST_REJECTED") {
+  } else if (order.status === "RETURN_REQUEST_REJECTED") {
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "DELIVERED", label: "Delivered" },
       { key: "RETURN_REQUEST_REJECTED", label: "Return Rejected" },
     ];
-  }
-
-  // 3️⃣ Active return flow
-  else if (order.status.startsWith("RETURN_")) {
+  } else if (order.status.startsWith("RETURN_")) {
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "DELIVERED", label: "Delivered" },
       ...RETURN_FLOW,
     ];
-  }
-
-  // 4️⃣ Return was cancelled by user (IMPORTANT FIX)
-  else if (order.status === "DELIVERED" && order.returnRequestedAt) {
-    visibleSteps = [
-      { key: "PLACED", label: "Order Placed" },
-      { key: "DELIVERED", label: "Delivered" },
-      RETURN_CANCELLED_STEP,
-    ];
-  }
-
-  // 5️⃣ Normal delivery
-  else if (order.status === "DELIVERED") {
+  } else if (order.status === "DELIVERED") {
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "DELIVERED", label: "Delivered" },
     ];
-  }
-
-  // 6️⃣ Normal delivery flow
-  else {
+  } else {
     visibleSteps = DELIVERY_FLOW;
   }
 
@@ -87,34 +60,39 @@ export default function Status({ order }) {
         return order.returnApprovedAt;
       case "RETURN_COMPLETED":
         return order.returnCompleteAt;
-      case "CANCELLED":
-        return order.cancelledAt;
       case "RETURN_REQUEST_REJECTED":
         return order.returnRejectedAt;
-      case "RETURN_CANCELLED":
-        return order.updatedAt;
+      case "CANCELLED":
+        return order.cancelledAt;
       default:
         return null;
     }
   };
 
-  const allSteps = [...DELIVERY_FLOW, ...RETURN_FLOW, RETURN_CANCELLED_STEP];
-
-  const currentIndex = allSteps.findIndex((s) => s.key === order.status);
-
   return (
     <div className={styles.timeline}>
       {visibleSteps.map((step, index) => {
-        const stepIndex = allSteps.findIndex((s) => s.key === step.key);
+        let isCancelled = false;
+        let isCompleted = false;
 
-        const isCancelled =
-          step.key === "CANCELLED" ||
-          step.key === "RETURN_REQUEST_REJECTED" ||
-          step.key === "RETURN_CANCELLED";
+        if (order.status === "RETURN_REQUEST_REJECTED") {
+          if (step.key === "RETURN_REQUEST_REJECTED") {
+            isCancelled = true;
+          } else {
+            isCompleted = true;
+          }
+        } else if (order.status === "CANCELLED") {
+          isCompleted = step.key === "PLACED";
+          isCancelled = step.key === "CANCELLED";
+        } else {
+          const allSteps = [...DELIVERY_FLOW, ...RETURN_FLOW];
+          const currentIndex = allSteps.findIndex(
+            (s) => s.key === order.status,
+          );
+          const stepIndex = allSteps.findIndex((s) => s.key === step.key);
 
-        const isCompleted = isCancelled
-          ? false
-          : stepIndex !== -1 && stepIndex <= currentIndex;
+          isCompleted = stepIndex !== -1 && stepIndex <= currentIndex;
+        }
 
         return (
           <TimelineItem
