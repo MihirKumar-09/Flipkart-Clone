@@ -239,6 +239,8 @@ router.patch("/:orderId/cancel", isAuth, async (req, res) => {
     res.status(500).json({ message: "Failed to cancel the order !" });
   }
 });
+
+// User return the order;
 router.patch("/:orderId/return", isAuth, async (req, res) => {
   try {
     const order = await Order.findById(req.params.orderId);
@@ -256,6 +258,31 @@ router.patch("/:orderId/return", isAuth, async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: "Return request failed" });
+  }
+});
+
+// user cancel the return request;
+router.patch("/:orderId/cancel-return", isAuth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId);
+
+    if (!order) {
+      return res.status(400).json({ message: "Order not found" });
+    }
+
+    if (order.status !== "RETURN_REQUESTED") {
+      return res
+        .status(400)
+        .json({ message: "Return not requested for this order" });
+    }
+    order.status = "DELIVERED";
+    order.returnReason = undefined;
+    order.returnRequestedAt = undefined;
+
+    await order.save();
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to cancel return" });
   }
 });
 

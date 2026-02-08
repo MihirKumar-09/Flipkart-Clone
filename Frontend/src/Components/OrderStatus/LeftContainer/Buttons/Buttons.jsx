@@ -43,7 +43,7 @@ export default function Buttons({ order }) {
 
       const updatedOrder = await res.json();
       setOrderState(updatedOrder);
-      window.location.reload(); // Refresh the page automatically
+      window.location.reload();
     } catch (err) {
       console.error(err);
     } finally {
@@ -62,9 +62,7 @@ export default function Buttons({ order }) {
         {
           method: "PATCH",
           credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ reason }),
         },
       );
@@ -78,6 +76,36 @@ export default function Buttons({ order }) {
       setReason("");
     } catch (err) {
       console.error(err.message);
+    } finally {
+      setReturnLoading(false);
+    }
+  };
+
+  // Handle cancel return ;
+  const handleCancelReturn = async () => {
+    if (orderState.status !== "RETURN_REQUESTED" || returnLoading) return;
+
+    try {
+      setReturnLoading(true);
+
+      const res = await fetch(
+        `http://localhost:8080/order/${orderState._id}/cancel-return`,
+        {
+          method: "PATCH",
+          credentials: "include",
+        },
+      );
+
+      if (!res.ok) {
+        console.error("Failed to cancel return");
+        return;
+      }
+
+      const updatedOrder = await res.json();
+      setOrderState(updatedOrder);
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
     } finally {
       setReturnLoading(false);
     }
@@ -153,6 +181,16 @@ export default function Buttons({ order }) {
             </div>
           )}
         </div>
+      )}
+
+      {orderState.status === "RETURN_REQUESTED" && (
+        <button
+          onClick={handleCancelReturn}
+          className={style.cancel}
+          disabled={returnLoading}
+        >
+          {returnLoading ? "Cancelling Return..." : "Cancel Return"}
+        </button>
       )}
 
       <button className={style.help}>Help</button>
