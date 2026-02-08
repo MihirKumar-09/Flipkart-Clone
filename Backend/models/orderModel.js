@@ -61,6 +61,9 @@ const orderSchema = new mongoose.Schema(
       ],
       default: "PLACED",
     },
+    returnReason: {
+      type: String,
+    },
 
     confirmedAt: Date,
     shippedAt: Date,

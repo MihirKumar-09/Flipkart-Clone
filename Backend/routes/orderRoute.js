@@ -243,6 +243,12 @@ router.patch("/:orderId/cancel", isAuth, async (req, res) => {
 // User return the order;
 router.patch("/:orderId/return", isAuth, async (req, res) => {
   try {
+    const { reason } = req.body;
+
+    if (!reason) {
+      return res.status(400).json({ message: "Return reason is required" });
+    }
+
     const order = await Order.findById(req.params.orderId);
     if (!order) return res.status(404).json({ message: "Order not found" });
 
@@ -251,10 +257,12 @@ router.patch("/:orderId/return", isAuth, async (req, res) => {
     }
 
     order.status = "RETURN_REQUESTED";
+    order.returnReason = reason;
     order.returnRequestedAt = new Date();
 
     await order.save();
     res.json(order);
+    console.log("RETURN REASON:", req.body.reason);
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: "Return request failed" });
