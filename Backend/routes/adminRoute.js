@@ -5,7 +5,6 @@ import isAdmin from "../middlewares/isAdmin.js";
 import Order from "../models/orderModel.js";
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
-import { getRounds } from "bcrypt";
 
 // Admin check ;
 router.get("/check-admin", isAuth, isAdmin, async (req, res) => {
@@ -129,6 +128,14 @@ router.patch("/orders/:id", isAuth, isAdmin, async (req, res) => {
         });
       }
       order.returnCompleteAt = new Date();
+    }
+    if (
+      oldStatus !== "RETURN_REQUEST_REJECTED" &&
+      newStatus === "RETURN_REQUEST_REJECTED"
+    ) {
+      if (!order.returnRejectedAt) {
+        order.returnRejectedAt = new Date();
+      }
     }
 
     order.status = newStatus;

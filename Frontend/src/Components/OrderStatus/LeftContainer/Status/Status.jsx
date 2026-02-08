@@ -18,27 +18,29 @@ export default function Status({ order }) {
 
   let visibleSteps = [];
 
-  /* ❌ CANCELLED */
   if (order.status === "CANCELLED") {
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "CANCELLED", label: "Cancelled" },
     ];
+  } else if (order.status === "RETURN_REQUEST_REJECTED") {
+    visibleSteps = [
+      { key: "PLACED", label: "Order Placed" },
+      { key: "DELIVERED", label: "Delivered" },
+      { key: "RETURN_REQUEST_REJECTED", label: "Return Rejected" },
+    ];
   } else if (order.status.startsWith("RETURN_")) {
-    /* 🔁 RETURN FLOW */
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "DELIVERED", label: "Delivered" },
       ...RETURN_FLOW,
     ];
   } else if (order.status === "DELIVERED") {
-    /* ✅ DELIVERED (NO RETURN) */
     visibleSteps = [
       { key: "PLACED", label: "Order Placed" },
       { key: "DELIVERED", label: "Delivered" },
     ];
   } else {
-    /* 🚚 IN PROGRESS */
     visibleSteps = DELIVERY_FLOW;
   }
 
@@ -60,6 +62,8 @@ export default function Status({ order }) {
         return order.returnCompleteAt;
       case "CANCELLED":
         return order.cancelledAt;
+      case "RETURN_REQUEST_REJECTED":
+        return order.returnRejectedAt;
       default:
         return null;
     }
@@ -73,12 +77,15 @@ export default function Status({ order }) {
       {visibleSteps.map((step, index) => {
         const stepIndex = allSteps.findIndex((s) => s.key === step.key);
 
-        const isCancelled = step.key === "CANCELLED";
+        const isCancelled =
+          step.key === "CANCELLED" || step.key === "RETURN_REQUEST_REJECTED";
 
         const isCompleted =
           order.status === "CANCELLED"
-            ? step.key === "PLACED" || step.key === "CANCELLED"
-            : stepIndex !== -1 && stepIndex <= currentIndex;
+            ? step.key === "PLACED"
+            : order.status === "RETURN_REQUEST_REJECTED"
+              ? step.key === "PLACED" || step.key === "DELIVERED"
+              : stepIndex !== -1 && stepIndex <= currentIndex;
 
         return (
           <TimelineItem

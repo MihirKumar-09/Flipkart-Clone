@@ -57,6 +57,7 @@ const orderSchema = new mongoose.Schema(
         "RETURN_REQUESTED",
         "RETURN_APPROVED",
         "RETURN_COMPLETED",
+        "RETURN_REQUEST_REJECTED",
       ],
       default: "PLACED",
     },
@@ -70,6 +71,7 @@ const orderSchema = new mongoose.Schema(
     returnRequestedAt: Date,
     returnApprovedAt: Date,
     returnCompleteAt: Date,
+    returnRejectedAt: Date,
   },
   { timestamps: true },
 );

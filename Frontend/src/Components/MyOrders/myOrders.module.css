@@ -71,6 +71,7 @@
 }
 .status span {
   font-weight: 600;
+  font-size: 0.8rem;
 }
 
 .placed {
@@ -85,18 +86,30 @@
   color: #fb8c00;
 }
 
-.delivered {
-  color: #2e7d32;
+.delivered,
+.out_of_deliver {
+  color: green;
 }
 
 .cancelled {
-  color: #c62828;
+  color: red;
 }
 
 .inProgress {
   color: #616161;
 }
-
+.return_request {
+  color: green;
+}
+.return_approved {
+  color: green;
+}
+.return_complete {
+  color: green;
+}
+.return_reject {
+  color: red;
+}
 .subText {
   font-size: 13px;
   color: #555;

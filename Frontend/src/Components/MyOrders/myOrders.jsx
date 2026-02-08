@@ -2,7 +2,7 @@ import style from "./myOrders.module.css";
 import Navbar from "../Layout/AuthNavbar";
 import Footer from "../../Components/Layout/Footer/Footer";
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, redirect } from "react-router-dom";
 export default function MyOrders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
@@ -75,7 +75,19 @@ export default function MyOrders() {
                                     ? style.confirmed
                                     : order.status === "PLACED"
                                       ? style.placed
-                                      : style.inProgress
+                                      : order.status === "OUT_FOR_DELIVERY"
+                                        ? style.out_of_deliver
+                                        : order.status === "RETURN_REQUESTED"
+                                          ? style.return_request
+                                          : order.status === "RETURN_APPROVED"
+                                            ? style.return_approved
+                                            : order.status ===
+                                                "RETURN_COMPLETED"
+                                              ? style.return_complete
+                                              : order.status ===
+                                                  "RETURN_REQUEST_REJECTED"
+                                                ? style.return_reject
+                                                : style.progress
                           }
                         >
                           ● {order.status}
@@ -88,11 +100,22 @@ export default function MyOrders() {
                               ? "Your order has been confirmed"
                               : order.status === "SHIPPED"
                                 ? "Your item has been shipped"
-                                : order.status === "DELIVERED"
-                                  ? "Your item has been delivered"
-                                  : order.status === "CANCELLED"
-                                    ? "Your order was cancelled"
-                                    : "Unknown order status"}
+                                : order.status === "OUT_FOR_DELIVERY"
+                                  ? "Your item has been out for delivered"
+                                  : order.status === "DELIVERED"
+                                    ? "Your item has been delivered"
+                                    : order.status === "CANCELLED"
+                                      ? "Your order was cancelled"
+                                      : order.status === "RETURN_REQUESTED"
+                                        ? "Return request raised"
+                                        : order.status === "RETURN_APPROVED"
+                                          ? "Your return request approved"
+                                          : order.status === "RETURN_COMPLETED"
+                                            ? "Return completed"
+                                            : order.status ===
+                                                "RETURN_REQUEST_REJECTED"
+                                              ? "Return request reject"
+                                              : "unknown status"}
                         </p>
                       </div>
                     </div>

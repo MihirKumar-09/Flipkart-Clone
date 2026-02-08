@@ -105,6 +105,9 @@ export default function Return() {
                         Return Requested
                       </option>
                       <option value="RETURN_APPROVED">Approve Return</option>
+                      <option value="RETURN_REQUEST_REJECTED">
+                        Request rejected
+                      </option>
                     </select>
                   )}
 

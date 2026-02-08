@@ -43,6 +43,7 @@ export default function Buttons({ order }) {
 
       const updatedOrder = await res.json();
       setOrderState(updatedOrder);
+      window.location.reload(); // Refresh the page automatically
     } catch (err) {
       console.error(err);
     } finally {
@@ -72,6 +73,7 @@ export default function Buttons({ order }) {
 
       const updatedOrder = await res.json();
       setOrderState(updatedOrder);
+      window.location.reload();
       setShowReturn(false);
       setReason("");
     } catch (err) {
