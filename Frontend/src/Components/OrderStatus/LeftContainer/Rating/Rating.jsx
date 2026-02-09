@@ -1,7 +1,8 @@
 import style from "./Rating.module.css";
 import { useState } from "react";
+import { toast } from "react-toastify";
 export default function Rating({ order, product, submitReview }) {
-  const [rating, setRating] = useState(5);
+  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
 
@@ -56,15 +57,14 @@ export default function Rating({ order, product, submitReview }) {
                   value={rating}
                   onChange={(e) => setRating(e.target.value)}
                 />
-                <fieldset className={style["starability-basic"]}>
-                  <legend>First rating:</legend>
+                <fieldset class="starability-basic">
                   <input
                     type="radio"
                     id="no-rate"
-                    class="input-no-rate"
+                    className="input-no-rate"
                     name="rating"
                     value="0"
-                    checked
+                    defaultChecked
                     aria-label="No rating."
                   />
                   <input
@@ -113,6 +113,7 @@ export default function Rating({ order, product, submitReview }) {
                     5 stars
                   </label>
                 </fieldset>
+
                 <textarea
                   name="review[comment]"
                   id="comment"

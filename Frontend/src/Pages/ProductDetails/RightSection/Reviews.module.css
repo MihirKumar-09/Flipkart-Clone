@@ -1,0 +1,117 @@
+.ratingContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ratingSummary {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.ratingSummary h3 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
+}
+
+.averageRating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  /* font-weight: 600; */
+  color: #212121;
+  margin-top: 8px;
+}
+
+.averageRating i {
+  font-size: 1.2rem;
+}
+
+.breakdown {
+  margin-top: 15px;
+}
+
+.breakRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #212121;
+}
+
+.barContainer {
+  flex: 1;
+  background-color: #f1f3f6;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.allReviews {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reviewCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  background-color: #fff;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ratingBadge {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ratingBadge.good {
+  background-color: #388e3c;
+}
+
+.ratingBadge.avg {
+  background-color: #fbc02d;
+}
+
+.ratingBadge.bad {
+  background-color: #d32f2f;
+}
+
+.comment {
+  font-size: 14px;
+  color: black;
+  margin-bottom: 8px;
+}
+
+.username {
+  font-size: 14px;
+  color: #757575;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.username i {
+  font-size: 10px;
+}

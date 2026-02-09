@@ -5,6 +5,7 @@ import Buttons from "./Buttons/Buttons";
 import Rating from "./Rating/Rating";
 import Others from "./Others/Others";
 export default function LeftContainer({ order, submitReview }) {
+  const currentUserId = order.user?._id;
   return (
     <div className={style.left}>
       <div>
@@ -19,6 +20,7 @@ export default function LeftContainer({ order, submitReview }) {
           product={item.product}
           order={order}
           submitReview={submitReview}
+          currentUserId={currentUserId}
         />
       ))}
 

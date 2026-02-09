@@ -1,6 +1,7 @@
 import ProductDetails from "./ProductDetails.jsx";
 import Specification from "./Specification.jsx";
 import ProductDiscription from "./ProductDiscription.jsx";
+import Reviews from "./Reviews.jsx";
 export default function RightParent() {
   return (
     <div
@@ -15,6 +16,7 @@ export default function RightParent() {
       <ProductDetails />
       <Specification />
       <ProductDiscription />
+      <Reviews />
     </div>
   );
 }
