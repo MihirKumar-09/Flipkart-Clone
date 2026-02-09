@@ -81,17 +81,21 @@ export default function Return() {
               <tr key={order._id}>
                 <td>{order.orderId}</td>
                 <td>{order.user?.username || "Guest"}</td>
-                <td>₹{order.totalPrice}</td>
+                <td>₹{order.totalPrice.toLocaleString("en-IN")}</td>
 
                 {/* Status label */}
                 <td>
-                  <span className={style.status}>
+                  <span
+                    className={`${style.status} ${
+                      style[order.status.toLowerCase()]
+                    }`}
+                  >
                     {order.status.replaceAll("_", " ")}
                   </span>
                 </td>
 
                 {/* Reason column */}
-                <td>{order.returnReason || "N/A"}</td>
+                <td>{order.returnReason?.replaceAll("_", " ") || "N/A"}</td>
 
                 {/* Action column */}
                 <td>
@@ -99,7 +103,7 @@ export default function Return() {
                     <select
                       value={order.status}
                       onChange={(e) => updateStatus(order._id, e.target.value)}
-                      className={`${style.status} ${style.requested}`}
+                      className={`${style.status}`}
                     >
                       <option value="RETURN_REQUESTED" disabled>
                         Return Requested
@@ -115,7 +119,7 @@ export default function Return() {
                     <select
                       value={order.status}
                       onChange={(e) => updateStatus(order._id, e.target.value)}
-                      className={`${style.status} ${style.return_approved}`}
+                      className={`${style.status}`}
                     >
                       <option value="RETURN_APPROVED" disabled>
                         Return Approved
@@ -125,9 +129,7 @@ export default function Return() {
                   )}
 
                   {order.status === "RETURN_COMPLETED" && (
-                    <span className={`${style.status} ${style.completed}`}>
-                      Return Completed
-                    </span>
+                    <span className={`${style.status}`}>Return Completed</span>
                   )}
                 </td>
               </tr>

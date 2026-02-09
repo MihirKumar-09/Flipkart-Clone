@@ -152,8 +152,10 @@ router.get("/orders/delivery", isAuth, isAdmin, async (req, res) => {
   try {
     const page = Math.max(Number(req.query.page) || 1, 1);
     const limit = Math.max(Number(req.query.limit) || 20, 1);
-
-    const totalOrders = await Order.countDocuments();
+    const filter = {
+      status: { $in: ["OUT_FOR_DELIVERY", "DELIVERED"] },
+    };
+    const totalOrders = await Order.countDocuments(filter);
     const totalPages = Math.ceil(totalOrders / limit);
 
     if (page > totalPages && totalOrders > 0) {

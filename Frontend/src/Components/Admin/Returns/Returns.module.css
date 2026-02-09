@@ -44,26 +44,24 @@
   border-radius: 20px;
   font-weight: 600;
   font-size: 13px;
+  border: none;
+  background-color: transparent;
 }
-
-.requested {
-  background-color: #ff80113d;
-  color: #ff7f11;
-  border: 1px solid #ff7f11;
+.return_completed {
+  color: green;
+  background-color: rgba(0, 128, 0, 0.141);
+  border: 1px solid green;
 }
-
+.return_requested {
+  color: #ff6500;
+  background-color: #ff66003e;
+  border: 1px solid #ff6500;
+}
 .return_approved {
-  background-color: #ff80113d;
-  color: #ff7f11;
-  border: 1px solid #ff7f11;
+  color: #473472;
+  background-color: #53629e58;
+  border: 1px solid #473472;
 }
-
-.completed {
-  background-color: #d4edda;
-  color: #1e7e34;
-  border: 1px solid #1e7e34;
-}
-
 /* SELECT */
 .select {
   padding: 6px;
