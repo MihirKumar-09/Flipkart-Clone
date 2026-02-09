@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -35,6 +35,10 @@ const productSchema = new mongoose.Schema({
   highlights: {
     type: [String],
     default: [],
+  },
+  numReviews: {
+    type: Number,
+    default: 0,
   },
   createdAt: {
     type: Date,

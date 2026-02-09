@@ -1,12 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import Products from "../models/productModel.js";
+import isAuth from "../middlewares/isAuth.js";
 
 const router = express.Router();
 
-/* ================================
-   GET PRODUCTS BY SECTION
-   ================================ */
 router.get("/products/section", async (req, res) => {
   try {
     let { category, brand, limit, random } = req.query;
@@ -44,9 +42,6 @@ router.get("/products/section", async (req, res) => {
   }
 });
 
-/* ================================
-   SEARCH PRODUCTS
-   ================================ */
 router.get("/products/search", async (req, res) => {
   try {
     const query = req.query.q?.trim();
@@ -89,9 +84,7 @@ router.get("/products/search", async (req, res) => {
   }
 });
 
-/* ================================
-   PRODUCT DETAILS BY ID
-   ================================ */
+// Product details by product ID;
 router.get("/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -113,9 +106,7 @@ router.get("/products/:id", async (req, res) => {
   }
 });
 
-/* ================================
-   SIMILAR PRODUCTS BY CATEGORY
-   ================================ */
+// Similar product category;
 router.get("/products/category/:category", async (req, res) => {
   try {
     const { category } = req.params;

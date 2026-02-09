@@ -12,6 +12,7 @@ import addressRoutes from "./routes/addressRoute.js";
 import orderRoute from "./routes/orderRoute.js";
 import authRoute from "./routes/auth.js";
 import adminRoute from "./routes/adminRoute.js";
+import reviewRoute from "./routes/reviewRoute.js";
 dotenv.config();
 
 const app = express();
@@ -122,6 +123,7 @@ app.use("/api", addressRoutes);
 app.use("/order", orderRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/admin", adminRoute);
+app.use("/api", reviewRoute);
 
 // 404 handler
 app.use((req, res) => {

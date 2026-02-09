@@ -4,7 +4,7 @@ import OrderStatus from "./Status/Status";
 import Buttons from "./Buttons/Buttons";
 import Rating from "./Rating/Rating";
 import Others from "./Others/Others";
-export default function LeftContainer({ order }) {
+export default function LeftContainer({ order, submitReview }) {
   return (
     <div className={style.left}>
       <div>
@@ -14,7 +14,14 @@ export default function LeftContainer({ order }) {
         <hr style={{ margin: "0px" }} />
         <Buttons order={order} />
       </div>
-      <Rating order={order} />
+      {order.items.map((item) => (
+        <Rating
+          product={item.product}
+          order={order}
+          submitReview={submitReview}
+        />
+      ))}
+
       <Others order={order} />
     </div>
   );
