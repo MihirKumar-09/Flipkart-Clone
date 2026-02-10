@@ -17,10 +17,11 @@ export default function LeftContainer({ order, submitReview }) {
       </div>
       {order.items.map((item) => (
         <Rating
+          key={item.product._id}
           product={item.product}
           order={order}
           submitReview={submitReview}
-          currentUserId={currentUserId}
+          userReview={item.userReviews}
         />
       ))}
 

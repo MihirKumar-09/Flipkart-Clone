@@ -74,11 +74,11 @@ export default function Reviews() {
                     style={{
                       width: `${(breakdown[rate] / (numReviews || 1)) * 100}%`,
                       backgroundColor:
-                        rate >= 3
+                        Number(rate) >= 3
                           ? "#388e3c"
-                          : rate === 2
+                          : Number(rate) === 2
                             ? "#ff9800"
-                            : rate === 1
+                            : Number(rate) === 1
                               ? "#d32f2f"
                               : "",
                     }}

@@ -3,6 +3,7 @@ import isAuth from "../middlewares/isAuth.js";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 import PDFDocument from "pdfkit";
+import Review from "../models/reviewModel.js";
 
 const router = express.Router();
 
@@ -123,6 +124,18 @@ router.get("/:orderId", isAuth, async (req, res) => {
       return res.status(403).json({ message: "Something went wrong!" });
     }
 
+    // Fetch user reviews for this orders;
+    const productIds = order.items.map((item) => item.product._id);
+    const userReviews = await Review.find({
+      product: { $in: productIds },
+      user: req.user._id,
+    });
+
+    const reviewMap = {};
+    userReviews.forEach((r) => {
+      reviewMap[r.product.toString()] = r;
+    });
+
     const itemsPrice = order.items.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0,
@@ -131,8 +144,15 @@ router.get("/:orderId", isAuth, async (req, res) => {
     const platformFee = 7;
     const totalPrice = itemsPrice + platformFee;
 
+    // Attach user review for each item;
+    const itemWithReview = order.items.map((item) => ({
+      ...item.toObject(),
+      userReviews: reviewMap[item.product._id.toString()] || null,
+    }));
+
     res.json({
       ...order.toObject(),
+      items: itemWithReview,
       itemsPrice,
       platformFee,
       totalPrice,

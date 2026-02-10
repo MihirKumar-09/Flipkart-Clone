@@ -30,12 +30,35 @@
   margin-top: 10px;
   border-radius: 10px;
 }
+
 .star textarea {
   width: 100%;
+  padding: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgba(128, 128, 128, 0.073);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.star textarea:focus {
+  border: 1px solid rgba(0, 0, 0, 0.681);
+  outline: none;
 }
 .error {
   margin: 0;
   color: red !important;
 }
-
-/* Star style */
+.star button {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.9rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.284);
+  background-color: #2874f0;
+  color: white;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+.star button:hover {
+  background-color: #0346b2;
+}
