@@ -33,7 +33,7 @@ export default function PriceDetails({ order }) {
           <span>
             Special price <i className="fa-solid fa-circle-info"></i>
           </span>
-          <span>₹{order.itemsPrice.toLocaleString("en-In")}</span>
+          <span>₹{order.itemsPrice?.toLocaleString("en-In")}</span>
         </div>
 
         <div>
@@ -46,7 +46,7 @@ export default function PriceDetails({ order }) {
         <div>
           <span style={{ fontWeight: 600 }}>Total amount</span>
           <span style={{ fontWeight: 600 }}>
-            ₹{order.totalPrice.toLocaleString("en-In")}
+            ₹{order.totalPrice?.toLocaleString("en-In")}
           </span>
         </div>
 

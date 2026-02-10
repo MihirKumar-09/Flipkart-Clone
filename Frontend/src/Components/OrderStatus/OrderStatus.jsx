@@ -1,7 +1,6 @@
 import style from "./OrderStatus.module.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 // Import left container;
 import LeftContainer from "./LeftContainer/Left";
@@ -53,6 +52,12 @@ export default function OrderStatus() {
 
     return data;
   };
+  const updatedOrder = async () => {
+    const res = await axios.get(`http://localhost:8080/order/${orderId}`, {
+      withCredentials: true,
+    });
+    setOrder(res.data);
+  };
 
   if (!order) {
     return <p>Loading....</p>;
@@ -62,7 +67,11 @@ export default function OrderStatus() {
       <NavBar />
       <Page order={order} />
       <div className={style.orderStatusContainer}>
-        <LeftContainer order={order} submitReview={submitReview} />
+        <LeftContainer
+          order={order}
+          submitReview={submitReview}
+          onOrderUpdate={updatedOrder}
+        />
         <RightContainer order={order} />
       </div>
       <Footer />

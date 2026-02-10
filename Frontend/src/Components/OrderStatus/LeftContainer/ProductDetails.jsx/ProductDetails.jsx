@@ -1,5 +1,8 @@
 import style from "./ProductDetails.module.css";
 export default function ProductDetails({ order }) {
+  if (!order || !Array.isArray(order.items) || order.items.length === 0) {
+    return null;
+  }
   return (
     <div className={style.productDetails}>
       {/* Left Section */}
@@ -11,7 +14,7 @@ export default function ProductDetails({ order }) {
               <p>{item.product.highlights[0]}</p>
             )}
           </ul>
-          <h6>&#x20B9;{item.product.price.toLocaleString("en-IN")}</h6>
+          <h6>&#x20B9;{item.product.price?.toLocaleString("en-In")}</h6>
         </div>
       ))}
 

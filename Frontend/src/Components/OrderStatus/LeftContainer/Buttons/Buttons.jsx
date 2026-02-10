@@ -1,16 +1,14 @@
 import { useState } from "react";
 import style from "./Buttons.module.css";
 
-export default function Buttons({ order }) {
+export default function Buttons({ order, onOrderUpdate }) {
   const RETURN_WINDOW_DAYS = 7;
 
-  const [orderState, setOrderState] = useState(order);
   const [loading, setLoading] = useState(false);
   const [returnLoading, setReturnLoading] = useState(false);
   const [showReturn, setShowReturn] = useState(false);
   const [reason, setReason] = useState("");
 
-  // Check if return is allowed
   const isReturnAllowed = (order) => {
     if (order.status !== "DELIVERED") return false;
     if (!order.deliveredAt) return false;
@@ -20,23 +18,16 @@ export default function Buttons({ order }) {
     const diffInDays =
       (today.getTime() - deliveredDate.getTime()) / (1000 * 60 * 60 * 24);
 
-    console.log("Delivered At:", deliveredDate);
-    console.log("Today:", today);
-    console.log("Diff in days:", diffInDays);
-    console.log("RETURN_WINDOW_DAYS:", RETURN_WINDOW_DAYS);
-
     return diffInDays <= RETURN_WINDOW_DAYS;
   };
 
   const handleCancel = async () => {
-    if (orderState.status === "CANCELLED" || orderState.status === "DELIVERED")
-      return;
+    if (order.status === "CANCELLED" || order.status === "DELIVERED") return;
 
     try {
       setLoading(true);
-
       const res = await fetch(
-        `http://localhost:8080/order/${orderState._id}/cancel`,
+        `http://localhost:8080/order/${order._id}/cancel`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -47,10 +38,7 @@ export default function Buttons({ order }) {
       if (!res.ok) return;
 
       const updatedOrder = await res.json();
-      setOrderState(updatedOrder);
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
+      onOrderUpdate(updatedOrder);
     } finally {
       setLoading(false);
     }
@@ -61,9 +49,8 @@ export default function Buttons({ order }) {
 
     try {
       setReturnLoading(true);
-
       const res = await fetch(
-        `http://localhost:8080/order/${orderState._id}/return`,
+        `http://localhost:8080/order/${order._id}/return`,
         {
           method: "PATCH",
           credentials: "include",
@@ -75,52 +62,41 @@ export default function Buttons({ order }) {
       if (!res.ok) return;
 
       const updatedOrder = await res.json();
-      setOrderState(updatedOrder);
-      window.location.reload();
+      onOrderUpdate(updatedOrder);
       setShowReturn(false);
       setReason("");
-    } catch (err) {
-      console.error(err.message);
     } finally {
       setReturnLoading(false);
     }
   };
 
-  // Handle cancel return ;
   const handleCancelReturn = async () => {
-    if (orderState.status !== "RETURN_REQUESTED" || returnLoading) return;
+    if (order.status !== "RETURN_REQUESTED" || returnLoading) return;
 
     try {
       setReturnLoading(true);
-
       const res = await fetch(
-        `http://localhost:8080/order/${orderState._id}/cancel-return`,
+        `http://localhost:8080/order/${order._id}/cancel-return`,
         {
           method: "PATCH",
           credentials: "include",
         },
       );
 
-      if (!res.ok) {
-        console.error("Failed to cancel return");
-        return;
-      }
+      if (!res.ok) return;
 
       const updatedOrder = await res.json();
-      setOrderState(updatedOrder);
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
+      onOrderUpdate(updatedOrder);
     } finally {
       setReturnLoading(false);
     }
   };
 
-  const returnAllowed = isReturnAllowed(orderState);
+  const returnAllowed = isReturnAllowed(order);
 
   return (
     <div className={style.buttons}>
-      {orderState.status === "PLACED" && (
+      {order.status === "PLACED" && (
         <button
           className={style.cancel}
           onClick={handleCancel}
@@ -130,7 +106,7 @@ export default function Buttons({ order }) {
         </button>
       )}
 
-      {orderState.status === "DELIVERED" && returnAllowed && (
+      {order.status === "DELIVERED" && returnAllowed && (
         <div>
           <button className={style.cancel} onClick={() => setShowReturn(true)}>
             Return
@@ -188,7 +164,7 @@ export default function Buttons({ order }) {
         </div>
       )}
 
-      {orderState.status === "RETURN_REQUESTED" && (
+      {order.status === "RETURN_REQUESTED" && (
         <button
           onClick={handleCancelReturn}
           className={style.cancel}
@@ -197,8 +173,6 @@ export default function Buttons({ order }) {
           {returnLoading ? "Cancelling Return..." : "Cancel Return"}
         </button>
       )}
-
-      <button className={style.help}>Help</button>
     </div>
   );
 }

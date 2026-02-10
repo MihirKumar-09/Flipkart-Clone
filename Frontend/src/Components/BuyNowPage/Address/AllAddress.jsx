@@ -1,38 +1,15 @@
 import style from "./AllAddress.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function allAddress() {
-  const [addresses, setAddresses] = useState([]);
+export default function allAddress({ addresses }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const navigate = useNavigate();
 
-  const fetchAllAddress = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/api/all/address", {
-        method: "GET",
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (Array.isArray(data.allAddress)) {
-        setAddresses(data.allAddress);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    fetchAllAddress();
-  }, []);
-  useEffect(() => {
-    const savedAddressId = localStorage.getItem("selectedAddressId");
-    if (savedAddressId) {
-      setSelectedAddress(savedAddressId);
-    }
+    const saved = localStorage.getItem("selectedAddress");
+    if (saved) setSelectedAddress(saved);
   }, []);
 
   return (
