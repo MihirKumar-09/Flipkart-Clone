@@ -6,9 +6,10 @@ import Review from "../models/reviewModel.js";
 const router = express.Router();
 
 // Fetch all review ;
-router.get("/products/:id/reviews", async (req, res) => {
+router.get("/products/:productId/reviews", async (req, res) => {
   try {
-    const reviews = await Review.find({ product: req.params.id }).populate(
+    const { productId } = req.params;
+    const reviews = await Review.find({ product: productId }).populate(
       "user",
       "username",
     );
@@ -20,9 +21,11 @@ router.get("/products/:id/reviews", async (req, res) => {
   }
 });
 
-router.post("/products/:id/review", isAuth, async (req, res) => {
+// Create new review
+router.post("/products/:productId/review", isAuth, async (req, res) => {
   try {
     const { rating, comment } = req.body;
+    const { productId } = req.params;
 
     // Validation;
     if (!rating || rating < 1 || rating > 5) {
@@ -32,7 +35,7 @@ router.post("/products/:id/review", isAuth, async (req, res) => {
       return res.status(400).json({ message: "Comment is required" });
     }
 
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -74,4 +77,32 @@ router.post("/products/:id/review", isAuth, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// Delete specific review;
+router.delete(
+  "/products/:productId/reviews/:reviewId",
+  isAuth,
+  async (req, res) => {
+    try {
+      const { productId, reviewId } = req.params;
+      const review = await Review.findOne({
+        _id: reviewId,
+        product: productId,
+      });
+      if (!review) return res.status(404).json({ message: "Review not found" });
+
+      if (review.user.toString() !== req.user._id.toString()) {
+        return res.status(403).json({ message: "Not allowed" });
+      }
+      await review.deleteOne();
+      res.status(200).json({
+        message: "Review delete successfully",
+        success: true,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Failed to delete reviews" });
+    }
+  },
+);
 export default router;

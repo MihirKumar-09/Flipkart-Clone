@@ -12,6 +12,7 @@ const isAuth = async (req, res, next) => {
     }
 
     req.user = user;
+
     next();
   } catch (err) {
     console.error("isAuth error:", err);

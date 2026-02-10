@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import style from "./Reviews.module.css";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../../Context/AuthContext";
 
 export default function Reviews() {
+  const { user: currentUser } = useAuth();
   const { id: productId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [average, setAverage] = useState(0);
   const [numReviews, setNumReviews] = useState(0);
+  const [openMenuId, setOpenMenuId] = useState(null);
   const [breakdown, setBreakdown] = useState({
     1: 0,
     2: 0,
@@ -15,6 +18,7 @@ export default function Reviews() {
     5: 0,
   });
 
+  // Fetch all reviews;
   useEffect(() => {
     const fetchAllReviews = async () => {
       try {
@@ -49,6 +53,27 @@ export default function Reviews() {
     fetchAllReviews();
   }, [productId]);
 
+  // Delete review;
+  const deleteReview = async (reviewId) => {
+    try {
+      const res = await fetch(
+        `http://localhost:8080/api/products/${productId}/reviews/${reviewId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+      if (!res.ok) {
+        throw new Error("Delete failed");
+      }
+      setReviews((prev) => prev.filter((r) => r._id !== reviewId));
+      setOpenMenuId(null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  if (reviews.length === 0) return <p>No review found</p>;
   return (
     <div className={style.ratingContainer}>
       <div className={style.ratingSummary}>
@@ -92,31 +117,67 @@ export default function Reviews() {
 
       <div className={style.allReviews}>
         {reviews.length === 0 && <p>No reviews yet.</p>}
-        {reviews.map((r) => (
-          <div key={r._id} className={style.reviewCard}>
-            <div className={style.topRow}>
-              <span
-                className={`${style.ratingBadge} ${
-                  r.rating >= 3
-                    ? style.good
-                    : r.rating <= 2
-                      ? style.bad
-                      : style.avg
-                }`}
-              >
-                {r.rating} <i className="fa-solid fa-star"></i>
+        {reviews.map((r) => {
+          const isOwner =
+            currentUser && r.user && currentUser._id === r.user._id;
+
+          return (
+            <div key={r._id} className={style.reviewCard}>
+              <div className={style.topRow}>
+                <span className={style.starContainer}>
+                  <span
+                    className={`${style.ratingBadge} ${
+                      r.rating >= 3
+                        ? style.good
+                        : r.rating <= 2
+                          ? style.bad
+                          : style.avg
+                    }`}
+                  >
+                    {r.rating} <i className="fa-solid fa-star"></i>
+                  </span>
+
+                  {isOwner && (
+                    <div className={style.ratingWrapper}>
+                      <span
+                        className={style.ratingEdit}
+                        onClick={() =>
+                          setOpenMenuId(openMenuId === r._id ? null : r._id)
+                        }
+                      >
+                        <i className="fa-solid fa-ellipsis-vertical"></i>
+                      </span>
+
+                      {openMenuId === r._id && (
+                        <div className={style.ratingMenu}>
+                          <p
+                            className={style.menuDelete}
+                            onClick={() => deleteReview(r._id)}
+                          >
+                            <span>Remove</span>
+                            <span>
+                              <i className="fa-regular fa-trash-can"></i>
+                            </span>
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </span>
+              </div>
+
+              <p className={style.comment}>{r.comment}</p>
+
+              <span className={style.username}>
+                {r.user?.username
+                  ? r.user.username.charAt(0).toUpperCase() +
+                    r.user.username.slice(1)
+                  : "Anonymous"}
+                <i className="fa-solid fa-circle-check"></i>
               </span>
             </div>
-            <p className={style.comment}>{r.comment}</p>
-            <span className={style.username}>
-              {r.user?.username
-                ? r.user.username.charAt(0).toUpperCase() +
-                  r.user.username.slice(1)
-                : "Anonymous"}
-              <i className="fa-solid fa-circle-check"></i>
-            </span>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
