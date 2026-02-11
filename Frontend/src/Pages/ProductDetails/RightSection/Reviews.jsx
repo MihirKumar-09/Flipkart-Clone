@@ -73,7 +73,7 @@ export default function Reviews() {
     }
   };
 
-  if (reviews.length === 0) return <p>No review found</p>;
+  if (reviews.length === 0) return <p></p>;
   return (
     <div className={style.ratingContainer}>
       <div className={style.ratingSummary}>

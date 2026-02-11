@@ -66,6 +66,8 @@ import AdminDelivery from "../Components/Admin/DeliveryOrders/DeliveryOrders";
 import AdminReturn from "../Components/Admin/Returns/Returns";
 // Admin Analytics;
 import AdminAnalytics from "../Components/Admin/Analytics/Analytics";
+// Create new product;
+import CreateNewProducts from "../Components/Admin/NewProducts/NewProducts";
 
 export default function AppRoute() {
   return (
@@ -86,6 +88,7 @@ export default function AppRoute() {
           <Route path="delivery" element={<AdminDelivery />} />
           <Route path="returns" element={<AdminReturn />} />
           <Route path="analytics" element={<AdminAnalytics />} />
+          <Route path="new_product" element={<CreateNewProducts />} />
         </Route>
       </Route>
 

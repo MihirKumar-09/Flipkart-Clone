@@ -1,7 +1,32 @@
-import express from "express";
+import express, { json } from "express";
 import mongoose from "mongoose";
 import Products from "../models/productModel.js";
-import isAuth from "../middlewares/isAuth.js";
+import isAdmin from "../middlewares/isAdmin.js";
+import { v2 as cloudinary } from "cloudinary";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+// Configure cloudinary;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
+// Set-up storage;
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "products",
+    allowed_format: ["jpg", "png", "jpeg"],
+  },
+});
+
+// Define upload file;
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -122,5 +147,56 @@ router.get("/products/category/:category", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch category products" });
   }
 });
+
+// Create new products into DB;
+router.post(
+  "/product",
+  isAdmin,
+  upload.array("images", 5),
+  async (req, res) => {
+    try {
+      const { name, description, price, category, brand, stock, highlights } =
+        req.body;
+
+      const errors = {};
+
+      if (!name) errors.name = "Name is required";
+      if (!description) errors.description = "Description is required";
+      if (!price) errors.price = "Price is required";
+      if (!category) errors.category = "Category is required";
+      if (!brand) errors.brand = "Brand is required";
+      if (!stock) errors.stock = "Stock is required";
+      if (!highlights) errors.highlights = "Highlights are required";
+
+      if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors });
+      }
+
+      const imageData = req.files.map((file) => ({
+        url: file.path,
+        filename: file.filename,
+      }));
+
+      const newProduct = new Products({
+        name,
+        description,
+        price: Number(price),
+        category,
+        brand,
+        stock: Number(stock),
+        highlights: highlights
+          ? highlights.split(",").map((h) => h.trim())
+          : [],
+        image: imageData,
+      });
+
+      const saveProduct = await newProduct.save();
+      res.status(200).json({ saveProduct });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Failed to create new error" });
+    }
+  },
+);
 
 export default router;

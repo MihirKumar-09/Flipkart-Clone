@@ -1,0 +1,121 @@
+.newProductContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.newProductContainer button {
+  padding: 12px 30px;
+  background-color: #2874f0;
+  color: white;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 6px;
+  border: none;
+  transition: all 0.3s ease-in;
+}
+.newProductContainer button:hover {
+  background-color: #024abd;
+}
+.newProductContainer button span i {
+  margin-left: 0.5rem;
+}
+
+/* Form style */
+.formWrapper {
+  max-width: 800px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.formTitle {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.newForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #2874f0;
+  box-shadow: 0 0 0 2px rgba(40, 116, 240, 0.15);
+}
+
+.gridTwo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* Cancel Button */
+.cancelBtn {
+  padding: 11px 18px;
+  background-color: #f72922 !important;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background-color: #c3110c !important;
+  border-color: #ccc;
+}
+
+/* Submit Button */
+.submitBtn {
+  padding: 11px 20px;
+  background: #2874f0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: #1c5ed6;
+}
+.error {
+  color: red;
+  margin-bottom: 10px;
+}

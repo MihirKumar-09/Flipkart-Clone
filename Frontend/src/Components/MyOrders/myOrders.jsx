@@ -90,7 +90,7 @@ export default function MyOrders() {
                                                 : style.progress
                           }
                         >
-                          ● {order.status}
+                          ● {order.status.replaceAll("_", "  ")}
                         </span>
 
                         <p className={style.subText}>

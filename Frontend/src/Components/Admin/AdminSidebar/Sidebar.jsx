@@ -40,6 +40,15 @@ export default function AdminSidebar() {
       >
         Analytics
       </NavLink>
+
+      <NavLink
+        to="new_product"
+        className={({ isActive }) =>
+          isActive ? `${style.link} ${style.active}` : style.link
+        }
+      >
+        Add New Product
+      </NavLink>
     </div>
   );
 }
