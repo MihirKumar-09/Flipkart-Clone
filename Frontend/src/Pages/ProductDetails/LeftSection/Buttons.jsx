@@ -4,7 +4,6 @@ import { addToCart } from "../../../features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 import { toast } from "react-toastify";
-import { useBuyNow } from "../../../Context/BuyNowContext";
 import { useState } from "react";
 
 export default function Buttons({ product }) {
@@ -34,7 +33,7 @@ export default function Buttons({ product }) {
     dispatch(
       addToCart({
         ...product,
-        quantity: 1, // enforce consistency
+        quantity: 1,
       }),
     );
 
@@ -49,7 +48,6 @@ export default function Buttons({ product }) {
       return;
     }
 
-    // 🔐 WRITE CHECKOUT CONTEXT
     localStorage.setItem(
       "checkoutData",
       JSON.stringify({
@@ -57,7 +55,7 @@ export default function Buttons({ product }) {
         items: [
           {
             ...product,
-            quantity: 1, // explicit, never assume
+            quantity: 1,
           },
         ],
       }),

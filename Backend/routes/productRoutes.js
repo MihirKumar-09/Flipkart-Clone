@@ -198,5 +198,25 @@ router.post(
     }
   },
 );
-
+// Delete specific product;
+router.delete("/product/:id", isAdmin, async (req, res) => {
+  try {
+    const { productId } = req.params;
+    // find product;
+    const deleteProduct = await Products.findByIdAndDelete(productId);
+    // If product not exist;
+    if (!deleteProduct) {
+      return res.status(200).json({
+        message: "Product already deleted",
+        success: true,
+      });
+    }
+    res
+      .status(200)
+      .json({ message: "product delete successfully", success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to delete product" });
+  }
+});
 export default router;
