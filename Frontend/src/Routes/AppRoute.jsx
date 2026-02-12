@@ -69,6 +69,9 @@ import AdminAnalytics from "../Components/Admin/Analytics/Analytics";
 // Create new product;
 import CreateNewProducts from "../Components/Admin/NewProducts/NewProducts";
 
+//! Seller Page;
+import BecomeSeller from "../Pages/BecomeSeller/BecomeSeller";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -103,6 +106,9 @@ export default function AppRoute() {
       {/* New Features */}
       <Route path="/price-drop" element={<PriceDrop />} />
       <Route path="/stock-availabel" element={<Stock />} />
+
+      {/* ========Seller Page======== */}
+      <Route path="/seller-dashboard" element={<BecomeSeller />} />
 
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />

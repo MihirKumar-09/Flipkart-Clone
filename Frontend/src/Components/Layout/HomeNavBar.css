@@ -9,7 +9,7 @@
   z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   padding: 0 1rem;
 }
 
@@ -72,7 +72,7 @@
 .details {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
   width: calc(100% - 65%);
   height: 41px;
 }
@@ -221,16 +221,18 @@
 
 /* Login Button Options */
 .loginBtnOptions {
-  width: 230px;
+  width: 300px;
   background-color: #ffffff;
   color: black;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 100%;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.221);
+  border: 1px solid rgba(0, 0, 0, 0.221);
   border-radius: 10px;
   overflow: hidden;
+  padding: 20px;
 }
 .loginOptions {
   width: 100%;
@@ -269,7 +271,8 @@
   padding: 0.6rem 0.5rem;
 }
 .loginBtnOptions div div:hover {
-  background-color: #f1f2f4;
+  background: linear-gradient(to right, #87cefaa8, #ffffff);
+  border-radius: 10px;
 }
 .loginBtnOptions div div span {
   font-size: 15px;
@@ -291,20 +294,21 @@ a {
 .accountOptions div {
   cursor: pointer;
 }
-
 /* aboutBtnOptions */
 
 .aboutBtnOptions {
-  width: 220px;
+  width: 260px;
   background-color: #ffffff;
   color: black;
   position: absolute;
   right: 0;
   top: 100%;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.221);
+  border: 1px solid rgba(0, 0, 0, 0.221);
   border-radius: 10px;
   overflow: hidden;
+  padding: 10px;
 }
 .aboutBtnOptions div {
   padding: 0.6rem 0.5rem;
@@ -314,7 +318,8 @@ a {
   align-items: center;
 }
 .aboutBtnOptions div:hover {
-  background-color: #f1f2f4;
+  background: linear-gradient(to right, #87cefaa8, #ffffff);
+  border-radius: 10px;
 }
 .aboutBtnOptions div span {
   font-size: 15px;

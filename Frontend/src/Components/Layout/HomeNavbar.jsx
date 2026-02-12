@@ -207,10 +207,6 @@ export default function HomeNavBar() {
           </div>
           <span>Cart</span>
         </button>
-        <button className="becomeSeller">
-          <i className="fa-solid fa-store"></i>
-          <span>Become a Seller</span>
-        </button>
 
         <div
           className="aboutDiv"
@@ -223,6 +219,12 @@ export default function HomeNavBar() {
 
           {isAboutBtnHover && (
             <div className="aboutBtnOptions">
+              <Link to="/seller-dashboard" className="link">
+                <div className="becomeSeller">
+                  <i className="fa-solid fa-store"></i>
+                  <span>Become a Seller</span>
+                </div>
+              </Link>
               <div>
                 <i className="fa-regular fa-bell"></i>
                 <span>Notification Preferences</span>
