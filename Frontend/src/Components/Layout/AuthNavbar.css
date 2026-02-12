@@ -157,8 +157,7 @@
 }
 
 /* More Button & Cart Button */
-.more,
-.cart {
+.more {
   height: 80%;
   width: auto;
   display: flex;
@@ -166,8 +165,7 @@
   cursor: pointer;
   position: relative;
 }
-.more button,
-.cart button {
+.more button {
   border: none;
   outline: none;
   background-color: transparent;
@@ -179,10 +177,6 @@
   font-size: 0.6rem;
   margin-left: 2px;
 }
-.cart i {
-  color: white;
-  margin-right: 5px;
-}
 
 .more-about-options {
   position: absolute;
@@ -192,4 +186,41 @@
 .more-about-options i {
   color: #2874f0;
   font-size: 1.1rem;
+}
+
+.authCartBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+}
+
+.iconWrapper {
+  position: relative;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.cartBtn i {
+  font-size: 1.3rem;
+  margin: 0px 8px 0px 0px;
+  color: #fff;
 }

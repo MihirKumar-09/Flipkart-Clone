@@ -1,19 +1,22 @@
 .buttonGroup {
-  height: 55px;
   width: 100%;
-  text-align: center;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+  gap: 10px;
 }
 .buttonGroup button {
-  width: 48%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 0;
   border: none;
-  background-color: #2874f0;
-  color: #fff;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  color: white;
 }
 .buttonGroup button:last-child {
   background-color: red;
@@ -23,6 +26,9 @@
 }
 .buttonGroup button span i {
   margin-left: 0.7rem;
+}
+.buttonGroup button:first-child {
+  background-color: #1b6df2;
 }
 .buttonGroup button:first-child:hover {
   background-color: #024abe;

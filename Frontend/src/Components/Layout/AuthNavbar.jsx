@@ -7,12 +7,17 @@ import { toast } from "react-toastify";
 
 // Use for modify the navbar according to the page
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function SignNavbar() {
   const [isAboutBtnHover, setIsAboutBtnHover] = useState(false);
   const [isLoginBtnHover, setIsLoginBtnHover] = useState(false);
   const [query, setQuery] = useState("");
   const { user, handleLogout } = useAuth();
+
+  // get item from cart;
+  const cart = useSelector((state) => state.cart.items);
+  const cartCount = Array.isArray(cart) ? cart.length : 0;
   const navigate = useNavigate();
   const notify = () => {
     toast.success("Logout Successfully", { autoClose: 3000 });
@@ -224,12 +229,13 @@ export default function SignNavbar() {
 
         {/* CART BUTTON */}
         {!isCartPage && !isCheckoutPage && (
-          <div className="cart">
-            <i className="fa-solid fa-cart-shopping"></i>
-            <Link to="/cart">
-              <button>Cart</button>
-            </Link>
-          </div>
+          <button className="authCartBtn" onClick={() => navigate("/cart")}>
+            <div className="iconWrapper">
+              <i class="fa-solid fa-cart-shopping"></i>
+              {cartCount > 0 && <span className="cartBadge">{cartCount}</span>}
+            </div>
+            <span>Cart</span>
+          </button>
         )}
       </div>
     </div>

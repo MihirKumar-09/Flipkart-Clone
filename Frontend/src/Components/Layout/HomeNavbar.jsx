@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./HomeNavBar.css";
 import MainLogo from "../../assets/HomePage/MainLogo.svg";
@@ -12,8 +13,11 @@ export default function HomeNavBar() {
   const [isAboutBtnHover, setIsAboutBtnHover] = useState(false);
   const [query, setQuery] = useState("");
   const { user, handleLogout } = useAuth();
-  console.log("Logged user:", user);
   console.log("User role:", user?.role);
+
+  // Get cart item for local storage;
+  const cart = useSelector((state) => state.cart.items); //from Redux
+  const cartCount = Array.isArray(cart) ? cart.length : 0;
 
   const navigate = useNavigate();
 
@@ -172,7 +176,7 @@ export default function HomeNavBar() {
 
                   <div>
                     <i className="fa-regular fa-heart"></i>
-                    <span>Whishlist</span>
+                    <span>Wishlist</span>
                   </div>
                   <div>
                     <i className="fa-solid fa-tag"></i>
@@ -197,7 +201,10 @@ export default function HomeNavBar() {
         </div>
 
         <button className="cartBtn" onClick={handleCart}>
-          <i className="fa-brands fa-opencart"></i>
+          <div className="iconWrapper">
+            <i class="fa-solid fa-cart-shopping"></i>
+            {cartCount > 0 && <span className="cartBadge">{cartCount}</span>}
+          </div>
           <span>Cart</span>
         </button>
         <button className="becomeSeller">

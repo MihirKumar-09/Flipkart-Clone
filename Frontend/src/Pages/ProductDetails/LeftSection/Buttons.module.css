@@ -1,19 +1,23 @@
 .Buttons {
-  height: 55px;
   width: 100%;
-  text-align: center;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+  gap: 10px;
 }
+
 .Buttons button {
-  width: 48%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 0;
   border: none;
-  background-color: #2874f0;
-  color: #fff;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  color: white;
 }
 .Buttons button:first-child {
   background-color: #ff9f00;
