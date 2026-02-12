@@ -1,65 +1,71 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 .navContainer {
   height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
   background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-}
-.navLeft,
-.navRight {
-  height: 100%;
-  display: flex;
-  align-items: center;
+  padding: 0 30px;
+  position: relative;
+  z-index: 1000;
+
+  /* Prevent any layout jump / scrollbar flash */
+  overflow: visible;
 }
 
-.navContainer ul {
+.leftNav {
   height: 100%;
   display: flex;
   align-items: center;
-  list-style: none;
-  gap: 28px;
+  gap: 24px;
+}
+
+.leftNav ul {
+  height: 100%;
+  display: flex;
   margin: 0;
   padding: 0;
+  list-style: none;
+  gap: 32px;
 }
 
-.navContainer li {
+.menuItem {
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 4px;
+  position: relative; /* ← very important for absolute positioning */
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: #212121;
-  transition: color 0.2s ease;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
+  padding: 0 6px; /* small padding helps reduce gap feeling */
+  transition: color 0.15s ease;
 }
-.navContainer li:hover {
-  color: #2874f0;
+
+.menuItem:hover {
+  color: #0066cc; /* optional visual feedback */
 }
-.navContainer img {
-  height: 32px;
+
+/* DROPDOWN */
+.dropDown {
+  position: absolute;
+  top: 100%; /* right under the li */
+  left: 0;
+  min-width: 180px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  padding: 12px 0;
+  z-index: 2000;
+  margin-top: 2px; /* tiny offset → prevents 1px gap flicker in many browsers */
+
+  /* Optional: prevent text selection while moving mouse quickly */
+  user-select: none;
 }
-/* Right side */
-.sellingBtn {
-  background-color: #ffcd00;
-  padding: 0px 20px;
-  font-size: 1.2rem !important;
+
+.dropDown > * {
+  padding: 8px 16px;
+  cursor: pointer;
 }
-.sellingBtn:hover {
-  color: black !important;
-}
-.loginBtn {
-  padding: 0px 10px;
+
+.dropDown > *:hover {
+  background: #f3f4f6;
 }
