@@ -72,19 +72,29 @@ export default function Buttons({ product }) {
           <span>GO TO CART</span>
         </button>
       ) : (
-        <button onClick={handleAddToCart}>
+        <button
+          onClick={handleAddToCart}
+          disabled={!product || product.stock <= 0}
+          className={`${style.buyBtn} ${
+            !product || product.stock <= 0 ? style.disabledBtn : ""
+          }`}
+        >
           <i className="fa-solid fa-cart-shopping"></i>
           <span>ADD TO CART</span>
         </button>
       )}
 
       <button
-        onClick={() => {
-          setIsVisible(true);
-        }}
+        onClick={() => setIsVisible(true)}
+        disabled={!product || product.stock <= 0}
+        className={`${style.buyBtn} ${
+          !product || product.stock <= 0 ? style.disabledBtn : ""
+        }`}
       >
         <i className="fa-solid fa-bolt-lightning"></i>
-        <span>BUY NOW</span>
+        <span>
+          {!product || product.stock <= 0 ? "OUT OF STOCK" : "BUY NOW"}
+        </span>
       </button>
 
       {isVisible && (

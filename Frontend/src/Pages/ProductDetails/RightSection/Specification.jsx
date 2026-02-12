@@ -17,7 +17,7 @@ export default function Specification() {
       }
     };
     fetchProductDetails();
-  });
+  }, [id]);
   if (!product) return <h1>Loading...</h1>;
 
   return (

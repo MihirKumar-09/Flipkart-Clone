@@ -21,6 +21,16 @@
 .Buttons button:last-child {
   background-color: #fb641b;
 }
+.disabledBtn {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.disabledBtn:hover {
+  background-color: #ccc;
+}
 
 /* allButton */
 .allButton {

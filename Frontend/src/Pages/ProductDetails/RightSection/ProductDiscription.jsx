@@ -14,10 +14,11 @@ export default function ProductDiscription() {
         setProduct(data);
       } catch (err) {
         console.log("Failed to fetch product details", err);
+        setProduct(null);
       }
     };
     fetchProductDetails();
-  });
+  }, [id]);
   if (!product) return <h1>Loading...</h1>;
 
   return (

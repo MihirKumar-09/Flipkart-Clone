@@ -201,14 +201,14 @@ router.post(
 // Delete specific product;
 router.delete("/product/:id", isAdmin, async (req, res) => {
   try {
-    const { productId } = req.params;
+    const { id } = req.params;
     // find product;
-    const deleteProduct = await Products.findByIdAndDelete(productId);
+    const deleteProduct = await Products.findByIdAndDelete(id);
     // If product not exist;
     if (!deleteProduct) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: "Product already deleted",
-        success: true,
+        success: false,
       });
     }
     res

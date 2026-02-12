@@ -208,7 +208,7 @@ export default function NewOrder() {
                 name="highlights"
                 value={product.highlights}
                 onChange={handleChange}
-                placeholder="Key product highlights"
+                placeholder="Key product highlights using comma "
                 className={`form-control ${errors.name ? "is-invalid" : ""}`}
               />
               <div className="invalid-feedback">{errors.name}</div>
