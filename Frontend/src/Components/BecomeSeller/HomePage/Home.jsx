@@ -6,7 +6,7 @@ import TopBar from "./TopBar/TopBar";
 import NavBar from "./NavBar/NavBar";
 export default function Home() {
   return (
-    <div>
+    <div className={style.homePage}>
       <TopBar />
       <NavBar />
     </div>
