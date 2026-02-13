@@ -10,37 +10,45 @@ export default function NavBar() {
     {
       label: "Sell Online",
       options: [
-        { label: "Create Account", link: "/create-account" },
-        { label: "List Products", link: "/list-products" },
-        { label: "Storage & Shipping", link: "/storage-shipping" },
-        { label: "Receive Payments", link: "/receive-payments" },
-        { label: "Grow Faster", link: "/grow-faster" },
-        { label: "Seller App", link: "/seller-app" },
-        { label: "Help & Support", link: "/help-support" },
+        { label: "Create Account", link: "#" },
+        { label: "List Products", link: "#" },
+        { label: "Storage & Shipping", link: "#" },
+        { label: "Receive Payments", link: "#" },
+        { label: "Grow Faster", link: "#" },
+        { label: "Seller App", link: "#" },
+        { label: "Help & Support", link: "#" },
       ],
     },
     {
       label: "Fees and Commission",
       options: [
-        { label: "Fee Structure", link: "/fee-structure" },
-        { label: "Payment Terms", link: "/payment-terms" },
-        { label: "Policies", link: "/policies" },
+        { label: "Payment Cycle", link: "#" },
+        { label: "Fee Type", link: "#" },
+        { label: "Calculate Gross Margin", link: "#" },
       ],
     },
     {
       label: "Grow",
       options: [
-        { label: "Marketing Tools", link: "/marketing-tools" },
-        { label: "Analytics", link: "/analytics" },
+        { label: "FAssured badge", link: "#" },
+        { label: "Insights & Tools", link: "#" },
+        { label: "Flipkart Ads", link: "#" },
+        { label: "Flipkart Value Service", link: "#" },
+        { label: "Shopping Festive", link: "#" },
+        { label: "Service Partner", link: "#" },
       ],
     },
     {
       label: "Learn",
       options: [
-        { label: "Tutorials", link: "/tutorials" },
-        { label: "FAQ", link: "/faq" },
-        { label: "Guides", link: "/guides" },
+        { label: "FAQs", link: "#" },
+        { label: "Seller Success Stories", link: "#" },
+        { label: "Seller Blogs", link: "#" },
       ],
+    },
+    {
+      label: "Shopsy",
+      options: [],
     },
   ];
 
@@ -63,8 +71,12 @@ export default function NavBar() {
               >
                 {item.label}
                 {item.options.length > 0 && (
-                  <span className="material-symbols-outlined">
-                    keyboard_arrow_down
+                  <span className={style.dropDownIcon}>
+                    {openMenus[index] ? (
+                      <i className="fa-solid fa-angle-up"></i>
+                    ) : (
+                      <i className="fa-solid fa-angle-down"></i>
+                    )}
                   </span>
                 )}
 

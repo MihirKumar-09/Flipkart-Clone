@@ -1,0 +1,82 @@
+.successStory {
+  width: 100%;
+  padding: 0px 130px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+}
+.successStory h1 {
+  margin: 0;
+  color: black;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.successStory h1 span:first-child {
+  color: #027cd5;
+}
+
+/* BootStrap */
+.carouselWrapper {
+  height: 400px;
+  color: black;
+}
+
+.carouselItem {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 80px;
+  background-color: rgba(174, 215, 250, 0.158);
+  border-radius: 40px;
+}
+/* IMAGE CONTAINER */
+.imageContainer {
+  height: 250px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imageContainer div {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imageContainer div img {
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+/* ABOUT CONTAINER */
+.aboutContainer {
+  height: 250px;
+  width: calc(100% - 200px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.aboutContainer h4 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.aboutContainer p {
+  margin: 0;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: lighter;
+}
+/* Button style */
+.carouselWrapper button {
+  color: black !important;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.177);
+}
