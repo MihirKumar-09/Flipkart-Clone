@@ -12,6 +12,8 @@ import SuccessStory from "./SuccessStory/Success";
 import CreateAccount from "./CreateAccount/Create";
 // Import Product List;
 import ListProduct from "./ListProduct/List";
+// Import storage & Shipping;
+import StorageAndShipping from "./StorageShipping/Storage";
 export default function Home() {
   return (
     <div className={style.homePage}>
@@ -22,6 +24,7 @@ export default function Home() {
       <hr style={{ margin: 0 }} />
       <CreateAccount />
       <ListProduct />
+      <StorageAndShipping />
     </div>
   );
 }

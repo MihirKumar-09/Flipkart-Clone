@@ -1,0 +1,96 @@
+.storageAndShipping {
+  height: auto;
+  width: 100%;
+  padding: 20px 140px;
+  background-color: #ffffff;
+}
+
+.storageAndShipping h3 {
+  margin: 0;
+  margin-bottom: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: underline solid #027cd5 2px;
+}
+.storageAndShipping p {
+  margin: 0;
+  color: black;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+.storageAndShipping ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+}
+.storageAndShipping span ul li {
+  list-style: none;
+  padding-left: 0;
+  position: relative;
+  padding-left: 28px;
+}
+
+.storageAndShipping span ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #027cd5;
+  font-weight: 700;
+  font-size: 18px;
+}
+/* STORAGE CONTAINER */
+.storageContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.storageContainer .storageCard {
+  width: 80%;
+  display: flex;
+  margin-bottom: 20px;
+}
+.leftCard {
+  flex: 1;
+}
+.leftCard h5 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.06rem;
+  margin-bottom: 20px;
+}
+.leftCard ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.leftCard ul li {
+  list-style: none;
+  padding-left: 0;
+  position: relative;
+  padding-left: 28px;
+}
+.leftCard ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #027cd5;
+  font-weight: 700;
+  font-size: 18px;
+}
+/* VIDEO CARD */
+.videoCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.videoCard iframe {
+  width: 80%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  border: none;
+}

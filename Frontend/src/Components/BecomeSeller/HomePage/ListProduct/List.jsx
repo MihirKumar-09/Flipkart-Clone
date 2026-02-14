@@ -29,7 +29,47 @@ export default function ListProduct() {
         your product, along with clear and captivating images, can increase its
         visibility on our platform by up to 15%.
       </p>
-      <div className={style.videoContainer}>Video</div>
+      <div className={style.videoContainer}>
+        <div className={style.videoStyle}>
+          <h5>Listing on Flipkart can be done in 2 different ways:</h5>
+
+          <div className={style.videoPage}>
+            <div className={style.videoCard}>
+              <p>1. Match with existing products</p>
+
+              <iframe
+                src="https://www.youtube.com/embed/jazZiaTb4_M"
+                title="Match existing products"
+                allowFullScreen
+              ></iframe>
+
+              <p>
+                If your product is already available on Flipkart, you have the
+                option to seamlessly link or 'Latch' onto the existing product
+                listing. This allows you to make your product live on the
+                platform without the need to create a separate listing.
+              </p>
+            </div>
+
+            <div className={style.videoCard}>
+              <p>2. New Product</p>
+
+              <iframe
+                src="https://www.youtube.com/embed/oKPV5sIjXF8"
+                title="New product listing"
+                allowFullScreen
+              ></iframe>
+
+              <p>
+                For products not currently available on Flipkart, you'll need to
+                provide complete information and create a new listing with
+                details like description, dimensions, features, images, and
+                usage instructions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
