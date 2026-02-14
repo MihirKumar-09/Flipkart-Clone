@@ -10,6 +10,8 @@ import HeroPage from "./HeroPage/Hero";
 import SuccessStory from "./SuccessStory/Success";
 // Import create account;
 import CreateAccount from "./CreateAccount/Create";
+// Import Product List;
+import ListProduct from "./ListProduct/List";
 export default function Home() {
   return (
     <div className={style.homePage}>
@@ -19,6 +21,7 @@ export default function Home() {
       <SuccessStory />
       <hr style={{ margin: 0 }} />
       <CreateAccount />
+      <ListProduct />
     </div>
   );
 }
