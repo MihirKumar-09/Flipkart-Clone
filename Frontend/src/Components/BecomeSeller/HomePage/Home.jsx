@@ -8,6 +8,8 @@ import NavBar from "./NavBar/NavBar";
 import HeroPage from "./HeroPage/Hero";
 // Import Success story page;
 import SuccessStory from "./SuccessStory/Success";
+// Import create account;
+import CreateAccount from "./CreateAccount/Create";
 export default function Home() {
   return (
     <div className={style.homePage}>
@@ -15,6 +17,8 @@ export default function Home() {
       <NavBar />
       <HeroPage />
       <SuccessStory />
+      <hr style={{ margin: 0 }} />
+      <CreateAccount />
     </div>
   );
 }
