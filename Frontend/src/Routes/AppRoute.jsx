@@ -26,7 +26,7 @@ import Flight from "../Pages/Category/Flight";
 import ProductList from "../Pages/ProductList/ProductList";
 
 // Product Details
-import ProductDetils from "../Pages/ProductDetails/ProductDetails";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 
 // Cart Page;
 import CartPage from "../Pages/Cart/Cart";
@@ -54,7 +54,7 @@ import OrderStatus from "../Pages/OrderStatus/OrderStatus";
 import PriceDrop from "../Pages/PriceDrop/PriceDrop";
 
 // Import Stock available;
-import Stock from "../Pages/StockAvailabe/Stock";
+import Stock from "../Pages/StockAvailable/Stock";
 
 //! Admin page and admin route ;
 import AdminPage from "../Pages/Admin/Admin";
@@ -83,9 +83,9 @@ export default function AppRoute() {
         <Route path="/cart" element={<CartPage />} />
       </Route>
 
-      {/* Admin Page */}
+      {/* ======Admin Page===== */}
 
-      <Route element={<AdminProtectedRoute />}>
+      <Route element={<AdminProtectedRoute requiredRole="ADMIN" />}>
         <Route path="/admin" element={<AdminPage />}>
           <Route index element={<AdminOrder />} />
           <Route path="delivery" element={<AdminDelivery />} />
@@ -98,14 +98,14 @@ export default function AppRoute() {
       <Route path="/buy-now" element={<BuyNow />} />
       <Route path="/payment" element={<Payment />} />
 
-      {/* Orders Page */}
+      {/* =========Orders Page========= */}
       <Route path="/order-success" element={<OrderSuccess />} />
       <Route path="/my-orders" element={<MyOrders />} />
       <Route path="/order-status/:orderId" element={<OrderStatus />} />
 
-      {/* New Features */}
+      {/* ======New Features====== */}
       <Route path="/price-drop" element={<PriceDrop />} />
-      <Route path="/stock-availabel" element={<Stock />} />
+      <Route path="/stock-available" element={<Stock />} />
 
       {/* ========Seller Page======== */}
       <Route path="/seller-dashboard" element={<BecomeSeller />} />
@@ -121,7 +121,7 @@ export default function AppRoute() {
         <Route path="/beauty" element={<Beauty />} />
         {/* Show Product List */}
         <Route path="product-list" element={<ProductList />} />
-        <Route path="/product/:id" element={<ProductDetils />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
 
         {/* Profile Page */}
         <Route path="/profile" element={<Profile />} />

@@ -11,6 +11,10 @@ const isAdmin = async (req, res, next) => {
     return res.status(403).json({ message: "ADMIN access only" });
   }
 
+  // if (!req.user || req.user.role !== "ADMIN") {
+  //   return res.status(403).json({ message: "ADMIN access only" });
+  // }
+
   next();
 };
 export default isAdmin;

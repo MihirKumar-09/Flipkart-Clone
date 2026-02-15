@@ -102,7 +102,7 @@ export default function Buttons({ product }) {
           <div className={style.buttonContainer}>
             <div className={style.close}>
               <i
-                class="fa-solid fa-xmark"
+                className="fa-solid fa-xmark"
                 onClick={() => setIsVisible(false)}
               ></i>
             </div>
@@ -117,7 +117,7 @@ export default function Buttons({ product }) {
                 Price Drop
               </button>
               <button
-                onClick={() => navigate("/stock-availabel", { state: product })}
+                onClick={() => navigate("/stock-available", { state: product })}
               >
                 Back In Stock
               </button>

@@ -1,0 +1,23 @@
+.bottomFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 140px;
+}
+.bottomFooter p {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.bottomFooter span {
+  display: flex;
+  gap: 30px;
+}
+.bottomFooter span ul {
+  margin: 0;
+  padding: 0;
+}
+.bottomFooter span ul li {
+  color: gray;
+  font-size: 0.9rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

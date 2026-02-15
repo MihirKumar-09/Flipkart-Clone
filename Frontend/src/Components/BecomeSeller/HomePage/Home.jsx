@@ -14,6 +14,12 @@ import CreateAccount from "./CreateAccount/Create";
 import ListProduct from "./ListProduct/List";
 // Import storage & Shipping;
 import StorageAndShipping from "./StorageShipping/Storage";
+// Import Receive payment;
+import ReceivePayments from "./Receive Payments/Payments";
+// Import Footer;
+import Footer from "../../Layout/Footer/Footer";
+// Import Bottom Footer;
+import BottomFooter from "./BottomFooter/Bottom";
 export default function Home() {
   return (
     <div className={style.homePage}>
@@ -25,6 +31,9 @@ export default function Home() {
       <CreateAccount />
       <ListProduct />
       <StorageAndShipping />
+      <ReceivePayments />
+      <Footer />
+      <BottomFooter />
     </div>
   );
 }
