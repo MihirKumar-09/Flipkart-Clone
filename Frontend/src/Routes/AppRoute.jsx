@@ -72,6 +72,9 @@ import CreateNewProducts from "../Components/Admin/NewProducts/NewProducts";
 //! Seller Page;
 import BecomeSeller from "../Pages/BecomeSeller/BecomeSeller";
 
+//!======IMPORT ERROR PAGE=======
+import NotFound from "../Components/NotFound/NotFound";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -109,6 +112,9 @@ export default function AppRoute() {
 
       {/* ========Seller Page======== */}
       <Route path="/seller-dashboard" element={<BecomeSeller />} />
+
+      {/* =========HANDLE ALL ERROR ROUTE========== */}
+      <Route path="*" element={<NotFound />} />
 
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />

@@ -125,21 +125,31 @@ app.use("/api/auth", authRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api", reviewRoute);
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ success: false, error: "Route not found" });
+// 404 handler which handle wrong route request;
+app.use((req, res, next) => {
+  res.status(404).json({ success: false, message: "Route not found" });
 });
 
-// Error handling middleware
+// Global Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error("Server error:", err);
-  res.status(500).json({
+
+  const statusCode = err.statusCode || 500;
+
+  const message =
+    process.env.NODE_ENV === "development"
+      ? err.message
+      : "Internal server error";
+
+  const response = {
     success: false,
-    error:
-      process.env.NODE_ENV === "development"
-        ? err.message
-        : "Internal server error",
-  });
+    error: message,
+  };
+  if (process.env.NODE_ENV === "development") {
+    response.stack = err.stack;
+  }
+
+  res.status(statusCode).json(response);
 });
 
 // --------------------
