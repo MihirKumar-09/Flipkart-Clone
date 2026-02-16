@@ -177,12 +177,15 @@ router.post(
         filename: file.filename,
       }));
 
+      const normalizeCategory = category.trim().toLowerCase();
+      const normalizeBrand = brand.trim().toLowerCase();
+
       const newProduct = new Products({
         name,
         description,
         price: Number(price),
-        category,
-        brand,
+        category: normalizeCategory,
+        brand: normalizeBrand,
         stock: Number(stock),
         highlights: highlights
           ? highlights.split(",").map((h) => h.trim())

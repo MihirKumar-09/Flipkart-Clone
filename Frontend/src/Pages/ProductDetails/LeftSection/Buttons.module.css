@@ -1,42 +1,35 @@
 .Buttons {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 12px;
+  flex: 0 0 auto;
 }
 
-.Buttons button {
+.primaryBtn,
+.secondaryBtn {
   flex: 1;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 12px 0;
+  gap: 8px;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
+  color: #fff;
   cursor: pointer;
-  color: white;
+  transition: all 0.2s ease;
 }
-.Buttons button:first-child {
+
+.primaryBtn {
   background-color: #ff9f00;
 }
-.Buttons button:last-child {
+
+.secondaryBtn {
   background-color: #fb641b;
 }
-.disabledBtn {
-  background-color: #ccc;
-  color: #666;
-  cursor: not-allowed !important;
-  opacity: 0.7;
-}
 
-.disabledBtn:hover {
-  background-color: #ccc;
-}
-
-/* allButton */
 .allButton {
   position: fixed;
   inset: 0;
@@ -51,9 +44,9 @@
 
 .buttonContainer {
   width: 420px;
-  padding: 28px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 18px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
@@ -67,37 +60,22 @@
 }
 
 .close i {
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #555;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.close i:hover {
-  color: #000;
-  transform: rotate(90deg);
-}
-
-.primary {
+.buyButton {
+  height: 50px;
+  width: 100%;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
   background: linear-gradient(135deg, #0a8f5b, #066b44);
   color: #fff;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  width: 100%;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 8px 20px rgba(10, 143, 91, 0.3);
-}
-
-.primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(10, 143, 91, 0.4);
-}
-
-.primary:active {
-  transform: scale(0.96);
 }
 
 .row {
@@ -105,39 +83,38 @@
   gap: 14px;
 }
 
-.row button {
+.optionBtn {
   flex: 1;
-  padding: 12px;
+  height: 48px;
   border: none;
-  border-radius: 12px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-/* Price Drop */
-.row button:first-child {
+.priceDropBtn {
   background: linear-gradient(135deg, #f5c056, #c9912e);
   color: #fff;
   box-shadow: 0 8px 18px rgba(201, 145, 46, 0.35);
+  animation: slideUp 1s ease 1;
 }
 
-.row button:first-child:hover {
+.priceDropBtn:hover {
   transform: translateY(-3px);
 }
 
-/* Back In Stock */
-.row button:last-child {
+.stockBtn {
   background: linear-gradient(135deg, #ff4b4b, #b50000);
   color: #fff;
   box-shadow: 0 8px 18px rgba(255, 75, 75, 0.35);
+  animation: slideUp 1s ease 1;
 }
 
-.row button:last-child:hover {
+.stockBtn:hover {
   transform: translateY(-3px);
 }
 
-/* Animations */
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -149,11 +126,16 @@
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.buyButton:disabled {
+  background: linear-gradient(135deg, #eeeeee, #d5d5d5);
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  border: 1px solid #ccc;
+}
+
+.buyButton:disabled:hover {
+  transform: none;
+  box-shadow: none;
 }

@@ -67,7 +67,7 @@ export default function Buttons({ product }) {
   return (
     <div className={style.Buttons}>
       {isInCart ? (
-        <button onClick={() => navigate("/cart")}>
+        <button onClick={() => navigate("/cart")} className={style.primaryBtn}>
           <i className="fa-solid fa-cart-shopping"></i>
           <span>GO TO CART</span>
         </button>
@@ -75,8 +75,8 @@ export default function Buttons({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={!product || product.stock <= 0}
-          className={`${style.buyBtn} ${
-            !product || product.stock <= 0 ? style.disabledBtn : ""
+          className={`${style.primaryBtn} ${
+            !product || product.stock <= 0 ? style.buyButton : ""
           }`}
         >
           <i className="fa-solid fa-cart-shopping"></i>
@@ -84,39 +84,44 @@ export default function Buttons({ product }) {
         </button>
       )}
 
-      <button
-        onClick={() => setIsVisible(true)}
-        disabled={!product || product.stock <= 0}
-        className={`${style.buyBtn} ${
-          !product || product.stock <= 0 ? style.disabledBtn : ""
-        }`}
-      >
+      <button onClick={() => setIsVisible(true)} className={style.secondaryBtn}>
         <i className="fa-solid fa-bolt-lightning"></i>
-        <span>
-          {!product || product.stock <= 0 ? "OUT OF STOCK" : "BUY NOW"}
-        </span>
+        BUY NOW
       </button>
 
+      {/* =========NEW OPTIONS======== */}
       {isVisible && (
-        <div className={style.allButton}>
-          <div className={style.buttonContainer}>
+        <div className={style.allButton} onClick={() => setIsVisible(false)}>
+          <div
+            className={style.buttonContainer}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className={style.close}>
               <i
                 className="fa-solid fa-xmark"
                 onClick={() => setIsVisible(false)}
               ></i>
             </div>
-            <button className={style.primary} onClick={handleBuyNow}>
+            {/* Buy Now */}
+            <button
+              onClick={handleBuyNow}
+              disabled={!product || product.stock <= 0}
+              className={style.buyButton}
+            >
               Buy Now
             </button>
 
+            {/* Other Options */}
             <div className={style.row}>
               <button
+                className={`${style.optionBtn} ${style.priceDropBtn}`}
                 onClick={() => navigate("/price-drop", { state: product })}
               >
                 Price Drop
               </button>
+
               <button
+                className={`${style.optionBtn} ${style.stockBtn}`}
                 onClick={() => navigate("/stock-available", { state: product })}
               >
                 Back In Stock

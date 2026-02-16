@@ -192,7 +192,7 @@ export default function NewOrder() {
                   name="category"
                   value={product.category}
                   onChange={handleChange}
-                  placeholder="Enter category"
+                  placeholder="Enter category (Mobiles, Laptops)"
                   className={`form-control ${errors.name ? "is-invalid" : ""}`}
                 />
                 <div className="invalid-feedback">{errors.name}</div>

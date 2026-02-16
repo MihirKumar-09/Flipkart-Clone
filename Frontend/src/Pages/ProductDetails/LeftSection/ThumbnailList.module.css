@@ -11,7 +11,7 @@
 .ThumbnailList img {
   height: 80px;
   width: 80px;
-  object-fit: fill;
+  object-fit: cover;
   object-position: center;
   border: 1px solid #ddd;
   padding: 2px 5px;
