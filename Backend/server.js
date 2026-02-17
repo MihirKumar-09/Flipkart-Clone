@@ -13,6 +13,10 @@ import orderRoute from "./routes/orderRoute.js";
 import authRoute from "./routes/auth.js";
 import adminRoute from "./routes/adminRoute.js";
 import reviewRoute from "./routes/reviewRoute.js";
+import alertRoute from "./routes/alertRoute.js";
+
+//! Send email alerts;
+// import { sendEmail } from "./utils/sendEmail.js";
 dotenv.config();
 
 const app = express();
@@ -116,6 +120,22 @@ app.get("/user", async (req, res) => {
   }
 });
 
+//! ===========ALERT===========
+// app.get("/test-email", async (req, res) => {
+//   try {
+//     await sendEmail(
+//       "yourpersonalemail@gmail.com",
+//       "Test Email",
+//       "<h1>Email working</h1>",
+//     );
+
+//     res.json({ message: "Email sent successfully" });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: "Email failed" });
+//   }
+// });
+
 // Mount routes
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
@@ -124,6 +144,7 @@ app.use("/order", orderRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api", reviewRoute);
+app.use("/api", alertRoute);
 
 // 404 handler which handle wrong route request;
 app.use((req, res, next) => {
