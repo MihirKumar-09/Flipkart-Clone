@@ -185,7 +185,7 @@ export default function SignNavbar() {
 
         {/* SELLER BUTTON */}
         {!isCartPage && !isCheckoutPage && (
-          <div className="seller">
+          <div className="seller" onClick={() => navigate("/seller-dashboard")}>
             <button>Become a Seller</button>
           </div>
         )}

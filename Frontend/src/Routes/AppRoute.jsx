@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoute";
 import AdminProtectedRoute from "../Components/ProtectedRoute/AdminProtectedRoute";
+import CheckoutGuard from "../Components/ProtectedRoute/checkOutGuard";
 import Layout from "../Components/Layout/Layout";
 // Home
 import Home from "../Pages/Home/HomePage";
@@ -82,40 +83,6 @@ export default function AppRoute() {
       <Route path="/flipkart-minutes" element={<FlipkartMinutes />} />
       <Route path="/grocery" element={<Grocery />} />
       <Route path="/flight" element={<Flight />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/cart" element={<CartPage />} />
-      </Route>
-
-      {/* ======Admin Page===== */}
-
-      <Route element={<AdminProtectedRoute requiredRole="ADMIN" />}>
-        <Route path="/admin" element={<AdminPage />}>
-          <Route index element={<AdminOrder />} />
-          <Route path="delivery" element={<AdminDelivery />} />
-          <Route path="returns" element={<AdminReturn />} />
-          <Route path="analytics" element={<AdminAnalytics />} />
-          <Route path="new_product" element={<CreateNewProducts />} />
-        </Route>
-      </Route>
-
-      <Route path="/buy-now" element={<BuyNow />} />
-      <Route path="/payment" element={<Payment />} />
-
-      {/* =========Orders Page========= */}
-      <Route path="/order-success" element={<OrderSuccess />} />
-      <Route path="/my-orders" element={<MyOrders />} />
-      <Route path="/order-status/:orderId" element={<OrderStatus />} />
-
-      {/* ======New Features====== */}
-      <Route path="/price-drop" element={<PriceDrop />} />
-      <Route path="/stock-available" element={<Stock />} />
-
-      {/* ========Seller Page======== */}
-      <Route path="/seller-dashboard" element={<BecomeSeller />} />
-
-      {/* =========HANDLE ALL ERROR ROUTE========== */}
-      <Route path="*" element={<NotFound />} />
-
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -125,13 +92,39 @@ export default function AppRoute() {
         <Route path="/home-furniture" element={<HomeAndFurniture />} />
         <Route path="/appliance" element={<Appliance />} />
         <Route path="/beauty" element={<Beauty />} />
-        {/* Show Product List */}
         <Route path="product-list" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-
-        {/* Profile Page */}
         <Route path="/profile" element={<Profile />} />
       </Route>
+      {/* ======Admin Page===== */}
+      <Route element={<AdminProtectedRoute requiredRole="ADMIN" />}>
+        <Route path="/admin" element={<AdminPage />}>
+          <Route index element={<AdminOrder />} />
+          <Route path="delivery" element={<AdminDelivery />} />
+          <Route path="returns" element={<AdminReturn />} />
+          <Route path="analytics" element={<AdminAnalytics />} />
+          <Route path="new_product" element={<CreateNewProducts />} />
+        </Route>
+      </Route>
+      {/* ========PROTECTED ROUTE======= */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/cart" element={<CartPage />} />
+        <Route element={<CheckoutGuard />}>
+          <Route path="/buy-now" element={<BuyNow />} />
+          <Route path="/payment" element={<Payment />} />
+          {/* ======New Features====== */}
+          <Route path="/price-drop" element={<PriceDrop />} />
+          <Route path="/stock-available" element={<Stock />} />
+        </Route>
+      </Route>
+      {/* =========Orders Page========= */}
+      <Route path="/order-success" element={<OrderSuccess />} />
+      <Route path="/my-orders" element={<MyOrders />} />
+      <Route path="/order-status/:orderId" element={<OrderStatus />} />
+      {/* ========Seller Page======== */}
+      <Route path="/seller-dashboard" element={<BecomeSeller />} />
+      {/* =========HANDLE ALL ERROR ROUTE========== */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
