@@ -119,9 +119,9 @@ export default function NewOrder() {
                   onChange={handleChange}
                   placeholder="Enter product description"
                   rows="4"
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  className={`form-control ${errors.description ? "is-invalid" : ""}`}
                 />
-                <div className="invalid-feedback">{errors.name}</div>
+                <div className="invalid-feedback">{errors.description}</div>
               </div>
 
               <div className={style.formGroup}>
@@ -130,10 +130,10 @@ export default function NewOrder() {
                   type="file"
                   id="image"
                   multiple
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  className={`form-control ${errors.images ? "is-invalid" : ""}`}
                   onChange={(e) => setSelectedImages(e.target.files)}
                 />
-                <div className="invalid-feedback">{errors.name}</div>
+                <div className="invalid-feedback">{errors.images}</div>
               </div>
             </div>
 
@@ -148,9 +148,9 @@ export default function NewOrder() {
                   value={product.price}
                   onChange={handleChange}
                   placeholder="Enter price"
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  className={`form-control ${errors.price ? "is-invalid" : ""}`}
                 />
-                <div className="invalid-feedback">{errors.name}</div>
+                <div className="invalid-feedback">{errors.price}</div>
               </div>
 
               <div className={style.formGroup}>
@@ -162,9 +162,9 @@ export default function NewOrder() {
                   value={product.stock}
                   onChange={handleChange}
                   placeholder="Available stock"
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  className={`form-control ${errors.stock ? "is-invalid" : ""}`}
                 />
-                <div className="invalid-feedback">{errors.name}</div>
+                <div className="invalid-feedback">{errors.stock}</div>
               </div>
             </div>
 
@@ -179,9 +179,9 @@ export default function NewOrder() {
                   value={product.brand}
                   onChange={handleChange}
                   placeholder="Enter brand name"
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  className={`form-control ${errors.brand ? "is-invalid" : ""}`}
                 />
-                <div className="invalid-feedback">{errors.name}</div>
+                <div className="invalid-feedback">{errors.brand}</div>
               </div>
 
               <div className={style.formGroup}>
@@ -193,9 +193,9 @@ export default function NewOrder() {
                   value={product.category}
                   onChange={handleChange}
                   placeholder="Enter category (Mobiles, Laptops)"
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  className={`form-control ${errors.category ? "is-invalid" : ""}`}
                 />
-                <div className="invalid-feedback">{errors.name}</div>
+                <div className="invalid-feedback">{errors.category}</div>
               </div>
             </div>
 
@@ -209,9 +209,9 @@ export default function NewOrder() {
                 value={product.highlights}
                 onChange={handleChange}
                 placeholder="Key product highlights using comma "
-                className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                className={`form-control ${errors.highlights ? "is-invalid" : ""}`}
               />
-              <div className="invalid-feedback">{errors.name}</div>
+              <div className="invalid-feedback">{errors.highlights}</div>
             </div>
             <div className={style.buttonGroup}>
               <button

@@ -127,11 +127,20 @@ export const createNewProducts = async (req, res, next) => {
 
     if (!name) errors.name = "Name is required";
     if (!description) errors.description = "Description is required";
-    if (!price) errors.price = "Price is required";
+    if (price === undefined || price === "") {
+      errors.price = "Price is required";
+    } else if (isNaN(price) || Number(price) <= 0) {
+      errors.price = "Price must be grater then 0";
+    }
     if (!category) errors.category = "Category is required";
     if (!brand) errors.brand = "Brand is required";
-    if (!stock) errors.stock = "Stock is required";
+    if (stock === undefined || stock === "") errors.stock = "Stock is required";
+    else if (isNaN(stock) || Number(stock) < 0)
+      errors.stock = "Stock cannot be negative";
     if (!highlights) errors.highlights = "Highlights are required";
+    if (!req.files || req.files.length === 0) {
+      errors.images = "At least one image required";
+    }
 
     if (Object.keys(errors).length > 0) {
       return res.status(400).json({ errors });
