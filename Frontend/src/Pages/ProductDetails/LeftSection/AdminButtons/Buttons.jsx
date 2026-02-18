@@ -55,7 +55,7 @@ export default function Buttons({ product }) {
     <>
       {user?.role === "ADMIN" && (
         <div className={style.buttonGroup}>
-          <button>
+          <button onClick={() => navigate(`/admin/edit/${product._id}`)}>
             <span>EDIT</span>
             <span>
               <i class="fa-regular fa-pen-to-square"></i>

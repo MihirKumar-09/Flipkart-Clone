@@ -172,6 +172,64 @@ export const createNewProducts = async (req, res, next) => {
   }
 };
 
+// ==========EDIT PRODUCT=======
+// Get Form
+export const getProduct = async (req, res, next) => {
+  try {
+    const product = await Products.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(product);
+  } catch (err) {
+    next(err);
+  }
+};
+// Update form;
+export const updateForm = async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+
+    // Find Product;
+    const product = await Products.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Update fields;
+    const { name, description, price, stock, brand, category, highlights } =
+      req.body;
+    if (name) product.name = name;
+    if (description) product.description = description;
+    if (price) product.price = price;
+    if (stock) product.stock = stock;
+    if (brand) product.brand = brand;
+    if (category) product.category = category;
+
+    if (highlights) {
+      try {
+        product.highlights = JSON.parse(highlights);
+      } catch {
+        // comma separated string
+        product.highlights = highlights.split(",").map((h) => h.trim());
+      }
+    }
+
+    // Images from multer
+    if (req.files && req.files.length > 0) {
+      const imagesArray = req.files.map((file) => ({
+        url: file.path,
+        filename: file.filename,
+      }));
+      product.image = imagesArray;
+    }
+    await product.save();
+    res
+      .status(200)
+      .json({ success: true, message: "Product updated", product });
+  } catch (err) {}
+};
+
 // ======DELETE PRODUCT=======
 export const deleteProduct = async (req, res, next) => {
   try {

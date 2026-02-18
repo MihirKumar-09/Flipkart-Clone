@@ -28,10 +28,12 @@ const upload = multer({ storage });
 import {
   createNewProducts,
   deleteProduct,
+  getProduct,
   getProductDetails,
   getSectionProducts,
   searchProducts,
   similarProducts,
+  updateForm,
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -51,6 +53,16 @@ router.get("/products/category/:category", similarProducts);
 // ============ CREATE NEW PRODUCTS===========
 router.post("/product", isAdmin, upload.array("images", 5), createNewProducts);
 
+// =========UPDATE PRODUCT=========
+// Get Form
+router.get("/products/:id", isAdmin, getProduct);
+// Update form
+router.put(
+  "/products/update/:id",
+  isAdmin,
+  upload.array("image", 5),
+  updateForm,
+);
 // ==========DELETE PRODUCTS===========
 router.delete("/product/:id", isAdmin, deleteProduct);
 export default router;

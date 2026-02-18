@@ -76,6 +76,9 @@ import BecomeSeller from "../Pages/BecomeSeller/BecomeSeller";
 //!======IMPORT ERROR PAGE=======
 import NotFound from "../Components/NotFound/NotFound";
 
+//!========IMPORT ADMIN EDIT PAGE========
+import AdminEdit from "../Pages/Admin/AdminEditPage/Edit";
+
 export default function AppRoute() {
   return (
     <Routes>
@@ -105,6 +108,7 @@ export default function AppRoute() {
           <Route path="analytics" element={<AdminAnalytics />} />
           <Route path="new_product" element={<CreateNewProducts />} />
         </Route>
+        <Route path="/admin/edit/:id" element={<AdminEdit />} />
       </Route>
       {/* ========PROTECTED ROUTE======= */}
       <Route element={<ProtectedRoute />}>
