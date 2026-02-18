@@ -122,7 +122,7 @@ export default function Buttons({ product }) {
 
               <button
                 className={`${style.optionBtn} ${style.stockBtn}`}
-                onClick={() => navigate("/stock-available", { state: product })}
+                onClick={() => navigate("/stock-available")}
               >
                 Back In Stock
               </button>

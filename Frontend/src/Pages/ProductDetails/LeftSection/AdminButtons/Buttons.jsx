@@ -1,7 +1,6 @@
 import style from "./Buttons.module.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useContext } from "react";
 import { useAuth } from "../../../../Context/AuthContext";
 export default function Buttons({ product }) {
   const navigate = useNavigate();

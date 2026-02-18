@@ -1,5 +1,7 @@
 import Products from "../models/productModel.js";
 import mongoose from "mongoose";
+import { sendEmail } from "../utils/sendEmail.js";
+import Alert from "../models/alertModel.js";
 
 // ========GET SECTION PRODUCT========
 export const getSectionProducts = async (req, res, next) => {
@@ -224,6 +226,32 @@ export const updateForm = async (req, res, next) => {
       product.image = imagesArray;
     }
     await product.save();
+
+    // =======STOCK ALERT=======
+    if (stock > 0) {
+      // find all stock alerts that are not notified
+      const alerts = await Alert.find({
+        productId,
+        type: "stock",
+        notified: false,
+      });
+
+      for (const alert of alerts) {
+        try {
+          await sendEmail(
+            alert.email,
+            "Product Back in Stock!",
+            `<p>The product <strong>${product.name}</strong> is now back in stock. Hurry and buy now!</p>`,
+          );
+
+          // Mark alert as notified;
+          alert.notified = true;
+          await alert.save();
+        } catch (err) {
+          console.log("failed to send stock alert emails", err);
+        }
+      }
+    }
     res
       .status(200)
       .json({ success: true, message: "Product updated", product });

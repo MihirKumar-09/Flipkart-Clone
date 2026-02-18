@@ -116,11 +116,11 @@ export default function AppRoute() {
         <Route element={<CheckoutGuard />}>
           <Route path="/buy-now" element={<BuyNow />} />
           <Route path="/payment" element={<Payment />} />
-          {/* ======New Features====== */}
-          <Route path="/price-drop" element={<PriceDrop />} />
-          <Route path="/stock-available" element={<Stock />} />
         </Route>
       </Route>
+      {/* ======New Features====== */}
+      <Route path="/price-drop" element={<PriceDrop />} />
+      <Route path="/stock-available" element={<Stock />} />
       {/* =========Orders Page========= */}
       <Route path="/order-success" element={<OrderSuccess />} />
       <Route path="/my-orders" element={<MyOrders />} />
