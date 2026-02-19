@@ -120,6 +120,7 @@ export default function Buttons({ product }) {
                 Price Drop
               </button>
 
+              {/* Disable the button when stock more then 0 */}
               <button
                 className={`${style.optionBtn} ${style.stockBtn}`}
                 disabled={!product || product.stock > 0}
