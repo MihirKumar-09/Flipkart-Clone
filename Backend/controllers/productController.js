@@ -187,24 +187,25 @@ export const getProduct = async (req, res, next) => {
     next(err);
   }
 };
-// Update form;
 export const updateForm = async (req, res, next) => {
   try {
     const productId = req.params.id;
 
-    // Find Product;
     const product = await Products.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // Update fields;
+    const oldPrice = product.price;
+    const oldStock = product.stock;
+
     const { name, description, price, stock, brand, category, highlights } =
       req.body;
+
     if (name) product.name = name;
     if (description) product.description = description;
-    if (price) product.price = price;
-    if (stock) product.stock = stock;
+    if (price !== undefined) product.price = Number(price);
+    if (stock !== undefined) product.stock = Number(stock);
     if (brand) product.brand = brand;
     if (category) product.category = category;
 
@@ -212,12 +213,10 @@ export const updateForm = async (req, res, next) => {
       try {
         product.highlights = JSON.parse(highlights);
       } catch {
-        // comma separated string
         product.highlights = highlights.split(",").map((h) => h.trim());
       }
     }
 
-    // Images from multer
     if (req.files && req.files.length > 0) {
       const imagesArray = req.files.map((file) => ({
         url: file.path,
@@ -225,18 +224,60 @@ export const updateForm = async (req, res, next) => {
       }));
       product.image = imagesArray;
     }
+
     await product.save();
 
-    // =======STOCK ALERT=======
-    if (stock > 0) {
-      // find all stock alerts that are not notified
-      const alerts = await Alert.find({
+    const newPrice = product.price;
+    const newStock = product.stock;
+
+    //!===========PRICE DROP============
+
+    if (newPrice < oldPrice) {
+      const priceAlerts = await Alert.find({
+        productId,
+        type: "price",
+        notified: false,
+      });
+
+      for (const alert of priceAlerts) {
+        if (newPrice <= alert.targetPrice) {
+          try {
+            await sendEmail(
+              alert.email,
+              "Price Dropped!",
+              `
+                <h2>Good News!</h2>
+                <p>${product.name} price dropped.</p>
+                <p>Original Price: ₹${oldPrice}</p>
+                <p>Your Target Price: ₹${alert.targetPrice}</p>
+                <p>New Price: ₹${newPrice}</p>
+                
+              `,
+            );
+
+            alert.notified = true;
+            await alert.save();
+
+            console.log("Price drop email sent to:", alert.email);
+          } catch (err) {
+            console.error("Failed to send price email:", alert.email);
+          }
+        }
+      }
+    }
+
+    //! ============STOCK ALERT==========
+
+    if (oldStock === 0 && newStock > 0) {
+      const stockAlerts = await Alert.find({
         productId,
         type: "stock",
         notified: false,
       });
 
-      for (const alert of alerts) {
+      console.log("Stock alerts found:", stockAlerts.length);
+
+      for (const alert of stockAlerts) {
         try {
           await sendEmail(
             alert.email,
@@ -244,18 +285,24 @@ export const updateForm = async (req, res, next) => {
             `<p>The product <strong>${product.name}</strong> is now back in stock. Hurry and buy now!</p>`,
           );
 
-          // Mark alert as notified;
           alert.notified = true;
           await alert.save();
+
+          console.log("Stock email sent to:", alert.email);
         } catch (err) {
-          console.log("failed to send stock alert emails", err);
+          console.error("Failed to send stock email:", alert.email);
         }
       }
     }
-    res
-      .status(200)
-      .json({ success: true, message: "Product updated", product });
-  } catch (err) {}
+
+    res.status(200).json({
+      success: true,
+      message: "Product updated",
+      product,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 // ======DELETE PRODUCT=======

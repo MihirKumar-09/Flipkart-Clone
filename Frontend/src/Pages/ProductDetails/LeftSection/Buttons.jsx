@@ -115,14 +115,17 @@ export default function Buttons({ product }) {
             <div className={style.row}>
               <button
                 className={`${style.optionBtn} ${style.priceDropBtn}`}
-                onClick={() => navigate("/price-drop", { state: product })}
+                onClick={() => navigate("/price-drop", { state: { product } })}
               >
                 Price Drop
               </button>
 
               <button
                 className={`${style.optionBtn} ${style.stockBtn}`}
-                onClick={() => navigate("/stock-available")}
+                disabled={!product || product.stock > 0}
+                onClick={() =>
+                  navigate("/stock-available", { state: { product } })
+                }
               >
                 Back In Stock
               </button>

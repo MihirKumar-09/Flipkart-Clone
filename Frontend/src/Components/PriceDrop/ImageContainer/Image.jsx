@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
-export default function ImageContainer() {
-  const { state: product } = useLocation();
+export default function ImageContainer({ product }) {
   const navigate = useNavigate();
 
   if (!product) {

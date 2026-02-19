@@ -1,9 +1,15 @@
 import style from "./Image.module.css";
-import { useLocation } from "react-router-dom";
+
 export default function Image({ product }) {
+  const imageUrl = product.image?.[0]?.url;
+
   return (
     <div className={style.imageContainer}>
-      <img src={product.image[0].url} alt={product.name} />
+      {imageUrl ? (
+        <img src={imageUrl} alt={product.name} />
+      ) : (
+        <p>No image available</p>
+      )}
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -9,10 +11,13 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendEmail = async (to, subject, html) => {
-  await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: `"Flipkart" <${process.env.EMAIL_USER}>`,
     to,
     subject,
     html,
   });
+
+  console.log("Email sent:", info.messageId);
+  return info;
 };

@@ -134,6 +134,14 @@
   transform: none;
   border: 1px solid #ccc;
 }
+.stockBtn:disabled {
+  background: linear-gradient(135deg, #eeeeee, #d5d5d5);
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  border: 1px solid #ccc;
+}
 
 .buyButton:disabled:hover {
   transform: none;

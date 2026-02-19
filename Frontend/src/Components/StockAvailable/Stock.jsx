@@ -1,32 +1,22 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import style from "./stock.module.css";
-import StockHead from "./StockHead/StockHead";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Image from "./StockImage/Image";
+import StockHead from "./StockHead/StockHead";
 import Details from "./StockDetails/Details";
+import style from "./stock.module.css";
 
 export default function Stock() {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const product = location.state?.product;
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await axios.get(`/api/products/${id}`);
-        setProduct(res.data);
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-      }
-    };
-    fetchProduct();
-  }, [id]);
+    if (!product) {
+      navigate("/");
+    }
+  }, [product, navigate]);
 
-  if (loading) return <p>Loading product...</p>;
-  if (!product) return <p>Product not found</p>;
+  if (!product) return null;
 
   return (
     <div className={style.stock}>
