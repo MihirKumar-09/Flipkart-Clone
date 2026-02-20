@@ -20,7 +20,7 @@ import alertRoute from "./routes/alertRoute.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 
 // --------------------
 // BASIC MIDDLEWARE
