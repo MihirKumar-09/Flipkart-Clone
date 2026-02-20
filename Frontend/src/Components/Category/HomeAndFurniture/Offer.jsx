@@ -1,5 +1,5 @@
-import Statue from "../../../assets/FurnitureCategory/statue.png";
-import Storage from "../../../assets/FurnitureCategory/storage.png";
+import Statue from "../../../assets/FurnitureCategory/Statue.png";
+import Storage from "../../../assets/FurnitureCategory/Storage.png";
 import { useNavigate } from "react-router-dom";
 export default function Offer() {
   const navigate = useNavigate();
