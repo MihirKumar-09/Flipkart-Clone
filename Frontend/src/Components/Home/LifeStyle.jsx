@@ -13,7 +13,7 @@ export default function LifeStyle() {
     const fetchTopSection = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Furniture,Laptops,Fitness&limit=4&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Furniture,Laptops,Fitness&limit=4&random=true`,
         );
         const data = await res.json();
         setTopSection(data);
@@ -28,7 +28,7 @@ export default function LifeStyle() {
     const fetchHomeProducts = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Home-Decoration&limit=4&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Home-Decoration&limit=4&random=true`,
         );
         const data = await res.json();
         setHomeStyle(data);
@@ -43,7 +43,7 @@ export default function LifeStyle() {
     const fetchWomenFashion = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Women's Fashion,BodyConeDress&limit=4&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Women's Fashion,BodyConeDress&limit=4&random=true`,
         );
         const data = await res.json();
         setWomenFashion(data);

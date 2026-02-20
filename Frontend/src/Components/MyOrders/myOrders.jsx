@@ -10,7 +10,7 @@ export default function MyOrders() {
     const fetchOrders = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/order/my-orders`,
+          `${import.meta.env.VITE_BACKEND_URL}/order/my-orders`,
           {
             credentials: "include",
           },

@@ -18,7 +18,7 @@ export default function Analytics() {
   useEffect(() => {
     const fetchSummary = async () => {
       const res = await axios.get(
-        `${process.env.VITE_BACKEND_URL}/api/admin/orders/analytics`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/analytics`,
       );
       setSummary(res.data);
     };
@@ -28,7 +28,7 @@ export default function Analytics() {
   useEffect(() => {
     const fetchMonthlyRevenue = async () => {
       const res = await axios.get(
-        `${process.env.VITE_BACKEND_URL}/api/admin/orders/analytics/monthly-revenue`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/analytics/monthly-revenue`,
       );
       setMonthlyRevenue(res.data);
     };
@@ -39,7 +39,7 @@ export default function Analytics() {
     const fetchTopProducts = async () => {
       try {
         const res = await axios.get(
-          `${process.env.VITE_BACKEND_URL}/api/admin/orders/analytics/top-products`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/analytics/top-products`,
           { withCredentials: true },
         );
 
@@ -60,7 +60,7 @@ export default function Analytics() {
     const fetchLowStockProducts = async () => {
       try {
         const res = await axios.get(
-          `${process.env.VITE_BACKEND_URL}/api/admin/orders/analytics/low-stocks?threshold=5`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/analytics/low-stocks?threshold=5`,
           {
             withCredentials: true,
           },
@@ -78,7 +78,7 @@ export default function Analytics() {
     const fetchDailyOrderStatus = async () => {
       try {
         const res = await axios.get(
-          `${process.env.VITE_BACKEND_URL}/api/admin/orders/analytics/payment-method`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/analytics/payment-method`,
           { withCredentials: true },
         );
         setDailyOrderStatus(res.data.data);

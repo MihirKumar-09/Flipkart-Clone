@@ -8,7 +8,7 @@ export default function NewArrival() {
     let fetchBeautyProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=New Beauty&limi=6`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=New Beauty&limi=6`,
         );
         let data = await res.json();
         setBeautyProducts(data);

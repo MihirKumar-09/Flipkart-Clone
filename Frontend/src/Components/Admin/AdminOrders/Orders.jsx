@@ -14,7 +14,7 @@ export default function AdminOrders() {
         setLoading(true);
 
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/admin/orders?page=${page}&limit=20`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders?page=${page}&limit=20`,
           { credentials: "include" },
         );
 
@@ -46,7 +46,7 @@ export default function AdminOrders() {
   const updateStatus = async (id, status) => {
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

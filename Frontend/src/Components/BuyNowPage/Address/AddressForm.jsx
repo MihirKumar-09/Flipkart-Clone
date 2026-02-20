@@ -57,21 +57,24 @@ export default function AddressForm({ onCancel, onSave }) {
     }
 
     try {
-      const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/address`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/address`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            name,
+            mobile,
+            pincode,
+            address,
+            city,
+            state,
+          }),
         },
-        credentials: "include",
-        body: JSON.stringify({
-          name,
-          mobile,
-          pincode,
-          address,
-          city,
-          state,
-        }),
-      });
+      );
 
       const data = await res.json();
       console.log("Saved:", data);

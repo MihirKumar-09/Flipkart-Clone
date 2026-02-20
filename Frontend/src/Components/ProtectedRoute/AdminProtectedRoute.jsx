@@ -11,7 +11,7 @@ const AdminProtectedRoute = ({ requiredRole }) => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `${process.env.VITE_BACKEND_URL}/api/auth/check`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/check`,
           {
             withCredentials: true, // very important if you use cookies/sessions
           },

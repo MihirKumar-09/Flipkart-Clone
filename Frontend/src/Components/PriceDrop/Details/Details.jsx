@@ -25,7 +25,7 @@ export default function Details({ product }) {
 
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/alerts/price`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/alerts/price`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -10,7 +10,7 @@ export default function TopDeals() {
     const fetchDeals = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Headphones,Unisex Fashion,DSLR Camera,New Beauty&limit=12`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Headphones,Unisex Fashion,DSLR Camera,New Beauty&limit=12`,
         );
         const data = await res.json();
         setDeals(data);

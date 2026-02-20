@@ -18,17 +18,20 @@ export default function Details({ product }) {
     try {
       setLoading(true);
 
-      const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/alerts`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/alerts`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: product._id,
+            email,
+            type: "stock",
+          }),
         },
-        body: JSON.stringify({
-          productId: product._id,
-          email,
-          type: "stock",
-        }),
-      });
+      );
 
       const data = await res.json();
 

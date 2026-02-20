@@ -27,7 +27,7 @@ export default function Buttons({ order, onOrderUpdate }) {
     try {
       setLoading(true);
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/order/${order._id}/cancel`,
+        `${import.meta.env.VITE_BACKEND_URL}/order/${order._id}/cancel`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -50,7 +50,7 @@ export default function Buttons({ order, onOrderUpdate }) {
     try {
       setReturnLoading(true);
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/order/${order._id}/return`,
+        `${import.meta.env.VITE_BACKEND_URL}/order/${order._id}/return`,
         {
           method: "PATCH",
           credentials: "include",
@@ -76,7 +76,7 @@ export default function Buttons({ order, onOrderUpdate }) {
     try {
       setReturnLoading(true);
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/order/${order._id}/cancel-return`,
+        `${import.meta.env.VITE_BACKEND_URL}/order/${order._id}/cancel-return`,
         {
           method: "PATCH",
           credentials: "include",

@@ -5,7 +5,7 @@ export default function PriceDetails({ order }) {
 
   const downloadInvoice = async (orderId) => {
     const res = await fetch(
-      `${process.env.VITE_BACKEND_URL}/order/${orderId}/invoice`,
+      `${import.meta.env.VITE_BACKEND_URL}/order/${orderId}/invoice`,
       {
         credentials: "include",
       },

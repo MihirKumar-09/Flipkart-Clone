@@ -7,7 +7,7 @@ export default function FeatureProducts() {
     let fetchBeautyProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Beauty&limit=5&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Beauty&limit=5&random=true`,
         );
         let data = await res.json();
         setBeautyProducts(data);

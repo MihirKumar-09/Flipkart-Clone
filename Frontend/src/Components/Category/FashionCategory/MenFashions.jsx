@@ -10,7 +10,7 @@ export default function MenFashions() {
     let fetchMenCollections = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Men's Fashion,Men's Shoes&limit=15&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Men's Fashion,Men's Shoes&limit=15&random=true`,
         );
         const data = await res.json();
         setShowMenCollections(data);

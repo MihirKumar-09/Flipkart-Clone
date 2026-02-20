@@ -12,7 +12,7 @@ export default function ThumbnailList({ setSelectedImage }) {
     const fetchProductDetails = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
         );
         const data = await res.json();
         setProduct(data);

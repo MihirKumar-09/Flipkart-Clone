@@ -11,7 +11,7 @@ export default function AndroidMobiles() {
     const fetchAndroid = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Mobiles&brand=Samsung,Vivo,OPPO&limit=5&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Mobiles&brand=Samsung,Vivo,OPPO&limit=5&random=true`,
         );
         const data = await res.json();
         setAndroidMobiles(data);

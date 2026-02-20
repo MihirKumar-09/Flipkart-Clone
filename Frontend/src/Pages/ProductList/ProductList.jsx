@@ -25,7 +25,7 @@ export default function ProductList() {
   const fetchData = async (q) => {
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/products/search?q=${q}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/products/search?q=${q}`,
       );
       const result = await res.json();
       setData(result);

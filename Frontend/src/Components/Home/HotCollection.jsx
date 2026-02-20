@@ -12,7 +12,7 @@ export default function TrendingNow() {
     const fetchMonsoonItem = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Unisex Fashion&limit=4&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Unisex Fashion&limit=4&random=true`,
         );
         const data = await res.json();
         setMonsoon(data);
@@ -31,7 +31,7 @@ export default function TrendingNow() {
     const fetchDiscountProducts = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Home-Decoration&limit=4&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Home-Decoration&limit=4&random=true`,
         );
         const data = await res.json();
         setDiscount(data);

@@ -16,12 +16,15 @@ export default function AuthProvider({ children }) {
     }
 
     try {
-      const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password }),
+          credentials: "include",
+        },
+      );
 
       const data = await res.json();
 
@@ -42,7 +45,7 @@ export default function AuthProvider({ children }) {
   const handleLogin = async (username, password) => {
     try {
       // 1️⃣ LOGIN → session create
-      const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/login`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +62,7 @@ export default function AuthProvider({ children }) {
 
       // session verify
       const checkRes = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/auth/check`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/check`,
         {
           method: "GET",
           credentials: "include",
@@ -90,7 +93,7 @@ export default function AuthProvider({ children }) {
   const checkUser = async () => {
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/auth/check`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/check`,
         {
           method: "GET",
           credentials: "include",
@@ -118,7 +121,7 @@ export default function AuthProvider({ children }) {
   const updateUser = async (updates) => {
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/user/update`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/update`,
         {
           method: "PUT",
           headers: {
@@ -143,13 +146,16 @@ export default function AuthProvider({ children }) {
   // Logout the user;
   const handleLogout = async () => {
     try {
-      const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/logout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
-      });
+      );
       const data = await res.json();
       if (data.success) {
         setUser(null);

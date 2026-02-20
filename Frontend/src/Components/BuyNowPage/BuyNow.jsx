@@ -21,7 +21,7 @@ export default function BuyNow() {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          `${process.env.VITE_BACKEND_URL}/api/auth/check`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/check`,
         );
         if (!res.data.user) throw new Error("Not logged in");
         setUser(res.data.user);

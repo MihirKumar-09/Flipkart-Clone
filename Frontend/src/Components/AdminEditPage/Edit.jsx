@@ -25,7 +25,7 @@ export default function Edit() {
     const fetchProduct = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
         );
         const data = await res.json();
         setTitle(data.name);
@@ -88,7 +88,7 @@ export default function Edit() {
 
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/products/update/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/products/update/${id}`,
         {
           method: "PUT",
           body: formData,

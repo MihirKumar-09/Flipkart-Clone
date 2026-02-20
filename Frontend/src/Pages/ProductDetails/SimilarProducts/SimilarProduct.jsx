@@ -15,7 +15,7 @@ export default function SimilarProduct() {
     const fetchProductDetails = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
         );
         const data = await res.json();
         setProduct(data);
@@ -32,7 +32,7 @@ export default function SimilarProduct() {
     const fetchSimilar = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/category/${product.category}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/category/${product.category}`,
         );
         let data = await res.json();
         data = data.filter((p) => p._id !== product._id);

@@ -9,7 +9,7 @@ export default function Discount() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Furniture,LampLight,Home-Decoration&limit=8&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Furniture,LampLight,Home-Decoration&limit=8&random=true`,
         );
         let data = await res.json(res);
         setShowProducts(data);

@@ -20,7 +20,7 @@ export default function button() {
     }
     try {
       const res = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/delete-user`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/delete-user`,
         {
           method: "DELETE",
           headers: {

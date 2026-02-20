@@ -11,7 +11,7 @@ export default function NewLaunch() {
     let fetchGroceryProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Food&limit=8`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Food&limit=8`,
         );
         let data = await res.json();
         setGroceryProducts(data);

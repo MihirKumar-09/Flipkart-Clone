@@ -7,9 +7,12 @@ export default function Address() {
   const [addresses, setAddresses] = useState([]);
 
   const fetchAllAddress = async () => {
-    const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/all/address`, {
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/all/address`,
+      {
+        credentials: "include",
+      },
+    );
     const data = await res.json();
 
     if (Array.isArray(data.allAddress)) {

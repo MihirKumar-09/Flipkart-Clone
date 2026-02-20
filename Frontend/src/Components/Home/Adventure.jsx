@@ -13,7 +13,7 @@ export default function Fashions() {
     const fetchAdventureItem = async () => {
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Adventure,DSLR Camera&limit=4&random=true`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/section?category=Adventure,DSLR Camera&limit=4&random=true`,
         );
         const data = await res.json();
         setAdventure(data);
