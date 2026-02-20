@@ -8,7 +8,7 @@ export default function NewArrival() {
     let fetchBeautyProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=New Beauty&limi=6",
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=New Beauty&limi=6`,
         );
         let data = await res.json();
         setBeautyProducts(data);

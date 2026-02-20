@@ -14,7 +14,7 @@ export default function LifeStyle() {
     const fetchTrendingGadgets = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Nackbands,Earbuds,Men Trimmers,Women Trimmers&limit=4&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Nackbands,Earbuds,Men Trimmers,Women Trimmers&limit=4&random=true`,
         );
         const data = await res.json();
         setTrendingGadgets(data);
@@ -34,7 +34,7 @@ export default function LifeStyle() {
     const fetchBodyCare = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Skin Care,Hair Care&limit=4&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Skin Care,Hair Care&limit=4&random=true`,
         );
         const data = await res.json();
         setBodyCare(data);
@@ -54,7 +54,7 @@ export default function LifeStyle() {
     const fetchWomenFashion = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Men's Shoes,Women's Shoes&limit=4&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Men's Shoes,Women's Shoes&limit=4&random=true`,
         );
         const data = await res.json();
         setWomenFashion(data);

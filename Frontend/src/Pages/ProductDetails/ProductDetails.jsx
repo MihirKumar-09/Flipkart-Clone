@@ -17,7 +17,9 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/products/${id}`);
+        const res = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`,
+        );
         const data = await res.json();
         setProduct(data);
       } catch (err) {

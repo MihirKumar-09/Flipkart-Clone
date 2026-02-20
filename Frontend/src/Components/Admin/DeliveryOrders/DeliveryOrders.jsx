@@ -14,7 +14,7 @@ export default function DeliveryOrder() {
         setLoading(true);
 
         const res = await fetch(
-          `http://localhost:8080/api/admin/orders/delivery?page=${page}&limit=20`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/admin/orders/delivery?page=${page}&limit=20`,
           { credentials: "include" },
         );
 
@@ -36,12 +36,15 @@ export default function DeliveryOrder() {
   // Update order status
   const updateStatus = async (id, status) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/admin/orders/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ status }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/admin/orders/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ status }),
+        },
+      );
 
       const updatedOrder = await res.json();
 

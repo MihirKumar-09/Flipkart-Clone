@@ -19,13 +19,16 @@ export default function button() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:8080/api/delete-user", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/delete-user`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
-      });
+      );
 
       const data = await res.json();
 

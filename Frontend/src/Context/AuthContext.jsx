@@ -16,12 +16,15 @@ export default function AuthProvider({ children }) {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password }),
+          credentials: "include",
+        },
+      );
 
       const data = await res.json();
 
@@ -42,14 +45,17 @@ export default function AuthProvider({ children }) {
   const handleLogin = async (username, password) => {
     try {
       // 1️⃣ LOGIN → session create
-      const res = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+          credentials: "include",
         },
-        body: JSON.stringify({ username, password }),
-        credentials: "include",
-      });
+      );
 
       if (!res.ok) {
         setError("Invalid username or password");
@@ -57,11 +63,14 @@ export default function AuthProvider({ children }) {
         return false;
       }
 
-      // 2️⃣ CHECK-LOGIN → session verify
-      const checkRes = await fetch("http://localhost:8080/api/auth/check", {
-        method: "GET",
-        credentials: "include",
-      });
+      // session verify
+      const checkRes = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/check`,
+        {
+          method: "GET",
+          credentials: "include",
+        },
+      );
 
       if (!checkRes.ok) {
         setUser(null);
@@ -86,10 +95,13 @@ export default function AuthProvider({ children }) {
   // Check user login or not ;
   const checkUser = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/auth/check", {
-        method: "GET",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/check`,
+        {
+          method: "GET",
+          credentials: "include",
+        },
+      );
 
       if (!res.ok) {
         setUser(null);
@@ -111,14 +123,17 @@ export default function AuthProvider({ children }) {
   // Update User;
   const updateUser = async (updates) => {
     try {
-      const res = await fetch("http://localhost:8080/api/user/update", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/update`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(updates),
         },
-        credentials: "include",
-        body: JSON.stringify(updates),
-      });
+      );
       const data = await res.json();
       if (data.success) {
         setUser(data.user);
@@ -134,13 +149,16 @@ export default function AuthProvider({ children }) {
   // Logout the user;
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/logout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
-      });
+      );
       const data = await res.json();
       if (data.success) {
         setUser(null);

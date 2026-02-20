@@ -9,7 +9,7 @@ export default function SuggestItem() {
     const fetchAppliance = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Furniture,Tvs,Washing Machine,AirConditioners,Refrigerators,Mixer Grinders,Fans&limit=15&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Furniture,Tvs,Washing Machine,AirConditioners,Refrigerators,Mixer Grinders,Fans&limit=15&random=true`,
         );
         const data = await res.json();
         setHomeAppliance(data);
@@ -22,7 +22,7 @@ export default function SuggestItem() {
   // handle appliance click
   const handleAppliance = () => {
     navigate(
-      `/product-list?search=Furniture|Tvs|Washing Machine|Air Conditioners|Refrigerators|Mixer Grinders|Fans`
+      `/product-list?search=Furniture|Tvs|Washing Machine|Air Conditioners|Refrigerators|Mixer Grinders|Fans`,
     );
   };
   return (

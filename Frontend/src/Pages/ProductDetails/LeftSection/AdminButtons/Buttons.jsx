@@ -14,7 +14,7 @@ export default function Buttons({ product }) {
     }
     try {
       const res = await fetch(
-        `http://localhost:8080/api/product/${product._id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/product/${product._id}`,
         {
           method: "DELETE",
           credentials: "include",

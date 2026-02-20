@@ -10,7 +10,7 @@ export default function BestShoes() {
     let fetchBestShoes = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Men's Shoes,Women's Shoes&limit=15&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Men's Shoes,Women's Shoes&limit=15&random=true`,
         );
         const data = await res.json();
         setShowBestShoes(data);

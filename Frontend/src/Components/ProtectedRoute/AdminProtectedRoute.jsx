@@ -10,9 +10,12 @@ const AdminProtectedRoute = ({ requiredRole }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/auth/check", {
-          withCredentials: true, // very important if you use cookies/sessions
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/auth/check`,
+          {
+            withCredentials: true, // very important if you use cookies/sessions
+          },
+        );
         setUser(res.data.user || null);
       } catch (err) {
         setUser(null);

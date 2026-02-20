@@ -14,7 +14,7 @@ export default function PrimeStation() {
     let fetchPorducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Console,Mouse,Keyboard,Headphones,Gaming Computer&limit=15&random=true",
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Console,Mouse,Keyboard,Headphones,Gaming Computer&limit=15&random=true`,
         );
         let data = await res.json(res);
         setShowProducts(data);

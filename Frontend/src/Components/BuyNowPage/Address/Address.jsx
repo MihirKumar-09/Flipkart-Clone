@@ -7,9 +7,12 @@ export default function Address() {
   const [addresses, setAddresses] = useState([]);
 
   const fetchAllAddress = async () => {
-    const res = await fetch("http://localhost:8080/api/all/address", {
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/all/address`,
+      {
+        credentials: "include",
+      },
+    );
     const data = await res.json();
 
     if (Array.isArray(data.allAddress)) {

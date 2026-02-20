@@ -10,9 +10,12 @@ const ProtectedRoute = ({ requiredRole }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/auth/check", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/auth/check`,
+          {
+            withCredentials: true,
+          },
+        );
         setUser(res.data.user);
       } catch {
         setUser(null);

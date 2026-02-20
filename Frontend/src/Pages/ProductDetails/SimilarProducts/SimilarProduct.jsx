@@ -14,7 +14,9 @@ export default function SimilarProduct() {
     if (!id) return;
     const fetchProductDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/products/${id}`);
+        const res = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`,
+        );
         const data = await res.json();
         setProduct(data);
       } catch (err) {
@@ -30,7 +32,7 @@ export default function SimilarProduct() {
     const fetchSimilar = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/products/category/${product.category}`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/category/${product.category}`,
         );
         let data = await res.json();
         data = data.filter((p) => p._id !== product._id);

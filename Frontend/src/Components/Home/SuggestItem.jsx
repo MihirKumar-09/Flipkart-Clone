@@ -9,7 +9,7 @@ export default function SuggestItem() {
     const fetchSuggestItem = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Tvs,Washing Machine,Refrigerators,Mobiles&limit=12"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Tvs,Washing Machine,Refrigerators,Mobiles&limit=12`,
         );
         const data = await res.json();
         setSuggested(data);

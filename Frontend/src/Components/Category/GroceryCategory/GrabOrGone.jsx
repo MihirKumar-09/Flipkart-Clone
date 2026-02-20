@@ -11,7 +11,7 @@ export default function GrabOrGone() {
     let fetchGroceryProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Food&limit=4&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Food&limit=4&random=true`,
         );
         let data = await res.json();
         setGroceryProducts(data);

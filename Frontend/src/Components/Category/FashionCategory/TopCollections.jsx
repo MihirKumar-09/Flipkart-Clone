@@ -10,7 +10,7 @@ export default function TopCollections() {
     let fetchTopCollections = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Men's Fashion,Women's CropTop,BodyConeDress,Women's Fashion,&limit=15&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Men's Fashion,Women's CropTop,BodyConeDress,Women's Fashion,&limit=15&random=true`,
         );
         const data = await res.json();
         setShowTopCollections(data);

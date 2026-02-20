@@ -9,9 +9,12 @@ export default function MyOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch("http://localhost:8080/order/my-orders", {
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/order/my-orders`,
+          {
+            credentials: "include",
+          },
+        );
         if (!res.ok) {
           throw new Error("failed to fetch orders");
         }

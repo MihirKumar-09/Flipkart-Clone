@@ -18,17 +18,20 @@ export default function Details({ product }) {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:8080/api/alerts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/alerts`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: product._id,
+            email,
+            type: "stock",
+          }),
         },
-        body: JSON.stringify({
-          productId: product._id,
-          email,
-          type: "stock",
-        }),
-      });
+      );
 
       const data = await res.json();
 

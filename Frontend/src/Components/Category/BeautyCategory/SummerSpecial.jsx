@@ -7,7 +7,7 @@ export default function SummerSpecial() {
     let fetchSummerSpecial = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Cold Drinks&limi=10&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Cold Drinks&limi=10&random=true`,
         );
         let data = await res.json();
         setSummerSpecial(data);

@@ -10,7 +10,7 @@ export default function WomenFashions() {
     let fetchWomenCollections = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Women's Fashion,Women's Shoes,Women's CropTop,BodyConeDress,Jewelry,Bra's&limit=15&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Women's Fashion,Women's Shoes,Women's CropTop,BodyConeDress,Jewelry,Bra's&limit=15&random=true`,
         );
         const data = await res.json();
         setShowWomenCollections(data);

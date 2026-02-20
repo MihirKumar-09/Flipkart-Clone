@@ -13,7 +13,7 @@ export default function Fashions() {
     const fetchTopFashion = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Men's Fashion,Women Fashion,SareeHub,Unisex Fashion,Beauty&limit=4&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Men's Fashion,Women Fashion,SareeHub,Unisex Fashion,Beauty&limit=4&random=true`,
         );
         const data = await res.json();
         setTopFashion(data);

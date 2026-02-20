@@ -4,9 +4,12 @@ export default function PriceDetails({ order }) {
   if (!order) return null; // 🔥 MOST IMPORTANT LINE
 
   const downloadInvoice = async (orderId) => {
-    const res = await fetch(`http://localhost:8080/order/${orderId}/invoice`, {
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/order/${orderId}/invoice`,
+      {
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) {
       throw new Error("Invoice download failed");

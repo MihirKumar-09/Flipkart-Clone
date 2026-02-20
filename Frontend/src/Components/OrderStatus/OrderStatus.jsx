@@ -22,9 +22,12 @@ export default function OrderStatus() {
   // Fetch Order from backend;
   useEffect(() => {
     const fetchOrders = async () => {
-      const res = await axios.get(`http://localhost:8080/order/${orderId}`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/order/${orderId}`,
+        {
+          withCredentials: true,
+        },
+      );
       setOrder(res.data);
     };
     fetchOrders();
@@ -33,7 +36,7 @@ export default function OrderStatus() {
   // Submit review;
   const submitReview = async ({ productId, rating, comment }) => {
     const res = await fetch(
-      `http://localhost:8080/api/products/${productId}/review`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/products/${productId}/review`,
       {
         method: "POST",
         headers: {
@@ -53,9 +56,12 @@ export default function OrderStatus() {
     return data;
   };
   const updatedOrder = async () => {
-    const res = await axios.get(`http://localhost:8080/order/${orderId}`, {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/order/${orderId}`,
+      {
+        withCredentials: true,
+      },
+    );
     setOrder(res.data);
   };
 

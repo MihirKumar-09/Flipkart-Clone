@@ -25,7 +25,7 @@ export default function ProductList() {
   const fetchData = async (q) => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/products/search?q=${q}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/products/search?q=${q}`,
       );
       const result = await res.json();
       setData(result);
@@ -49,7 +49,7 @@ export default function ProductList() {
   // BRAND
   if (activeFilters.brand.length > 0) {
     productsToShow = productsToShow.filter((p) =>
-      activeFilters.brand.includes(p.brand)
+      activeFilters.brand.includes(p.brand),
     );
   }
 
@@ -89,7 +89,7 @@ export default function ProductList() {
   if (sortIndex === 3) productsToShow.sort((a, b) => b.price - a.price);
   if (sortIndex === 4)
     productsToShow.sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     );
 
   return (

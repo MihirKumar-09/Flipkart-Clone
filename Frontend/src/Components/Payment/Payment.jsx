@@ -27,7 +27,9 @@ export default function Payment() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/auth/check");
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/auth/check`,
+        );
         if (!res.data.user) throw new Error("Not logged in");
         setUser(res.data.user);
       } catch {
@@ -66,16 +68,19 @@ export default function Payment() {
     try {
       setIsPaying(true);
 
-      const res = await fetch("http://localhost:8080/order/place", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          cartItems: checkoutItems,
-          addressId,
-          payment: paymentMethod,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/order/place`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            cartItems: checkoutItems,
+            addressId,
+            payment: paymentMethod,
+          }),
+        },
+      );
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Order failed");

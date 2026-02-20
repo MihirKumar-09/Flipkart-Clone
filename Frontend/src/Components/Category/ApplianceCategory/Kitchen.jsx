@@ -9,7 +9,7 @@ export default function Kitchen() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Water Purifiers,Microwave Ovens,Mixer Grinders&limi=6&random=true",
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Water Purifiers,Microwave Ovens,Mixer Grinders&limi=6&random=true`,
         );
         let data = await res.json(res);
         setShowProducts(data);

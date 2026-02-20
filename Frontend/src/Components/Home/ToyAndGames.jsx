@@ -9,7 +9,7 @@ export default function SuggestItem() {
     const fetchToys = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/products/section?category=Toys&limit=8&random=true"
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Toys&limit=8&random=true`,
         );
         const data = await res.json();
         setGames(data);
