@@ -5,10 +5,10 @@ import Mobile from "../../assets/HomePage/mobile.png";
 import Fashion from "../../assets/HomePage/fashion.png";
 import Electronics from "../../assets/HomePage/Electronics.png";
 import Furniture from "../../assets/HomePage/furniture.png";
-import Tv from "../../assets/HomePage/tv.png";
+import Tv from "../../assets/HomePage/TV.png";
 import Flight from "../../assets/HomePage/flight.png";
-import Teddy from "../../assets/HomePage/teddy.png";
-import Grocery from "../../assets/HomePage/grocery.png";
+import Teddy from "../../assets/HomePage/Teddy.png";
+import Grocery from "../../assets/HomePage/Grocery.png";
 import { Link } from "react-router-dom";
 export default function Category() {
   return (
