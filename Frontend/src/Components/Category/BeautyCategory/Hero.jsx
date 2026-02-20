@@ -1,4 +1,4 @@
-import HeroImg from "../../../assets/BeautyCategory/Hero.png";
+import HeroImg from "../../../assets/BeautyCategory/hero.png";
 export default function Hero() {
   return (
     <div className="beauty-hero">
