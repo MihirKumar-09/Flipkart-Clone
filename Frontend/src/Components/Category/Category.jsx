@@ -3,7 +3,7 @@ import "./Category.css";
 import Minutes from "../../assets/HomePage/flipkartMinutes.png";
 import Mobile from "../../assets/HomePage/mobile.png";
 import Fashion from "../../assets/HomePage/fashion.png";
-import Electronics from "../../assets/HomePage/electronics.png";
+import Electronics from "../../assets/HomePage/Electronics.png";
 import Furniture from "../../assets/HomePage/furniture.png";
 import Tv from "../../assets/HomePage/tv.png";
 import Flight from "../../assets/HomePage/flight.png";
