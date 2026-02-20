@@ -8,7 +8,7 @@ export default function ToDayOffers() {
     let fetchFoodProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Cold Drinks,Food&limit=6`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Cold Drinks,Food&limit=6`,
         );
         let data = await res.json();
         setFoodProducts(data);

@@ -9,7 +9,7 @@ export default function AirConditioners() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=AirConditioners,Fans,Air Coolers&limi=6&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=AirConditioners,Fans,Air Coolers&limi=6&random=true`,
         );
         let data = await res.json(res);
         setShowProducts(data);

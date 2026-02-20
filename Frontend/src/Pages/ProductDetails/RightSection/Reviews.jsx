@@ -23,7 +23,7 @@ export default function Reviews() {
     const fetchAllReviews = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/${productId}/reviews`,
+          `${process.env.VITE_BACKEND_URL}/api/products/${productId}/reviews`,
         );
         if (!res.ok) throw new Error("Failed to fetch reviews");
         const data = await res.json();
@@ -57,7 +57,7 @@ export default function Reviews() {
   const deleteReview = async (reviewId) => {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/products/${productId}/reviews/${reviewId}`,
+        `${process.env.VITE_BACKEND_URL}/api/products/${productId}/reviews/${reviewId}`,
         {
           method: "DELETE",
           credentials: "include",

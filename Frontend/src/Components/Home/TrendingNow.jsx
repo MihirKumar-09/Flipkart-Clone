@@ -12,7 +12,7 @@ export default function TrendingNow() {
     const fetchTopMobiles = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Mobiles&limit=4&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Mobiles&limit=4&random=true`,
         );
         const data = await res.json();
         setTopMobiles(data);
@@ -27,7 +27,7 @@ export default function TrendingNow() {
     const fetchTopRated = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Laptops,Men's Fashion,Sports&limit=4&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Laptops,Men's Fashion,Sports&limit=4&random=true`,
         );
         const data = await res.json();
         setTopRated(data);

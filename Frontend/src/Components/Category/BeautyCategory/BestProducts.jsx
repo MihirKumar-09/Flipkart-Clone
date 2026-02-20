@@ -7,7 +7,7 @@ export default function BestProducts() {
     let fetchBeautyProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=New Beauty,Beauty&limit=10&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=New Beauty,Beauty&limit=10&random=true`,
         );
         let data = await res.json();
         setBeautyProducts(data);

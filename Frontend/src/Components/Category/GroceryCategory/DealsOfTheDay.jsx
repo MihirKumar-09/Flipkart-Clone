@@ -10,7 +10,7 @@ export default function DealsOfTheDay() {
     let fetchGroceryProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Grocery,Food&limit=8&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Grocery,Food&limit=8&random=true`,
         );
         let data = await res.json();
         setGroceryProducts(data);

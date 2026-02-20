@@ -14,7 +14,7 @@ export default function DeliveryOrder() {
         setLoading(true);
 
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/admin/orders/delivery?page=${page}&limit=20`,
+          `${process.env.VITE_BACKEND_URL}/api/admin/orders/delivery?page=${page}&limit=20`,
           { credentials: "include" },
         );
 
@@ -37,7 +37,7 @@ export default function DeliveryOrder() {
   const updateStatus = async (id, status) => {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/admin/orders/${id}`,
+        `${process.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

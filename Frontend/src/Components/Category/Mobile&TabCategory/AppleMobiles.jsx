@@ -11,7 +11,7 @@ export default function AppleMobile() {
     const fetchAppleMobiles = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Mobiles&brand=Apple&limit=10&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Mobiles&brand=Apple&limit=10&random=true`,
         );
         const data = await res.json();
         console.log("Apple products fetched:", data);

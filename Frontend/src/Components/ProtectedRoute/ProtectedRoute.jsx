@@ -11,7 +11,7 @@ const ProtectedRoute = ({ requiredRole }) => {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/auth/check`,
+          `${process.env.VITE_BACKEND_URL}/api/auth/check`,
           {
             withCredentials: true,
           },

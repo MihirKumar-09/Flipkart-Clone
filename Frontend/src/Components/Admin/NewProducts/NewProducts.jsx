@@ -48,14 +48,11 @@ export default function NewOrder() {
         formData.append("images", selectedImages[i]);
       }
 
-      const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/product`,
-        {
-          method: "POST",
-          credentials: "include",
-          body: formData,
-        },
-      );
+      const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/product`, {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
 
       const data = await res.json();
       if (!res.ok) {

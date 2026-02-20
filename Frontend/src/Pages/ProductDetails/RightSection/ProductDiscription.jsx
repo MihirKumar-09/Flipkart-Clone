@@ -10,7 +10,7 @@ export default function ProductDiscription() {
     const fetchProductDetails = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`,
+          `${process.env.VITE_BACKEND_URL}/api/products/${id}`,
         );
         const data = await res.json();
         setProduct(data);

@@ -14,7 +14,7 @@ export default function AudioWave() {
     let fetchPorducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Nackbands,Earbuds,SoundSpeaker,Headphones&limit=10&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Nackbands,Earbuds,SoundSpeaker,Headphones&limit=10&random=true`,
         );
         let data = await res.json(res);
         setShowProducts(data);

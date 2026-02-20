@@ -9,7 +9,7 @@ export default function BestSelling() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/section?category=Refrigerators,Tvs,Washing Machine,AirConditioners,Mixer Grinders&limi=20&random=true`,
+          `${process.env.VITE_BACKEND_URL}/api/products/section?category=Refrigerators,Tvs,Washing Machine,AirConditioners,Mixer Grinders&limi=20&random=true`,
         );
         let data = await res.json(res);
         setShowProducts(data);
