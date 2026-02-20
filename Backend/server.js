@@ -15,12 +15,12 @@ import adminRoute from "./routes/adminRoute.js";
 import reviewRoute from "./routes/reviewRoute.js";
 import alertRoute from "./routes/alertRoute.js";
 
-//! Send email alerts;
-// import { sendEmail } from "./utils/sendEmail.js";
 dotenv.config();
 
 const app = express();
-const PORT = 8080;
+
+/* ⭐ IMPORTANT FIX FOR RENDER */
+const PORT = process.env.PORT || 8080;
 
 // --------------------
 // BASIC MIDDLEWARE
@@ -28,13 +28,17 @@ const PORT = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS configuration
+// --------------------
+// CORS CONFIGURATION
+// --------------------
 const corsOptions = {
-  origin: "https://flipkart-clone-1-eay9.onrender.com/",
+  /* ⭐ FIXED: removed trailing "/" */
+  origin: "https://flipkart-clone-1-eay9.onrender.com",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 app.use(cors(corsOptions));
 app.set("trust proxy", 1);
 
@@ -49,32 +53,28 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URI,
-      ttl: 7 * 24 * 60 * 60, // 7 days
+      ttl: 7 * 24 * 60 * 60,
       autoRemove: "native",
     }),
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     },
   }),
 );
 
-// Debug middleware
+// --------------------
+// DEBUG MIDDLEWARE
+// --------------------
 app.use((req, res, next) => {
-  // console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-  // console.log(`Session ID: ${req.sessionID}`);
-  // console.log(`User authenticated: ${req.session.userId ? "YES" : "NO"}`);
-  // console.log("-".repeat(50));
   next();
 });
 
 // --------------------
-// CUSTOM AUTH MIDDLEWARE
+// AUTH MIDDLEWARE
 // --------------------
-
-// Check if user is authenticated
 const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.userId) {
     next();
@@ -86,7 +86,6 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-// Get current user from session
 const getCurrentUser = async (req, res, next) => {
   if (req.session && req.session.userId) {
     try {
@@ -120,23 +119,7 @@ app.get("/user", async (req, res) => {
   }
 });
 
-//! ===========ALERT===========
-// app.get("/test-email", async (req, res) => {
-//   try {
-//     await sendEmail(
-//       "yourpersonalemail@gmail.com",
-//       "Test Email",
-//       "<h1>Email working</h1>",
-//     );
-
-//     res.json({ message: "Email sent successfully" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: "Email failed" });
-//   }
-// });
-
-// Mount routes
+// Route mounting
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", addressRoutes);
@@ -146,53 +129,53 @@ app.use("/api/admin", adminRoute);
 app.use("/api", reviewRoute);
 app.use("/api", alertRoute);
 
-// 404 handler which handle wrong route request;
-app.use((req, res, next) => {
-  res.status(404).json({ success: false, message: "Route not found" });
+// --------------------
+// 404 HANDLER
+// --------------------
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
 });
 
-// Global Error Handling Middleware
+// --------------------
+// GLOBAL ERROR HANDLER
+// --------------------
 app.use((err, req, res, next) => {
   console.error("Server error:", err);
 
   const statusCode = err.statusCode || 500;
 
-  const message =
-    process.env.NODE_ENV === "development"
-      ? err.message
-      : "Internal server error";
-
-  const response = {
+  res.status(statusCode).json({
     success: false,
-    error: message,
-  };
-  if (process.env.NODE_ENV === "development") {
-    response.stack = err.stack;
-  }
-
-  res.status(statusCode).json(response);
+    error:
+      process.env.NODE_ENV === "development"
+        ? err.message
+        : "Internal server error",
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  });
 });
 
 // --------------------
-// DATABASE CONNECTION & SERVER START
+// DATABASE CONNECTION
 // --------------------
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log(" Connected to MongoDB");
+    console.log("Connected to MongoDB");
 
     app.listen(PORT, () => {
-      console.log(` Server running on port ${PORT}`);
+      console.log(`Server running on port ${PORT}`);
     });
 
-    // Handle graceful shutdown
     process.on("SIGINT", async () => {
       await mongoose.connection.close();
       console.log("MongoDB connection closed");
       process.exit(0);
     });
   } catch (err) {
-    console.error("❌ Error starting server:", err);
+    console.error("Error starting server:", err);
     process.exit(1);
   }
 };
