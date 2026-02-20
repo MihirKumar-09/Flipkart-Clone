@@ -9,7 +9,7 @@ export default function BestSelling() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Refrigerators,Tvs,Washing Machine,AirConditioners,Mixer Grinders&limi=20&random=true"
+          "http://localhost:8080/api/products/section?category=Refrigerators,Tvs,Washing Machine,AirConditioners,Mixer Grinders&limi=20&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -22,7 +22,7 @@ export default function BestSelling() {
   // Handle Best Selling Products;
   const handleBestSelling = () => {
     navigate(
-      "/product-list?search=Refrigerators|Tvs|Washing|AirConditioners|Mixer Grinder"
+      "/product-list?search=Refrigerators|Tvs|Washing|AirConditioners|Mixer Grinder",
     );
   };
   return (
@@ -31,7 +31,7 @@ export default function BestSelling() {
         <h1>Best Selling</h1>
         <span>
           <i
-            class="fa-regular fa-circle-right"
+            className="fa-regular fa-circle-right"
             style={{ color: "#2874F0" }}
             onClick={() => handleBestSelling()}
           ></i>

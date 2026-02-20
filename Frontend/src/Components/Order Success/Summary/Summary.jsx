@@ -29,9 +29,9 @@ export default function Summary() {
         <p>Payment Method:</p>
         <span>
           {paymentMethod === "ONLINE" ? (
-            <i class="fa-solid fa-landmark"></i>
+            <i className="fa-solid fa-landmark"></i>
           ) : (
-            <i class="fa-solid fa-money-bills"></i>
+            <i className="fa-solid fa-money-bills"></i>
           )}
           {paymentMethod}
         </span>

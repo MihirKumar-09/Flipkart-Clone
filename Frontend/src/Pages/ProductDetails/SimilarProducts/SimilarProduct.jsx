@@ -30,7 +30,7 @@ export default function SimilarProduct() {
     const fetchSimilar = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/products/category/${product.category}`
+          `http://localhost:8080/api/products/category/${product.category}`,
         );
         let data = await res.json();
         data = data.filter((p) => p._id !== product._id);
@@ -53,7 +53,7 @@ export default function SimilarProduct() {
       <div className={style.head}>
         <h2 className={style.title}>Similar Products</h2>
         <i
-          class="fa-solid fa-circle-chevron-right"
+          className="fa-solid fa-circle-chevron-right"
           onClick={() => handleSimilarProduct()}
         ></i>
       </div>

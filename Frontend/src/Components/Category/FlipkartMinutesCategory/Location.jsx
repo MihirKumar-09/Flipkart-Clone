@@ -6,7 +6,7 @@ export default function Location() {
           <b>Share your location</b> to access Minutes & explore offers trending
           in your area.
         </p>
-        <i class="fa-solid fa-angle-down"></i>
+        <i className="fa-solid fa-angle-down"></i>
       </div>
     </div>
   );

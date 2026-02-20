@@ -9,7 +9,7 @@ export default function premiumLook() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Furniture,SofaSet&limit=10&random=true"
+          "http://localhost:8080/api/products/section?category=Furniture,SofaSet&limit=10&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -29,7 +29,7 @@ export default function premiumLook() {
         <h1>Premium Look</h1>
         <span onClick={() => handlePremiumProducts()}>
           <p>View All Products</p>
-          <i class="fa-solid fa-arrow-right-long"></i>
+          <i className="fa-solid fa-arrow-right-long"></i>
         </span>
       </div>
       <hr style={{ margin: "0px" }} />

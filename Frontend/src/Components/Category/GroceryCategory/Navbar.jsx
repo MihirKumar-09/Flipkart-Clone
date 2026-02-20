@@ -6,7 +6,7 @@ export default function GroceyNavbar() {
       <div className={styles.back}>
         <div className={styles.left}>
           <Link to="/">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i className="fa-solid fa-arrow-left"></i>
           </Link>
           <h1>Grocery</h1>
         </div>

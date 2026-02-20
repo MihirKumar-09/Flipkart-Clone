@@ -42,7 +42,7 @@ export default function Offer() {
             <p style={{ color: item.subColor }}>{item.subtitle}</p>
             <h2 style={{ color: item.textColor }}>{item.title}</h2>
             <button onClick={() => handleCategory(item.category)}>
-              View All<i class="fa-solid fa-angles-right"></i>
+              View All<i className="fa-solid fa-angles-right"></i>
             </button>
           </div>
           <div className={`home-card-img home-card-img-${item.id}`}>

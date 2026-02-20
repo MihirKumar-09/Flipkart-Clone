@@ -7,7 +7,7 @@ export default function Flight() {
     <div className={style.flight}>
       <h1>Currently Unavailable Service</h1>
       <button onClick={() => navigate("/")}>
-        <i class="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left"></i>
         <span>Go Back</span>
       </button>
     </div>

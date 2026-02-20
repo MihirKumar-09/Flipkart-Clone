@@ -8,7 +8,7 @@ export default function NewArrival() {
     let fetchBeautyProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=New Beauty&limi=6"
+          "http://localhost:8080/api/products/section?category=New Beauty&limi=6",
         );
         let data = await res.json();
         setBeautyProducts(data);
@@ -24,7 +24,7 @@ export default function NewArrival() {
         <h1>New Arrival Products</h1>
       </div>
       <div className="new-arrival-item">
-        <div class="box big">
+        <div className="box big">
           <img src={NewBanner} alt="Sponcer" />
           <div className="overlay">
             <div className="bottom-text">

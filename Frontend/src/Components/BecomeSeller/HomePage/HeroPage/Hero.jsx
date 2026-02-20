@@ -9,11 +9,11 @@ export default function Hero() {
         <div>
           <Link to="/" className="link">
             <span>
-              Home <i class="fa-solid fa-angle-right"></i>
+              Home <i className="fa-solid fa-angle-right"></i>
             </span>
           </Link>
           <span>
-            Sell Online <i class="fa-solid fa-angle-right"></i>
+            Sell Online <i className="fa-solid fa-angle-right"></i>
           </span>
         </div>
         <h1>Sell Online With Flipkart</h1>

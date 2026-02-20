@@ -57,13 +57,13 @@ export default function Buttons({ product }) {
           <button onClick={() => navigate(`/admin/edit/${product._id}`)}>
             <span>EDIT</span>
             <span>
-              <i class="fa-regular fa-pen-to-square"></i>
+              <i className="fa-regular fa-pen-to-square"></i>
             </span>
           </button>
           <button onClick={handleRemove}>
             <span>DELETE</span>
             <span>
-              <i class="fa-regular fa-trash-can"></i>
+              <i className="fa-regular fa-trash-can"></i>
             </span>
           </button>
         </div>

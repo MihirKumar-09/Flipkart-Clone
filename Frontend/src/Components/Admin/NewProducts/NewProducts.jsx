@@ -79,7 +79,7 @@ export default function NewOrder() {
         <button onClick={() => setShowForm(true)}>
           <span>Create new</span>
           <span>
-            <i class="fa-solid fa-plus"></i>
+            <i className="fa-solid fa-plus"></i>
           </span>
         </button>
       ) : (

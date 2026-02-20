@@ -9,7 +9,7 @@ export default function AirConditioners() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=AirConditioners,Fans,Air Coolers&limi=6&random=true"
+          "http://localhost:8080/api/products/section?category=AirConditioners,Fans,Air Coolers&limi=6&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -29,7 +29,7 @@ export default function AirConditioners() {
         <h1>Summer Collections</h1>
         <span>
           <i
-            class="fa-regular fa-circle-right"
+            className="fa-regular fa-circle-right"
             style={{ color: "#2874F0" }}
             onClick={() => handleSummerCollections()}
           ></i>

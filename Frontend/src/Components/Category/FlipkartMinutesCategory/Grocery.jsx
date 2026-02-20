@@ -13,26 +13,26 @@ export default function Grocery() {
         <h1>Grocery</h1>
       </div>
       <div className="items">
-        <div class="parent">
-          <div class="div1">
+        <div className="parent">
+          <div className="div1">
             <img src={vegitable} alt="" />
           </div>
-          <div class="div2">
+          <div className="div2">
             <img src={atta} alt="Atta & Rice" />
           </div>
-          <div class="div3">
+          <div className="div3">
             <img src={oil} alt="oil & ghee" />
           </div>
-          <div class="div4">
+          <div className="div4">
             <img src={egg} alt="egg & breads" />
           </div>
-          <div class="div5">
+          <div className="div5">
             <img src={fruits} alt="dry fruits" />
           </div>
-          <div class="div6">
+          <div className="div6">
             <img src={meat} alt="Fish & Chicken" />
           </div>
-          <div class="div7">
+          <div className="div7">
             <img src={food} alt="Frozen Food" />
           </div>
         </div>

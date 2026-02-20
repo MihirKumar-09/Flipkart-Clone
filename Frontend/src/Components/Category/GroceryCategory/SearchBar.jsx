@@ -35,7 +35,7 @@ export default function SearchBar() {
   return (
     <div className={style.searchBar}>
       <div className={style.search}>
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <i className="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="Search grocery products in Supermart" />
       </div>
       <div
@@ -45,7 +45,7 @@ export default function SearchBar() {
       >
         {user ? (
           <div>
-            <i class="fa-regular fa-circle-user"></i>
+            <i className="fa-regular fa-circle-user"></i>
             <span>{user.username}</span>
             <i
               className={`fa-solid ${
@@ -69,7 +69,7 @@ export default function SearchBar() {
             {user ? (
               <>
                 <div onClick={profile}>
-                  <i class="fa-regular fa-circle-user"></i>
+                  <i className="fa-regular fa-circle-user"></i>
                   <span>My Profile</span>
                 </div>
                 <div>
@@ -85,35 +85,35 @@ export default function SearchBar() {
                   <span>Whishlist</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-store"></i>
+                  <i className="fa-solid fa-store"></i>
                   <span>Bcome a Seller</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-gift"></i>
+                  <i className="fa-solid fa-gift"></i>
                   <span>Rewards</span>
                 </div>
                 <div>
-                  <i class="fa-regular fa-credit-card"></i>
+                  <i className="fa-regular fa-credit-card"></i>
                   <span>Gift Card</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-bell"></i>
+                  <i className="fa-solid fa-bell"></i>
                   <span>Notification Preferences</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-headset"></i>
+                  <i className="fa-solid fa-headset"></i>
                   <span>24x7 Customer Support</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-arrow-up-right-dots"></i>
+                  <i className="fa-solid fa-arrow-up-right-dots"></i>
                   <span>Advertise</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-download"></i>
+                  <i className="fa-solid fa-download"></i>
                   <span>Download App</span>
                 </div>
                 <div onClick={logout}>
-                  <i class="fa-solid fa-power-off"></i>
+                  <i className="fa-solid fa-power-off"></i>
                   <span>Logout</span>
                 </div>
               </>
@@ -128,7 +128,7 @@ export default function SearchBar() {
                   </div>
                 </Link>
                 <div>
-                  <i class="fa-regular fa-circle-user"></i>
+                  <i className="fa-regular fa-circle-user"></i>
                   <span>My Profile</span>
                 </div>
                 <div>
@@ -144,31 +144,31 @@ export default function SearchBar() {
                   <span>Whishlist</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-store"></i>
+                  <i className="fa-solid fa-store"></i>
                   <span>Bcome a Seller</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-gift"></i>
+                  <i className="fa-solid fa-gift"></i>
                   <span>Rewards</span>
                 </div>
                 <div>
-                  <i class="fa-regular fa-credit-card"></i>
+                  <i className="fa-regular fa-credit-card"></i>
                   <span>Gift Card</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-bell"></i>
+                  <i className="fa-solid fa-bell"></i>
                   <span>Notification Preferences</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-headset"></i>
+                  <i className="fa-solid fa-headset"></i>
                   <span>24x7 Customer Support</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-arrow-up-right-dots"></i>
+                  <i className="fa-solid fa-arrow-up-right-dots"></i>
                   <span>Advertise</span>
                 </div>
                 <div>
-                  <i class="fa-solid fa-download"></i>
+                  <i className="fa-solid fa-download"></i>
                   <span>Download App</span>
                 </div>
               </>
@@ -180,7 +180,7 @@ export default function SearchBar() {
       <div className={style.btn}>
         <button>
           <i
-            class="fa-solid fa-cart-shopping"
+            className="fa-solid fa-cart-shopping"
             style={{ fontSize: "1.2rem" }}
           ></i>
           Cart

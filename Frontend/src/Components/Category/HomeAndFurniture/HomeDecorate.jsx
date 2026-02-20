@@ -9,7 +9,7 @@ export default function HomeDecorate() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Home-Decoration,LampLight&limit=10&random=true"
+          "http://localhost:8080/api/products/section?category=Home-Decoration,LampLight&limit=10&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -29,7 +29,7 @@ export default function HomeDecorate() {
         <h1>Decorate Your Home</h1>
         <span onClick={() => handleDecorateProducts()}>
           <p>View All Products</p>
-          <i class="fa-solid fa-arrow-right-long"></i>
+          <i className="fa-solid fa-arrow-right-long"></i>
         </span>
       </div>
       <hr style={{ margin: "0px" }} />

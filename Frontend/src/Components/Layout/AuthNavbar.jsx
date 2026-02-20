@@ -107,23 +107,23 @@ export default function SignNavbar() {
                         <span>My Profile</span>
                       </div>
                       <div>
-                        <i class="fa-brands fa-bitcoin"></i>
+                        <i className="fa-brands fa-bitcoin"></i>
                         <span>SuperCoin Zone</span>
                       </div>
                       <div>
-                        <i class="fa-solid fa-circle-radiation"></i>
+                        <i className="fa-solid fa-circle-radiation"></i>
                         <span>Flipkart Plus Zone</span>
                       </div>
                       <div onClick={() => navigate("/my-orders")}>
-                        <i class="fa-solid fa-box"></i>
+                        <i className="fa-solid fa-box"></i>
                         <span>Orders</span>
                       </div>
                       <div>
-                        <i class="fa-regular fa-heart"></i>
+                        <i className="fa-regular fa-heart"></i>
                         <span>Wishlist</span>
                       </div>
                       <div>
-                        <i class="fa-solid fa-tag"></i>
+                        <i className="fa-solid fa-tag"></i>
                         <span>Coupons</span>
                       </div>
                       <div>
@@ -131,11 +131,11 @@ export default function SignNavbar() {
                         <span>Gift Cards</span>
                       </div>
                       <div>
-                        <i class="fa-regular fa-bell"></i>
+                        <i className="fa-regular fa-bell"></i>
                         <span>Notification</span>
                       </div>
                       <div onClick={logout}>
-                        <i class="fa-solid fa-power-off"></i>
+                        <i className="fa-solid fa-power-off"></i>
                         <span>Logout</span>
                       </div>
                     </>
@@ -156,19 +156,19 @@ export default function SignNavbar() {
                         <span>Flipkart Plus Zone</span>
                       </div>
                       <div>
-                        <i class="fa-brands fa-bitcoin"></i>
+                        <i className="fa-brands fa-bitcoin"></i>
                         <span>SuperCoin Zone</span>
                       </div>
                       <div>
-                        <i class="fa-solid fa-box"></i>
+                        <i className="fa-solid fa-box"></i>
                         <span>Orders</span>
                       </div>
                       <div>
-                        <i class="fa-solid fa-heart"></i>
+                        <i className="fa-solid fa-heart"></i>
                         <span>Wishlist</span>
                       </div>
                       <div>
-                        <i class="fa-solid fa-gift"></i>
+                        <i className="fa-solid fa-gift"></i>
                         <span>Rewards</span>
                       </div>
                       <div>
@@ -231,7 +231,7 @@ export default function SignNavbar() {
         {!isCartPage && !isCheckoutPage && (
           <button className="authCartBtn" onClick={() => navigate("/cart")}>
             <div className="iconWrapper">
-              <i class="fa-solid fa-cart-shopping"></i>
+              <i className="fa-solid fa-cart-shopping"></i>
               {cartCount > 0 && <span className="cartBadge">{cartCount}</span>}
             </div>
             <span>Cart</span>

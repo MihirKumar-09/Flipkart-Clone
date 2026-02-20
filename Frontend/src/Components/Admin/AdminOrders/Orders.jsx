@@ -172,7 +172,7 @@ export default function AdminOrders() {
             disabled={page === 1 || loading}
             onClick={() => setPage((p) => p - 1)}
           >
-            <i class="fa-solid fa-angles-left"></i>
+            <i className="fa-solid fa-angles-left"></i>
           </button>
 
           <span>
@@ -183,7 +183,7 @@ export default function AdminOrders() {
             disabled={page === totalPages || loading}
             onClick={() => setPage((p) => p + 1)}
           >
-            <i class="fa-solid fa-angles-right"></i>
+            <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>

@@ -202,7 +202,7 @@ export default function HomeNavBar() {
 
         <button className="cartBtn" onClick={handleCart}>
           <div className="iconWrapper">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <i className="fa-solid fa-cart-shopping"></i>
             {cartCount > 0 && <span className="cartBadge">{cartCount}</span>}
           </div>
           <span>Cart</span>

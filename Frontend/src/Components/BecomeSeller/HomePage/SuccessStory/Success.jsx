@@ -79,7 +79,7 @@ export default function SuccessStory() {
           data-bs-target="#carouselExample"
           data-bs-slide="prev"
         >
-          <i class="fa-solid fa-angle-left"></i>
+          <i className="fa-solid fa-angle-left"></i>
         </button>
 
         <button
@@ -88,7 +88,7 @@ export default function SuccessStory() {
           data-bs-target="#carouselExample"
           data-bs-slide="next"
         >
-          <i class="fa-solid fa-angle-right"></i>
+          <i className="fa-solid fa-angle-right"></i>
         </button>
       </div>
     </div>

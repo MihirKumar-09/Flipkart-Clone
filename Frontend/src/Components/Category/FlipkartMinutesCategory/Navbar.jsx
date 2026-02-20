@@ -4,7 +4,7 @@ export default function Navbar() {
     <>
       <div className="nav-bar">
         <Link to="/">
-          <i class="fa-solid fa-arrow-left"></i>
+          <i className="fa-solid fa-arrow-left"></i>
         </Link>
         <span>Flipkart Minutes</span>
       </div>

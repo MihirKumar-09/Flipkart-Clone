@@ -14,7 +14,7 @@ export default function PrimeStation() {
     let fetchPorducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Console,Mouse,Keyboard,Headphones,Gaming Computer&limit=15&random=true"
+          "http://localhost:8080/api/products/section?category=Console,Mouse,Keyboard,Headphones,Gaming Computer&limit=15&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -43,7 +43,7 @@ export default function PrimeStation() {
             start: "top 95%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -52,7 +52,7 @@ export default function PrimeStation() {
   // Handle Prime Station
   const handlePrimeStation = () => {
     navigate(
-      "/product-list?search=Console|Mouse|Keyboard|Headphones|Gaming Computer"
+      "/product-list?search=Console|Mouse|Keyboard|Headphones|Gaming Computer",
     );
   };
 
@@ -62,7 +62,7 @@ export default function PrimeStation() {
       <div className="today-deals-head">
         <h1>Prime Station</h1>
         <i
-          class="fa-solid fa-circle-chevron-right"
+          className="fa-solid fa-circle-chevron-right"
           onClick={() => handlePrimeStation()}
         ></i>
       </div>

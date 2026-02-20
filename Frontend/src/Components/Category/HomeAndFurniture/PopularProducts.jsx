@@ -9,7 +9,7 @@ export default function PopularPorducts() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Furniture,Home-Decoration&limit=6&random=true"
+          "http://localhost:8080/api/products/section?category=Furniture,Home-Decoration&limit=6&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -30,7 +30,7 @@ export default function PopularPorducts() {
         <h1>Popular Products</h1>
         <span onClick={() => handlePopularProduct()}>
           <p>View All Products</p>
-          <i class="fa-solid fa-arrow-right-long"></i>
+          <i className="fa-solid fa-arrow-right-long"></i>
         </span>
       </div>
       <hr style={{ margin: "0px" }} />

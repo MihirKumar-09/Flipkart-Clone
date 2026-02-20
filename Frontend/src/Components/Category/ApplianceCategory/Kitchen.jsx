@@ -9,7 +9,7 @@ export default function Kitchen() {
     let fetchProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Water Purifiers,Microwave Ovens,Mixer Grinders&limi=6&random=true"
+          "http://localhost:8080/api/products/section?category=Water Purifiers,Microwave Ovens,Mixer Grinders&limi=6&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -22,7 +22,7 @@ export default function Kitchen() {
   // Handle Kitchen Products;
   const handleKitchen = () => {
     navigate(
-      "/product-list?search=Water Purifiers|Microwave Ovens|Mixer Grinders"
+      "/product-list?search=Water Purifiers|Microwave Ovens|Mixer Grinders",
     );
   };
   return (
@@ -31,7 +31,7 @@ export default function Kitchen() {
         <h1>Best Kitchen</h1>
         <span>
           <i
-            class="fa-regular fa-circle-right"
+            className="fa-regular fa-circle-right"
             style={{ color: "#2874F0" }}
             onClick={() => handleKitchen()}
           ></i>

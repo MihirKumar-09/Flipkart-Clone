@@ -14,7 +14,7 @@ export default function AudioWave() {
     let fetchPorducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Mouse,Keyboard,Men Trimmers,Women Trimmers,Nackbands,Earbuds,SoundSpeaker,Smart Watch,Console&limit=15&random=true"
+          "http://localhost:8080/api/products/section?category=Mouse,Keyboard,Men Trimmers,Women Trimmers,Nackbands,Earbuds,SoundSpeaker,Smart Watch,Console&limit=15&random=true",
         );
         let data = await res.json(res);
         setShowProducts(data);
@@ -43,7 +43,7 @@ export default function AudioWave() {
             start: "top 95%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -53,7 +53,7 @@ export default function AudioWave() {
   // Handle Today deal's
   const handleTodayDeals = () => {
     navigate(
-      "/product-list?search=Mouse|Trimmers|Nackbands|Earbuds|SoundSpeaker|Watch|Console"
+      "/product-list?search=Mouse|Trimmers|Nackbands|Earbuds|SoundSpeaker|Watch|Console",
     );
   };
 
@@ -63,7 +63,7 @@ export default function AudioWave() {
       <div className="today-deals-head">
         <h1>Today's Deals</h1>
         <i
-          class="fa-solid fa-circle-chevron-right"
+          className="fa-solid fa-circle-chevron-right"
           onClick={() => handleTodayDeals()}
         ></i>
       </div>

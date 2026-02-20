@@ -8,7 +8,7 @@ export default function ToDayOffers() {
     let fetchFoodProducts = async () => {
       try {
         let res = await fetch(
-          "http://localhost:8080/api/products/section?category=Cold Drinks,Food&limit=6"
+          "http://localhost:8080/api/products/section?category=Cold Drinks,Food&limit=6",
         );
         let data = await res.json();
         setFoodProducts(data);
@@ -24,7 +24,7 @@ export default function ToDayOffers() {
         <h1>New Arrival Products</h1>
       </div>
       <div className="new-arrival-item">
-        <div class="box big">
+        <div className="box big">
           <img src={ToDayBanner} alt="Sponcer" />
           <div className="overlay">
             <div className="bottom-text">
