@@ -1,6 +1,6 @@
 import MainHero from "../../../assets/FashionCategory/mainhero.png";
 import Bank from "../../../assets/FashionCategory/banklogo.png";
-import SecondHero1 from "../../../assets/FashionCategory/secondhero1.png";
+import SecondHero1 from "../../../assets/FashionCategory/Secondhero1.png";
 import SecondHero2 from "../../../assets/FashionCategory/secondhero2.png";
 import SecondHero3 from "../../../assets/FashionCategory/secondhero3.png";
 export default function Hero() {
