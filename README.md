@@ -6,6 +6,7 @@ This project replicates core e-commerce functionalities including product listin
 
 # 🚀 Live Demo
 Link : https://flipkart-clone-1-eay9.onrender.com/
+The project is hosted on the free tier of Render, where the backend service may go into sleep mode after inactivity.
 
 
 ## Tech Stack
