@@ -13,6 +13,9 @@ import { store } from "./app/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Chart.js
+import "chart.js/auto";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
